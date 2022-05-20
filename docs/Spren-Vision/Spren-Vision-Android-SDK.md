@@ -1,5 +1,28 @@
 # Spren Vision Android SDK
 
+The Android SDK is in Alpha. We're working quickly to expand our support in the heterogeneity of Android devices.
+
+## Tested Devices
+* Google Pixel 4a
+* Google Pixel 6
+* Samsung Galaxy S9
+
+## Recommendations
+
+### Flash
+
+Currently, we advise users to consistently perform readings with either flash on or flash off.
+
+### Hardware
+
+We recommend using an Android device that is not a low RAM device, has at least 8 cores, and 192MB RAM available to your app.
+```kotlin
+val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+val isHighPerformingDevice = !activityManager.isLowRamDevice && Runtime.getRuntime()
+    .availableProcessors() >= 8 && activityManager.memoryClass >= 192
+```
+
+
 ## Installation
 
 1.  Visit the [Spren Vision Android SDK GitHub Repository](https://github.com/Elite-HRV/spren-vision-android) to install the SDK via the Gradle build system. For more information, see the Android docs for [Add build dependencies](https://developer.android.com/studio/build/dependencies).
@@ -50,7 +73,7 @@ Spren.setOnPrereadingComplianceCheck { name, compliant, action ->
                 compliant,
                 action
             )
-        
+
         ComplianceCheck.Name.EXPOSURE ->
             // adjust camera
             handleExposureCompliance(
@@ -112,7 +135,7 @@ Attempts to toggle the torch (flashlight) on or off as appropriate. Returns the 
 
 `fun dropComplexity(): Boolean`
 
-Attempts to drop the computational complexity by reducing the frame resolution. If frame resolution cannot be reduced, dropping the frame rate will be attempted. This may be called if frame drop is non-compliant, i.e, exceeds 5% in a 1 second period.
+Attempts to drop the computational complexity by reducing the frame resolution. If frame resolution cannot be reduced, dropping the frame rate will be attempted. This may be called if frame drop is non-compliant, i.e, exceeds 5% in a 1 second period at less than 28FPS.
 
 `fun handleOverExposure()`
 
@@ -190,7 +213,7 @@ The ImageProxy format will be PixelFormat.RGBA_8888, which has only one image pl
 
 Compliance checks are run at 1 second intervals as frames are provided, i.e., if internally to SprenCore the time when the frame is received is >1 second later than the last check. For `ComplianceCheck.Name`:
 
-*   `FRAME_DROP`: frame drop must be less than 5% during one second. During the initial setup of SprenCapture, frame drop may be high; **so, we suggest ignoring the first frame drop noncompliance** before any camera reconfiguration.
+*   `FRAME_DROP`: frame drop must be less than 5% during one second if FPS is less than 28. During the initial setup of SprenCapture, frame drop may be high; **so, we suggest ignoring the first frame drop noncompliance** before any camera reconfiguration.
 
 *   `BRIGHTNESS`: enough ambient light must be received, torch (flashlight) is recommended. Brightness checks also provide a `ComplianceCheck.Action`, either `INCREASE` or `DECREASE`.
 
