@@ -1,0 +1,70 @@
+publishing {
+    publications {
+        SprenCore(MavenPublication) {
+            groupId = 'com.spren'
+            artifactId = 'sprencore'
+//            version = '1.0.1-SNAPSHOT'
+            version = '1.0.0'
+            artifact("sprencore-release.aar")
+
+            pom {
+                name = 'Spren Capture'
+                description = 'An open source version of camera capture functionality'
+                url = 'https://github.com/Elite-HRV/spren-vision-android'
+
+                licenses {
+                    license {
+                        name = 'Spren License'
+                        url = 'https://github.com/Elite-HRV/spren-vision-android/blob/main/LICENSE'
+                        comments = '(c) Copyright 2022 Spren and EliteHRV, all rights reserved.'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Kevin Leon'
+                        email = 'kevin@spren.com'
+                    }
+                    developer {
+                        name = 'Fernando Eckert'
+                        email = 'fernando@spren.com'
+                    }
+                    developer {
+                        name = 'Keith Carolus'
+                        email = 'keith@spren.com'
+                    }
+                    developer {
+                        name = 'Nick Avasiloy'
+                        email = 'nick@spren.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Elite-HRV/spren-vision-android.git'
+                    developerConnection = 'scm:git:ssh://github.com/Elite-HRV/spren-vision-android.git'
+                    url = 'https://github.com/Elite-HRV/spren-vision-android'
+                }
+            }
+            repositories {
+                maven {
+                    name = 'snapshots'
+                    url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+                    credentials {
+                        username = "$System.env.NEXUS_USERNAME"
+                        password = "$System.env.NEXUS_PASSWORD"
+                    }
+                }
+                maven {
+                    name = 'staging'
+                    url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2'
+                    credentials {
+                        username = "$System.env.NEXUS_USERNAME"
+                        password = "$System.env.NEXUS_PASSWORD"
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.SprenCore
+}

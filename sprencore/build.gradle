@@ -1,0 +1,9 @@
+plugins {
+    id 'maven-publish'
+    id 'signing'
+}
+
+apply from: file('publish.gradle')
+
+configurations.maybeCreate("default")
+artifacts.add("default", file('sprencore-release.aar'))
