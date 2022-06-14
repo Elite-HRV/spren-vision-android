@@ -48,6 +48,7 @@ open class SprenCapture(
     private var isOverExposed: Boolean = false
     private var exposurePercentage: Double = DEFAULT_EXPOSURE_PERCENTAGE
     private var exposureWasChanged: Boolean = false
+    private val currentConfiguration: Configuration
 
     companion object {
         private const val TAG = "SprenCapture"
@@ -55,12 +56,19 @@ open class SprenCapture(
         private const val DEFAULT_EXPOSURE_PERCENTAGE = 0.002
         private const val SECONDARY_EXPOSURE_PERCENTAGE = 0.02
         private const val ISO_PERCENTAGE = 27.7
+        private val configurations = mapOf(
+            "Pixel 5" to Configuration(30)
+        )
     }
 
     init {
         if (activity !is LifecycleOwner) {
             throw RuntimeException("Activity does not implement getLifecycle() method")
         }
+
+        currentConfiguration =
+            configurations.filterKeys { Build.MODEL.contains(it) }.values.firstOrNull()
+                ?: Configuration()
 
         val cameraManager =
             activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -237,7 +245,8 @@ open class SprenCapture(
                     characteristics[CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES]
                 fpsRanges?.let {
                     for (range in it) {
-                        if (range.lower > highestAvailableFps.lower && range.upper > highestAvailableFps.upper && characteristics.get(
+                        if (range.lower <= currentConfiguration.maximumFPS && range.upper <= currentConfiguration.maximumFPS &&
+                            range.lower > highestAvailableFps.lower && range.upper > highestAvailableFps.upper && characteristics.get(
                                 CameraCharacteristics.LENS_FACING
                             ) == CameraCharacteristics.LENS_FACING_BACK && findIndex(
                                 sortedHwLevels,
