@@ -18,8 +18,11 @@ import android.util.Size
 import android.view.Surface.ROTATION_90
 import androidx.camera.camera2.interop.Camera2CameraInfo
 import androidx.camera.camera2.interop.Camera2Interop
-import androidx.camera.core.*
-import androidx.camera.core.ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -33,10 +36,6 @@ open class SprenCapture(
     private val surfaceProvider: Preview.SurfaceProvider
 ) {
 
-    private val primaryWidth: Int
-    private val primaryHeight: Int
-    private val secondaryWidth: Int
-    private val secondaryHeight: Int
     private var width: Int
     private var height: Int
     private var frameRate: Int = 0
@@ -44,31 +43,18 @@ open class SprenCapture(
     private var camera: Camera? = null
     private var cameraExecutor: ExecutorService? = null
     private var cameraProvider: ProcessCameraProvider? = null
-    private var torchMode: Boolean = true
     private var isOverExposed: Boolean = false
-    private var exposurePercentage: Double = DEFAULT_EXPOSURE_PERCENTAGE
-    private var exposureWasChanged: Boolean = false
-    private val currentConfiguration: Configuration
+    private var currentExposure: Double = 0.0
 
     companion object {
         private const val TAG = "SprenCapture"
         private const val IMAGE_QUEUE_DEPTH = 30
-        private const val DEFAULT_EXPOSURE_PERCENTAGE = 0.002
-        private const val SECONDARY_EXPOSURE_PERCENTAGE = 0.02
-        private const val ISO_PERCENTAGE = 27.7
-        private val configurations = mapOf(
-            "Pixel 5" to Configuration(30)
-        )
     }
 
     init {
         if (activity !is LifecycleOwner) {
             throw RuntimeException("Activity does not implement getLifecycle() method")
         }
-
-        currentConfiguration =
-            configurations.filterKeys { Build.MODEL.contains(it) }.values.firstOrNull()
-                ?: Configuration()
 
         val cameraManager =
             activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -77,12 +63,8 @@ open class SprenCapture(
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val checkSizesAvailable = map.getOutputSizes(ImageFormat.YUV_420_888)
         val checkSizesAvailableOrdered = checkSizesAvailable.sortedByDescending { it.width }
-        primaryWidth = checkSizesAvailableOrdered[checkSizesAvailableOrdered.size - 2].width
-        primaryHeight = checkSizesAvailableOrdered[checkSizesAvailableOrdered.size - 2].height
-        secondaryWidth = checkSizesAvailableOrdered[checkSizesAvailableOrdered.size - 1].width
-        secondaryHeight = checkSizesAvailableOrdered[checkSizesAvailableOrdered.size - 1].height
-        width = primaryWidth
-        height = primaryHeight
+        width = checkSizesAvailableOrdered.last().width
+        height = checkSizesAvailableOrdered.last().height
     }
 
     private inner class ImageAnalyzer :
@@ -147,7 +129,7 @@ open class SprenCapture(
 
                     camera?.let {
                         if (it.cameraInfo.hasFlashUnit()) {
-                            it.cameraControl.enableTorch(torchMode)
+                            it.cameraControl.enableTorch(true)
                         }
                     }
 
@@ -166,7 +148,7 @@ open class SprenCapture(
     @SuppressLint("UnsafeOptInUsageError")
     private fun buildImageAnalysis(highestAvailableFPS: Range<Int>): ImageAnalysis {
         val builder = ImageAnalysis.Builder()
-            .setOutputImageFormat(OUTPUT_IMAGE_FORMAT_RGBA_8888)
+            .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
             .setTargetResolution(Size(width, height))
             .setTargetRotation(ROTATION_90)
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_BLOCK_PRODUCER)
@@ -178,35 +160,141 @@ open class SprenCapture(
                 highestAvailableFPS
             )
 
-        if (isOverExposed && exposurePercentage >= 0.0) {
-            val cameraManager =
-                activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val characteristics = cameraManager.getCameraCharacteristics(cameraId)
-            val exposureTimeRange =
-                characteristics.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE)
-            val exposureTime: Double =
-                (exposurePercentage * (exposureTimeRange!!.upper - exposureTimeRange.lower) / 100) + exposureTimeRange.lower
-            val isoRange = characteristics.get(
-                CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE
-            )
-            val iso: Double =
-                (ISO_PERCENTAGE * (isoRange!!.upper - isoRange.lower) / 100) + isoRange.lower
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.CONTROL_AWB_MODE,
+            CaptureRequest.CONTROL_AWB_STATE_LOCKED
+        ).setCaptureRequestOption(
+            CaptureRequest.CONTROL_AF_MODE,
+            CaptureRequest.CONTROL_AF_MODE_OFF
+        ).setCaptureRequestOption(
+            CaptureRequest.CONTROL_AE_MODE,
+            CaptureRequest.CONTROL_AE_MODE_OFF
+        )
+
+        val cameraManager =
+            activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val characteristics = cameraManager.getCameraCharacteristics(cameraId)
+
+        // Aperture (max as min)
+        val aperturesAvailable =
+            characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
+        if (aperturesAvailable != null && aperturesAvailable.isNotEmpty()) {
             camera2InterOp.setCaptureRequestOption(
-                CaptureRequest.CONTROL_AE_MODE,
-                CaptureRequest.CONTROL_AE_MODE_OFF
-            ).setCaptureRequestOption(
-                CaptureRequest.SENSOR_EXPOSURE_TIME,
-                exposureTime.toLong()
-            ).setCaptureRequestOption(
-                CaptureRequest.SENSOR_SENSITIVITY, iso.toInt()
-            ).setCaptureRequestOption(
-                CaptureRequest.SENSOR_FRAME_DURATION,
-                (1000 * 1000 * 1000 / frameRate).toLong()
+                CaptureRequest.LENS_APERTURE,
+                aperturesAvailable.minOrNull() ?: 0f
             )
-            isOverExposed = false
-            exposurePercentage -= if (torchMode) 0.001 else 0.01
-            exposureWasChanged = true
         }
+
+        // ISO (min)
+        val sensorSensitivityRange =
+            characteristics.get(CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE)
+        if (sensorSensitivityRange != null) {
+            camera2InterOp.setCaptureRequestOption(
+                CaptureRequest.SENSOR_SENSITIVITY,
+                sensorSensitivityRange.lower
+            )
+        }
+
+        // FRAME_DURATION >= EXPOSURE_TIME
+        val frameDuration = (1000 * 1000 * 1000 / frameRate).toLong()
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.SENSOR_FRAME_DURATION,
+            frameDuration
+        )
+
+        if (isOverExposed) {
+            isOverExposed = false
+            // If 60 FPS -> reduce exposure by 1.5m
+            // If 30 FPS -> reduce exposure by 3m
+            currentExposure -= frameDuration * 0.09
+        }
+
+        // Exposure (max or readjusted when overexposed)
+        val exposureTimeRange =
+            characteristics.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE)
+        if (exposureTimeRange != null && currentExposure >= exposureTimeRange.lower && currentExposure <= exposureTimeRange.upper) {
+            camera2InterOp.setCaptureRequestOption(
+                CaptureRequest.SENSOR_EXPOSURE_TIME,
+                currentExposure.toLong()
+            )
+        }
+
+        // Minimum focus (the number is max)
+        val minimumFocusDistance =
+            characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.LENS_FOCUS_DISTANCE,
+            minimumFocusDistance ?: 0f
+        )
+
+        // Default FAST
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.COLOR_CORRECTION_MODE,
+            CameraCharacteristics.COLOR_CORRECTION_MODE_FAST
+        )
+
+        // Default 60Hz
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.CONTROL_AE_ANTIBANDING_MODE,
+            CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_OFF
+        )
+
+        // Default false. Starts with default manual exposure time, with black level being locked
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.BLACK_LEVEL_LOCK,
+            false
+        )
+
+        // Default FAST
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.COLOR_CORRECTION_ABERRATION_MODE,
+            CameraCharacteristics.COLOR_CORRECTION_ABERRATION_MODE_OFF
+        )
+
+        // Default FACE_PRIORITY
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.CONTROL_SCENE_MODE,
+            CameraCharacteristics.CONTROL_SCENE_MODE_DISABLED
+        )
+
+        try {
+            // Zoom API 21+
+            val focalLength =
+                characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+            if (focalLength != null && focalLength.isNotEmpty()) {
+                camera2InterOp.setCaptureRequestOption(
+                    CaptureRequest.LENS_FOCAL_LENGTH,
+                    focalLength[0]
+                )
+            }
+
+        } catch (e: Throwable) {
+            Log.d("Focal length", "Exception")
+        }
+
+        // Default ON
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
+            CameraCharacteristics.LENS_OPTICAL_STABILIZATION_MODE_OFF
+        )
+
+        // Default FAST
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.NOISE_REDUCTION_MODE,
+            CameraCharacteristics.NOISE_REDUCTION_MODE_OFF
+        )
+
+        // Default FAST
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.SHADING_MODE,
+            CameraCharacteristics.SHADING_MODE_OFF
+        )
+
+        // Default TONEMAP_MODE_FAST
+        camera2InterOp.setCaptureRequestOption(
+            CaptureRequest.TONEMAP_MODE,
+            CameraCharacteristics.TONEMAP_MODE_FAST
+        )
 
         return builder
             .build()
@@ -245,8 +333,7 @@ open class SprenCapture(
                     characteristics[CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES]
                 fpsRanges?.let {
                     for (range in it) {
-                        if (range.lower <= currentConfiguration.maximumFPS && range.upper <= currentConfiguration.maximumFPS &&
-                            range.lower > highestAvailableFps.lower && range.upper > highestAvailableFps.upper && characteristics.get(
+                        if (range.lower > highestAvailableFps.lower && range.upper > highestAvailableFps.upper && characteristics.get(
                                 CameraCharacteristics.LENS_FACING
                             ) == CameraCharacteristics.LENS_FACING_BACK && findIndex(
                                 sortedHwLevels,
@@ -266,6 +353,7 @@ open class SprenCapture(
             frameRate =
                 if (highestAvailableFps.upper >= highestAvailableFps.lower) highestAvailableFps.upper else highestAvailableFps.lower
             this.cameraId = bestCameraId
+            currentExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
         }
         return Pair(cameraId, highestAvailableFps)
     }
@@ -282,72 +370,21 @@ open class SprenCapture(
         cameraExecutor?.shutdown()
     }
 
+    // Setting the flash off has been disabled
     fun setTorchMode(torch: Boolean): Boolean {
-        camera?.let {
-            if (it.cameraInfo.hasFlashUnit()) {
-                torchMode = torch
-                it.cameraControl.enableTorch(torch)
-                exposurePercentage =
-                    if (torch) DEFAULT_EXPOSURE_PERCENTAGE else SECONDARY_EXPOSURE_PERCENTAGE
-                if (exposureWasChanged) {
-                    exposureWasChanged = false
-                    stop()
-                    activity.runOnUiThread { start() }
+        if (torch) {
+            camera?.let {
+                if (it.cameraInfo.hasFlashUnit()) {
+                    it.cameraControl.enableTorch(true)
                 }
-                return torch
             }
         }
-        torchMode = false
-        return false
+        return true
     }
 
-    private fun dropFrameRate(): Boolean {
-        return when (frameRate) {
-            120 -> {
-                frameRate = 60
-                stop()
-                activity.runOnUiThread { start() }
-                true
-            }
-            60 -> {
-                frameRate = 30
-                stop()
-                activity.runOnUiThread { start() }
-                true
-            }
-            else -> {
-                false
-            }
-        }
-    }
-
-    private fun dropResolution(): Boolean {
-        return if (width == primaryWidth && height == primaryHeight) {
-            width = secondaryWidth
-            height = secondaryHeight
-            stop()
-            activity.runOnUiThread { start() }
-            true
-        } else
-            false
-    }
-
-
+    @Deprecated("This API method will be removed in the next releases", ReplaceWith("true"))
     fun dropComplexity(): Boolean {
-        val resolution = width * height
-        print("dropping complexity - ${frameRate}fps, ${resolution}px")
-
-        if (dropResolution()) {
-            print("dropped resolution - ${frameRate}fps, ${resolution}px")
-            return true
-        }
-
-        if (dropFrameRate()) {
-            print("dropped framerate - ${frameRate}fps, ${resolution}px")
-            return true
-        }
-
-        return false
+        return true
     }
 
     fun handleOverExposure() {
