@@ -62,7 +62,9 @@ open class SprenCapture(
         val map: StreamConfigurationMap =
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val checkSizesAvailable = map.getOutputSizes(ImageFormat.YUV_420_888)
-        val checkSizesAvailableOrdered = checkSizesAvailable.sortedByDescending { it.width }
+        val checkSizesAvailableOrdered = checkSizesAvailable
+            .filter { it.width.toDouble() / it.height.toDouble() == 4.0 / 3.0 }
+            .sortedByDescending { it.width }
         width = checkSizesAvailableOrdered.last().width
         height = checkSizesAvailableOrdered.last().height
     }
