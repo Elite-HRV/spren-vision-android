@@ -374,7 +374,27 @@ open class SprenCapture(
         cameraExecutor?.shutdown()
     }
 
-    // Setting the flash off has been disabled
+    fun turnFlashOn() =
+        camera?.let {
+            if (it.cameraInfo.hasFlashUnit()) {
+                it.cameraControl.enableTorch(true)
+            }
+        }
+
+    fun handleOverExposure() {
+        isOverExposed = true
+        stop()
+        activity.runOnUiThread { start() }
+    }
+
+    fun reset() {
+        Spren.autoStart = true
+        currentExposure = defaultExposure
+        stop()
+        activity.runOnUiThread { start() }
+    }
+
+    @Deprecated("This API method will be removed in the next releases. Replace with turnFlashOn()")
     fun setTorchMode(torch: Boolean): Boolean {
         if (torch) {
             camera?.let {
@@ -387,21 +407,6 @@ open class SprenCapture(
     }
 
     @Deprecated("This API method will be removed in the next releases", ReplaceWith("true"))
-    fun dropComplexity(): Boolean {
-        return true
-    }
-
-    fun handleOverExposure() {
-        isOverExposed = true
-        stop()
-        activity.runOnUiThread { start() }
-    }
-
-    fun reset(){
-        Spren.autoStart = true
-        currentExposure = defaultExposure
-        stop()
-        activity.runOnUiThread { start() }
-    }
+    fun dropComplexity() = true
 
 }
