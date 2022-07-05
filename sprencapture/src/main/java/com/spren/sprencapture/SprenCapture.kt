@@ -44,6 +44,7 @@ open class SprenCapture(
     private var cameraExecutor: ExecutorService? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var isOverExposed: Boolean = false
+    private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
 
     companion object {
@@ -355,7 +356,8 @@ open class SprenCapture(
             frameRate =
                 if (highestAvailableFps.upper >= highestAvailableFps.lower) highestAvailableFps.upper else highestAvailableFps.lower
             this.cameraId = bestCameraId
-            currentExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
+            defaultExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
+            currentExposure = defaultExposure
         }
         return Pair(cameraId, highestAvailableFps)
     }
@@ -391,6 +393,13 @@ open class SprenCapture(
 
     fun handleOverExposure() {
         isOverExposed = true
+        stop()
+        activity.runOnUiThread { start() }
+    }
+
+    fun reset(){
+        Spren.autoStart = true
+        currentExposure = defaultExposure
         stop()
         activity.runOnUiThread { start() }
     }
