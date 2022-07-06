@@ -27,6 +27,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.spren.sprencore.Spren
+import com.spren.sprencore.event.SprenEvent
+import com.spren.sprencore.event.SprenEventManager
+import com.spren.sprencore.finger.compliance.ComplianceCheck
 import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -101,6 +104,10 @@ open class SprenCapture(
     ): Boolean {
         val bestCameraValues = getBestCameraValues()
         if (frameRate >= 30) {
+            SprenEventManager.unsubscribe(SprenEvent.COMPLIANCE, ::complianceListener).subscribe(
+                SprenEvent.COMPLIANCE, ::complianceListener
+            )
+
             val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
 
             cameraProviderFuture.addListener({
@@ -364,6 +371,20 @@ open class SprenCapture(
 
     private fun findIndex(arr: Array<Int>, item: Int) = arr.indexOf(item)
 
+    private fun complianceListener(values: HashMap<String, Any>) {
+        val name = values["name"] as ComplianceCheck.Name
+        val compliant = values["isCompliant"] as Boolean
+        if (name == ComplianceCheck.Name.EXPOSURE && !compliant) {
+            handleOverExposure()
+        }
+    }
+
+    private fun handleOverExposure() {
+        isOverExposed = true
+        stop()
+        activity.runOnUiThread { start() }
+    }
+
     // MARK: - public API
 
     // It returns false when the camera does not support at least 30 FPS
@@ -372,6 +393,7 @@ open class SprenCapture(
     fun stop() {
         activity.runOnUiThread { cameraProvider?.unbindAll() }
         cameraExecutor?.shutdown()
+        SprenEventManager.unsubscribe(SprenEvent.COMPLIANCE, ::complianceListener)
     }
 
     fun turnFlashOn() =
@@ -380,12 +402,6 @@ open class SprenCapture(
                 it.cameraControl.enableTorch(true)
             }
         }
-
-    fun handleOverExposure() {
-        isOverExposed = true
-        stop()
-        activity.runOnUiThread { start() }
-    }
 
     fun reset() {
         Spren.autoStart = true
