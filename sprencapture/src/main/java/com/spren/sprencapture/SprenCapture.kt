@@ -53,6 +53,7 @@ open class SprenCapture(
     companion object {
         private const val TAG = "SprenCapture"
         private const val IMAGE_QUEUE_DEPTH = 30
+        private const val MINIMUM_WIDTH = 192
     }
 
     init {
@@ -67,7 +68,7 @@ open class SprenCapture(
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val checkSizesAvailable = map.getOutputSizes(ImageFormat.YUV_420_888)
         val checkSizesAvailableOrdered = checkSizesAvailable
-            .filter { it.width.toDouble() / it.height.toDouble() == 4.0 / 3.0 }
+            .filter { it.width.toDouble() / it.height.toDouble() == 4.0 / 3.0 && it.width >= MINIMUM_WIDTH }
             .sortedByDescending { it.width }
         width = checkSizesAvailableOrdered.last().width
         height = checkSizesAvailableOrdered.last().height
