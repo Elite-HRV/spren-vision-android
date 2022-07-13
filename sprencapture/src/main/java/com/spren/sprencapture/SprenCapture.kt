@@ -410,20 +410,4 @@ open class SprenCapture(
         stop()
         activity.runOnUiThread { start() }
     }
-
-    @Deprecated("This API method will be removed in the next releases. Replace with turnFlashOn()")
-    fun setTorchMode(torch: Boolean): Boolean {
-        if (torch) {
-            camera?.let {
-                if (it.cameraInfo.hasFlashUnit()) {
-                    it.cameraControl.enableTorch(true)
-                }
-            }
-        }
-        return true
-    }
-
-    @Deprecated("This API method will be removed in the next releases", ReplaceWith("true"))
-    fun dropComplexity() = true
-
 }
