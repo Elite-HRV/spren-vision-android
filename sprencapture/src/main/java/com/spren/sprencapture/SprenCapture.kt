@@ -27,6 +27,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.spren.sprencore.Spren
+import com.spren.sprencore.event.SprenEvent
+import com.spren.sprencore.event.SprenEventManager
+import com.spren.sprencore.finger.compliance.ComplianceCheck
 import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -44,11 +47,13 @@ open class SprenCapture(
     private var cameraExecutor: ExecutorService? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var isOverExposed: Boolean = false
+    private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
 
     companion object {
         private const val TAG = "SprenCapture"
         private const val IMAGE_QUEUE_DEPTH = 30
+        private const val MINIMUM_WIDTH = 192
     }
 
     init {
@@ -62,7 +67,9 @@ open class SprenCapture(
         val map: StreamConfigurationMap =
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val checkSizesAvailable = map.getOutputSizes(ImageFormat.YUV_420_888)
-        val checkSizesAvailableOrdered = checkSizesAvailable.sortedByDescending { it.width }
+        val checkSizesAvailableOrdered = checkSizesAvailable
+            .filter { it.width.toDouble() / it.height.toDouble() == 4.0 / 3.0 && it.width >= MINIMUM_WIDTH }
+            .sortedByDescending { it.width }
         width = checkSizesAvailableOrdered.last().width
         height = checkSizesAvailableOrdered.last().height
     }
@@ -98,6 +105,10 @@ open class SprenCapture(
     ): Boolean {
         val bestCameraValues = getBestCameraValues()
         if (frameRate >= 30) {
+            SprenEventManager.unsubscribe(SprenEvent.COMPLIANCE, ::complianceListener).subscribe(
+                SprenEvent.COMPLIANCE, ::complianceListener
+            )
+
             val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
 
             cameraProviderFuture.addListener({
@@ -353,12 +364,27 @@ open class SprenCapture(
             frameRate =
                 if (highestAvailableFps.upper >= highestAvailableFps.lower) highestAvailableFps.upper else highestAvailableFps.lower
             this.cameraId = bestCameraId
-            currentExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
+            defaultExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
+            currentExposure = defaultExposure
         }
         return Pair(cameraId, highestAvailableFps)
     }
 
     private fun findIndex(arr: Array<Int>, item: Int) = arr.indexOf(item)
+
+    private fun complianceListener(values: HashMap<String, Any>) {
+        val name = values["name"] as ComplianceCheck.Name
+        val compliant = values["isCompliant"] as Boolean
+        if (name == ComplianceCheck.Name.EXPOSURE && !compliant) {
+            handleOverExposure()
+        }
+    }
+
+    private fun handleOverExposure() {
+        isOverExposed = true
+        stop()
+        activity.runOnUiThread { start() }
+    }
 
     // MARK: - public API
 
@@ -368,29 +394,20 @@ open class SprenCapture(
     fun stop() {
         activity.runOnUiThread { cameraProvider?.unbindAll() }
         cameraExecutor?.shutdown()
+        SprenEventManager.unsubscribe(SprenEvent.COMPLIANCE, ::complianceListener)
     }
 
-    // Setting the flash off has been disabled
-    fun setTorchMode(torch: Boolean): Boolean {
-        if (torch) {
-            camera?.let {
-                if (it.cameraInfo.hasFlashUnit()) {
-                    it.cameraControl.enableTorch(true)
-                }
+    fun turnFlashOn() =
+        camera?.let {
+            if (it.cameraInfo.hasFlashUnit()) {
+                it.cameraControl.enableTorch(true)
             }
         }
-        return true
-    }
 
-    @Deprecated("This API method will be removed in the next releases", ReplaceWith("true"))
-    fun dropComplexity(): Boolean {
-        return true
-    }
-
-    fun handleOverExposure() {
-        isOverExposed = true
+    fun reset() {
+        Spren.autoStart = true
+        currentExposure = defaultExposure
         stop()
         activity.runOnUiThread { start() }
     }
-
 }
