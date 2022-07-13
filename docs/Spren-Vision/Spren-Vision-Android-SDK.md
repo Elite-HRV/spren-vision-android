@@ -126,6 +126,27 @@ SprenEventManager.subscribe(SprenEvent.PROGRESS, ::progressListener)
 SprenEventManager.unsubscribe(SprenEvent.PROGRESS, ::progressListener)
 ```
 
+###Breaking changes in 2.x
+
+#### `SprenCapture`
+<s>`var autoStart = true`</s> (Replace with `SprenCapture reset` method)
+
+Enable or disable reading autostart. Autostart occurs after 3 seconds of conditions checks compliance.
+
+#### `Spren`
+<s>`fun setTorchMode(torch: Boolean): Boolean`</s> (Replace with `fun turnFlashOn()`)
+
+Attempts to toggle the torch (flashlight) on as appropriate. Returns the resulting torch mode. Setting the flash off has been disabled.
+
+<s>`fun dropComplexity(): Boolean`</s> (no need to handle anymore)
+
+This function has been deprecated and will be removed in the next releases.
+
+<s>`fun handleOverExposure()`</s> (no need to handle anymore)
+
+Attempts to reduce the exposure of the image by lowering the sensor exposure time. This may be called if exposure is non-compliant, i.e, at least 5 frames are over-exposed.
+
+
 # SprenCapture Library
 
 SprenCapture is where you can initialize a camera preview and first configure the camera. This will start a camera preview and image analysis, allow you to add the camera preview to your UI, and handle various other camera controls. Check out the function definitions below!
@@ -149,19 +170,6 @@ This function needs to be called after `fun start(): Boolean` method and after s
 `fun turnFlashOn()`
 
 Attempts to toggle the torch (flashlight) on.
-
-##Deprecated in 1.x
-<s>`fun setTorchMode(torch: Boolean): Boolean`</s>
-
-Attempts to toggle the torch (flashlight) on as appropriate. Returns the resulting torch mode. Setting the flash off has been disabled.
-
-<s>`fun dropComplexity(): Boolean`</s>
-
-This function has been deprecated and will be removed in the next releases.
-
-<s>`fun handleOverExposure()`</s>
-
-Attempts to reduce the exposure of the image by lowering the sensor exposure time. This may be called if exposure is non-compliant, i.e, at least 5 frames are over-exposed.
 
 ### `RGBAnalyzer`
 
@@ -224,12 +232,6 @@ Reading duration ≥ 90 seconds or ≤ 240 seconds.
 `fun Spren.Companion.setReadingDuration(duration: Int)`
 
 Set the reading duration. A duration in the range ≥ 90 seconds or ≤ 240 seconds must be provided or the call returns.
-
-##Deprecated in 1.x
-
-<s>`var autoStart = true`</s> (Replace with `SprenCapture reset` method)
-
-Enable or disable reading autostart. Autostart occurs after 3 seconds of conditions checks compliance.
 
 
 ### If not using SprenCapture
