@@ -7,14 +7,16 @@ The Android SDK is in Alpha. We're working quickly to expand our support in the 
 > A supported device function exposed by the SDK is coming soon!
 
 ## Tested Devices
+* Google Pixel 3XL
 * Google Pixel 4
+* Google Pixel 4a
+* Google Pixel 5
 * Xiaomi Redmi 9
 * Huawei Mate 20
 * Samsung Galaxy S10+
 
 ## Currently Testing
-* Google Pixel 3 XL, 4a, 5, and 6
-* Samsung Galaxy S9, S10, S20, S21, and S22
+* Samsung Galaxy S9, S10 5G, S20 FE 5G, S21 Ultra, and S22+
 
 ## Recommendations
 
@@ -36,7 +38,7 @@ Currently, we allow users to only perform readings with flash on.
 
 ## Installation
 
-1.  Visit the [Spren Vision Android SDK Maven Repository](https://repo1.maven.org/maven2/com/spren/) to install the SDK via the Gradle build tool. We encourage using the latest remote binary available. For more information, see the Android docs for [Add build dependencies](https://developer.android.com/studio/build/dependencies).
+1.  Visit the [Spren Vision Android SDK Maven Repository](https://search.maven.org/search?q=com.spren) to install the SDK via the Gradle build tool. We encourage using the latest remote binary available. For more information, see the Android docs for [Add build dependencies](https://developer.android.com/studio/build/dependencies).
 
 2.  Add a camera usage permission to your app's Manifest. For more information, [Request app permissions](https://developer.android.com/training/permissions/requesting).
 
@@ -81,6 +83,7 @@ private fun stateListener(values: HashMap<String, Any>) {
         SprenState.ERROR ->
             // handle error UI update
             errorState()
+            // call sprenCapture reset when the app is ready to start a new reading
     }
 }
 // Subscribe to state events
@@ -126,7 +129,7 @@ SprenEventManager.subscribe(SprenEvent.PROGRESS, ::progressListener)
 SprenEventManager.unsubscribe(SprenEvent.PROGRESS, ::progressListener)
 ```
 
-###Breaking changes in 2.x
+### Breaking changes in 2.x
 
 #### `SprenCapture`
 <s>`var autoStart = true`</s> (Replace with `SprenCapture reset` method)
