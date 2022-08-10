@@ -26,6 +26,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.spren.sprencore.FrameInformation
 import com.spren.sprencore.Spren
 import com.spren.sprencore.event.SprenEvent
 import com.spren.sprencore.event.SprenEventManager
@@ -49,11 +50,11 @@ open class SprenCapture(
     private var isOverExposed: Boolean = false
     private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
+    private val phoneModelWithDifferentDefaultExposure = arrayOf("SM-G950", "SM-G955")
 
     companion object {
         private const val TAG = "SprenCapture"
         private const val IMAGE_QUEUE_DEPTH = 30
-        private const val MINIMUM_WIDTH = 192
     }
 
     init {
@@ -68,7 +69,6 @@ open class SprenCapture(
             characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val checkSizesAvailable = map.getOutputSizes(ImageFormat.YUV_420_888)
         val checkSizesAvailableOrdered = checkSizesAvailable
-            .filter { it.width.toDouble() / it.height.toDouble() == 4.0 / 3.0 && it.width >= MINIMUM_WIDTH }
             .sortedByDescending { it.width }
         width = checkSizesAvailableOrdered.last().width
         height = checkSizesAvailableOrdered.last().height
@@ -94,7 +94,14 @@ open class SprenCapture(
         override fun analyze(imageProxy: ImageProxy) {
             if (imageProxy.format == PixelFormat.RGBA_8888 && imageProxy.image != null) {
                 val bitmap = imageProxy.image!!.toBitmap()
-                Spren.process(bitmap, imageProxy.imageInfo.timestamp)
+                Spren.process(
+                    bitmap,
+                    FrameInformation(
+                        imageProxy.width,
+                        imageProxy.height,
+                        imageProxy.imageInfo.timestamp
+                    )
+                )
             }
             imageProxy.close()
         }
@@ -364,7 +371,11 @@ open class SprenCapture(
             frameRate =
                 if (highestAvailableFps.upper >= highestAvailableFps.lower) highestAvailableFps.upper else highestAvailableFps.lower
             this.cameraId = bestCameraId
-            defaultExposure = 1000 * 1000 * 1000 / frameRate.toDouble()
+            defaultExposure =
+                if (phoneModelWithDifferentDefaultExposure.any { Build.MODEL.startsWith(it, true) })
+                    24000000.0
+                else
+                    1000 * 1000 * 1000 / frameRate.toDouble()
             currentExposure = defaultExposure
         }
         return Pair(cameraId, highestAvailableFps)
