@@ -373,7 +373,7 @@ open class SprenCapture(
             this.cameraId = bestCameraId
             defaultExposure =
                 if (phoneModelWithDifferentDefaultExposure.any { Build.MODEL.startsWith(it, true) })
-                    24000000.0
+                    13000000.0
                 else
                     1000 * 1000 * 1000 / frameRate.toDouble()
             currentExposure = defaultExposure
