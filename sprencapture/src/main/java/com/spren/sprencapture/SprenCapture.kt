@@ -16,8 +16,9 @@ import android.util.Log
 import android.util.Range
 import android.util.Size
 import android.view.Surface.ROTATION_90
+import androidx.camera.camera2.interop.Camera2CameraControl
 import androidx.camera.camera2.interop.Camera2CameraInfo
-import androidx.camera.camera2.interop.Camera2Interop
+import androidx.camera.camera2.interop.CaptureRequestOptions
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -47,7 +48,6 @@ open class SprenCapture(
     private var camera: Camera? = null
     private var cameraExecutor: ExecutorService? = null
     private var cameraProvider: ProcessCameraProvider? = null
-    private var isOverExposed: Boolean = false
     private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
     private val phoneModelWithDifferentDefaultExposure = arrayOf("SM-G950", "SM-G955")
@@ -129,12 +129,19 @@ open class SprenCapture(
                         it.setSurfaceProvider(surfaceProvider)
                     }
 
-                val imageAnalyzer = buildImageAnalysis(bestCameraValues.second)
-
                 val cameraSelector = CameraSelector.Builder()
                     .addCameraFilter { cameraInfoList ->
                         cameraInfoList.filter { Camera2CameraInfo.from(it).cameraId == bestCameraValues.first }
                     }.build()
+
+                // Unbind use cases before rebinding
+                cameraProvider?.unbindAll()
+
+                // Binding to set capture request options
+                camera =
+                    cameraProvider?.bindToLifecycle(activity as LifecycleOwner, cameraSelector)
+
+                val imageAnalyzer = buildImageAnalysis(bestCameraValues.second)
 
                 try {
                     // Unbind use cases before rebinding
@@ -172,147 +179,145 @@ open class SprenCapture(
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_BLOCK_PRODUCER)
             .setImageQueueDepth(IMAGE_QUEUE_DEPTH)
 
-        val camera2InterOp = Camera2Interop.Extender(builder)
-            .setCaptureRequestOption(
+        camera?.let {
+            val cameraRequestBuilder = CaptureRequestOptions.Builder()
+
+            cameraRequestBuilder.setCaptureRequestOption(
                 CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
                 highestAvailableFPS
             )
 
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.CONTROL_AWB_MODE,
-            CaptureRequest.CONTROL_AWB_STATE_LOCKED
-        ).setCaptureRequestOption(
-            CaptureRequest.CONTROL_AF_MODE,
-            CaptureRequest.CONTROL_AF_MODE_OFF
-        ).setCaptureRequestOption(
-            CaptureRequest.CONTROL_AE_MODE,
-            CaptureRequest.CONTROL_AE_MODE_OFF
-        )
-
-        val cameraManager =
-            activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val characteristics = cameraManager.getCameraCharacteristics(cameraId)
-
-        // Aperture (max as min)
-        val aperturesAvailable =
-            characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
-        if (aperturesAvailable != null && aperturesAvailable.isNotEmpty()) {
-            camera2InterOp.setCaptureRequestOption(
-                CaptureRequest.LENS_APERTURE,
-                aperturesAvailable.minOrNull() ?: 0f
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.CONTROL_AWB_MODE,
+                CaptureRequest.CONTROL_AWB_STATE_LOCKED
+            ).setCaptureRequestOption(
+                CaptureRequest.CONTROL_AF_MODE,
+                CaptureRequest.CONTROL_AF_MODE_OFF
+            ).setCaptureRequestOption(
+                CaptureRequest.CONTROL_AE_MODE,
+                CaptureRequest.CONTROL_AE_MODE_OFF
             )
-        }
 
-        // ISO (min)
-        val sensorSensitivityRange =
-            characteristics.get(CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE)
-        if (sensorSensitivityRange != null) {
-            camera2InterOp.setCaptureRequestOption(
-                CaptureRequest.SENSOR_SENSITIVITY,
-                sensorSensitivityRange.lower
-            )
-        }
+            val cameraManager =
+                activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val characteristics = cameraManager.getCameraCharacteristics(cameraId)
 
-        // FRAME_DURATION >= EXPOSURE_TIME
-        val frameDuration = (1000 * 1000 * 1000 / frameRate).toLong()
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.SENSOR_FRAME_DURATION,
-            frameDuration
-        )
-
-        if (isOverExposed) {
-            isOverExposed = false
-            // If 60 FPS -> reduce exposure by 1.5m
-            // If 30 FPS -> reduce exposure by 3m
-            currentExposure -= frameDuration * 0.09
-        }
-
-        // Exposure (max or readjusted when overexposed)
-        val exposureTimeRange =
-            characteristics.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE)
-        if (exposureTimeRange != null && currentExposure >= exposureTimeRange.lower && currentExposure <= exposureTimeRange.upper) {
-            camera2InterOp.setCaptureRequestOption(
-                CaptureRequest.SENSOR_EXPOSURE_TIME,
-                currentExposure.toLong()
-            )
-        }
-
-        // Minimum focus (the number is max)
-        val minimumFocusDistance =
-            characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.LENS_FOCUS_DISTANCE,
-            minimumFocusDistance ?: 0f
-        )
-
-        // Default FAST
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.COLOR_CORRECTION_MODE,
-            CameraCharacteristics.COLOR_CORRECTION_MODE_FAST
-        )
-
-        // Default 60Hz
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.CONTROL_AE_ANTIBANDING_MODE,
-            CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_OFF
-        )
-
-        // Default false. Starts with default manual exposure time, with black level being locked
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.BLACK_LEVEL_LOCK,
-            false
-        )
-
-        // Default FAST
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.COLOR_CORRECTION_ABERRATION_MODE,
-            CameraCharacteristics.COLOR_CORRECTION_ABERRATION_MODE_OFF
-        )
-
-        // Default FACE_PRIORITY
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.CONTROL_SCENE_MODE,
-            CameraCharacteristics.CONTROL_SCENE_MODE_DISABLED
-        )
-
-        try {
-            // Zoom API 21+
-            val focalLength =
-                characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
-            if (focalLength != null && focalLength.isNotEmpty()) {
-                camera2InterOp.setCaptureRequestOption(
-                    CaptureRequest.LENS_FOCAL_LENGTH,
-                    focalLength[0]
+            // Aperture (max as min)
+            val aperturesAvailable =
+                characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_APERTURES)
+            if (aperturesAvailable != null && aperturesAvailable.isNotEmpty()) {
+                cameraRequestBuilder.setCaptureRequestOption(
+                    CaptureRequest.LENS_APERTURE,
+                    aperturesAvailable.minOrNull() ?: 0f
                 )
             }
 
-        } catch (e: Throwable) {
-            Log.d("Focal length", "Exception")
+            // ISO (min)
+            val sensorSensitivityRange =
+                characteristics.get(CameraCharacteristics.SENSOR_INFO_SENSITIVITY_RANGE)
+            if (sensorSensitivityRange != null) {
+                cameraRequestBuilder.setCaptureRequestOption(
+                    CaptureRequest.SENSOR_SENSITIVITY,
+                    sensorSensitivityRange.lower
+                )
+            }
+
+            // FRAME_DURATION >= EXPOSURE_TIME
+            val frameDuration = (1000 * 1000 * 1000 / frameRate).toLong()
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.SENSOR_FRAME_DURATION,
+                frameDuration
+            )
+
+            // Exposure (max or readjusted when overexposed)
+            val exposureTimeRange =
+                characteristics.get(CameraCharacteristics.SENSOR_INFO_EXPOSURE_TIME_RANGE)
+            if (exposureTimeRange != null && currentExposure >= exposureTimeRange.lower && currentExposure <= exposureTimeRange.upper) {
+                cameraRequestBuilder.setCaptureRequestOption(
+                    CaptureRequest.SENSOR_EXPOSURE_TIME,
+                    currentExposure.toLong()
+                )
+            }
+
+            // Minimum focus (the number is max)
+            val minimumFocusDistance =
+                characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.LENS_FOCUS_DISTANCE,
+                minimumFocusDistance ?: 0f
+            )
+
+            // Default FAST
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.COLOR_CORRECTION_MODE,
+                CameraCharacteristics.COLOR_CORRECTION_MODE_FAST
+            )
+
+            // Default 60Hz
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.CONTROL_AE_ANTIBANDING_MODE,
+                CameraCharacteristics.CONTROL_AE_ANTIBANDING_MODE_OFF
+            )
+
+            // Default false. Starts with default manual exposure time, with black level being locked
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.BLACK_LEVEL_LOCK,
+                false
+            )
+
+            // Default FAST
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.COLOR_CORRECTION_ABERRATION_MODE,
+                CameraCharacteristics.COLOR_CORRECTION_ABERRATION_MODE_OFF
+            )
+
+            // Default FACE_PRIORITY
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.CONTROL_SCENE_MODE,
+                CameraCharacteristics.CONTROL_SCENE_MODE_DISABLED
+            )
+
+            try {
+                // Zoom API 21+
+                val focalLength =
+                    characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
+                if (focalLength != null && focalLength.isNotEmpty()) {
+                    cameraRequestBuilder.setCaptureRequestOption(
+                        CaptureRequest.LENS_FOCAL_LENGTH,
+                        focalLength[0]
+                    )
+                }
+
+            } catch (e: Throwable) {
+                Log.d("Focal length", "Exception")
+            }
+
+            // Default ON
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
+                CameraCharacteristics.LENS_OPTICAL_STABILIZATION_MODE_OFF
+            )
+
+            // Default FAST
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.NOISE_REDUCTION_MODE,
+                CameraCharacteristics.NOISE_REDUCTION_MODE_OFF
+            )
+
+            // Default FAST
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.SHADING_MODE,
+                CameraCharacteristics.SHADING_MODE_OFF
+            )
+
+            // Default TONEMAP_MODE_FAST
+            cameraRequestBuilder.setCaptureRequestOption(
+                CaptureRequest.TONEMAP_MODE,
+                CameraCharacteristics.TONEMAP_MODE_FAST
+            )
+            Camera2CameraControl.from(it.cameraControl)
+                .setCaptureRequestOptions(cameraRequestBuilder.build())
         }
-
-        // Default ON
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
-            CameraCharacteristics.LENS_OPTICAL_STABILIZATION_MODE_OFF
-        )
-
-        // Default FAST
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.NOISE_REDUCTION_MODE,
-            CameraCharacteristics.NOISE_REDUCTION_MODE_OFF
-        )
-
-        // Default FAST
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.SHADING_MODE,
-            CameraCharacteristics.SHADING_MODE_OFF
-        )
-
-        // Default TONEMAP_MODE_FAST
-        camera2InterOp.setCaptureRequestOption(
-            CaptureRequest.TONEMAP_MODE,
-            CameraCharacteristics.TONEMAP_MODE_FAST
-        )
 
         return builder
             .build()
@@ -373,7 +378,7 @@ open class SprenCapture(
             this.cameraId = bestCameraId
             defaultExposure =
                 if (phoneModelWithDifferentDefaultExposure.any { Build.MODEL.startsWith(it, true) })
-                    13000000.0
+                    16000000.0
                 else
                     1000 * 1000 * 1000 / frameRate.toDouble()
             currentExposure = defaultExposure
@@ -391,10 +396,22 @@ open class SprenCapture(
         }
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     private fun handleOverExposure() {
-        isOverExposed = true
-        stop()
-        activity.runOnUiThread { start() }
+        camera?.let {
+            val frameDuration = (1000 * 1000 * 1000 / frameRate).toLong()
+            // If 60 FPS -> reduce exposure by 1.5m
+            // If 30 FPS -> reduce exposure by 3m
+            currentExposure -= frameDuration * 0.09
+            Camera2CameraControl.from(it.cameraControl).addCaptureRequestOptions(
+                CaptureRequestOptions.Builder()
+                    .setCaptureRequestOption(
+                        CaptureRequest.SENSOR_EXPOSURE_TIME,
+                        currentExposure.toLong()
+                    )
+                    .build()
+            )
+        }
     }
 
     // MARK: - public API
@@ -415,10 +432,19 @@ open class SprenCapture(
             }
         }
 
+    @SuppressLint("UnsafeOptInUsageError")
     fun reset() {
         Spren.autoStart = true
-        currentExposure = defaultExposure
-        stop()
-        activity.runOnUiThread { start() }
+        camera?.let {
+            currentExposure = defaultExposure
+            Camera2CameraControl.from(it.cameraControl).addCaptureRequestOptions(
+                CaptureRequestOptions.Builder()
+                    .setCaptureRequestOption(
+                        CaptureRequest.SENSOR_EXPOSURE_TIME,
+                        currentExposure.toLong()
+                    )
+                    .build()
+            )
+        }
     }
 }

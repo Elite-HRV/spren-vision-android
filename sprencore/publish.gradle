@@ -4,7 +4,7 @@ publishing {
             groupId = 'com.spren'
             artifactId = 'sprencore'
 //            version = '2.0.2-SNAPSHOT'
-            version = '2.0.2'
+            version = '2.0.3'
             artifact("sprencore-release.aar")
 
             pom {
