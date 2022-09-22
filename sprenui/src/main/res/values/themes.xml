@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="Theme.SprenUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="android:textColor">@color/dark_purple</item>
+        <item name="colorPrimary">@color/dark_purple</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+</resources>
