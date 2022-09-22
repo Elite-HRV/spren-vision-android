@@ -229,9 +229,9 @@ class ScanningFragment : Fragment() {
     // MARK: - alerts
 
     private fun showErrorAlert() {
-        alertTitle = "Reading stopped, please try again"
+        alertTitle = "Please fully cover the camera lens"
         val alertMessage =
-            "Please make sure your finger fully covers the camera lens throughout the entire measurement."
+            "Please hold gentle pressure on the camera lens throughout the entire measurement."
         val alertPrimaryButtonText = "Try again"
         val alertOnPrimaryButtonTap: ((View) -> Unit) = { _ ->
             dialog.dismiss()

@@ -99,10 +99,22 @@ class CalculatingFragment : Fragment() {
                             if (it.biomarkers.hr.status == ReadingStatus.COMPLETE.value && it.biomarkers.hrvScore.status == ReadingStatus.COMPLETE.value &&
                                 it.biomarkers.hr.value != 0.0 && it.biomarkers.hrvScore.value != 0.0
                             ) {
+                                val hr = it.biomarkers.hr.value!!.toFloat()
+                                val hrvScore = it.biomarkers.hrvScore.value!!.toFloat()
+                                val rmssd = it.biomarkers.rmssd.value?.toFloat()
+                                val breathingRate = it.insights.breathingRate.value?.toFloat()
+                                val readiness = it.insights.readiness.value?.toFloat()
+                                val ansBalance = it.insights.ansBalance.value?.toFloat()
+                                val signalQuality = it.signalQuality.value?.toFloat()
                                 val direction =
                                     CalculatingFragmentDirections.actionCalculatingFragmentToResultsFragment(
-                                        it.biomarkers.hr.value.toFloat(),
-                                        it.biomarkers.hrvScore.value.toFloat()
+                                        hr,
+                                        hrvScore,
+                                        rmssd ?: 0f,
+                                        breathingRate ?: 0f,
+                                        readiness ?: 0f,
+                                        ansBalance ?: 0f,
+                                        signalQuality ?: 0f
                                     )
                                 findNavController().navigate(direction)
                             } else if (it.biomarkers.hr.status == ReadingStatus.ERROR.value || it.biomarkers.hrvScore.status == ReadingStatus.ERROR.value ||

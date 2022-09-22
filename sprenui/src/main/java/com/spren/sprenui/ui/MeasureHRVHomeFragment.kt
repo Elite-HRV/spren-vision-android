@@ -43,9 +43,6 @@ class MeasureHRVHomeFragment : Fragment() {
         binding.tryButton.setOnClickListener {
             findNavController().navigate(R.id.action_MeasureHRVHomeFragment_to_GreetingFragment)
         }
-        binding.closeImage.setOnClickListener {
-            findNavController().navigate(R.id.action_MeasureHRVHomeFragment_to_HomeFragment)
-        }
 
         val window = requireActivity().window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

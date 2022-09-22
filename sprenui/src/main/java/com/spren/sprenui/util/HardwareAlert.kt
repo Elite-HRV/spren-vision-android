@@ -8,7 +8,7 @@ class HardwareAlert(val activity: Activity) {
     fun show() {
         val alertTitle = "Your device is not compatible"
         val alertMessage =
-            "Oops! The hardware in your device doesn't meet the minimum technical specifications."
+            "Unfortunately, the hardware in your device is not powerful enough to run the Spren app."
         val alertPrimaryButtonText = "Close App"
         val alertOnPrimaryButtonTap: ((View) -> Unit) = { _ ->
             dialog.dismiss()

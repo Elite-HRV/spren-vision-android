@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="home_background">#FF000000</color>
+    <color name="secondary_background">#FF000000</color>
     <color name="background">#FF000000</color>
     <color name="main_text_color">#FFFFFF</color>
     <color name="secondary_text_color">#FFFFFF</color>
     <color name="tertiary_text_color">#FFFFFF</color>
     <color name="close_icon_color">#FFFFFF</color>
-    <color name="check_icon_color">#FFFFFF</color>
     <color name="bigger_check_icon_color">#33EFF2F5</color>
+    <color name="icon_text_color">#B2FFFFFF</color>
     <color name="progress_background">#33EFF2F5</color>
-    <color name="card_background">#231F20</color>
-    <color name="range_background">#33EFF2F5</color>
 </resources>

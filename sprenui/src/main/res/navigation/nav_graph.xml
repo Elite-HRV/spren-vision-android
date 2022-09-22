@@ -3,18 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HomeFragment">
-
-    <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.spren.sprenui.ui.HomeFragment"
-        android:label="@string/home_fragment_label"
-        tools:layout="@layout/fragment_home">
-
-        <action
-            android:id="@+id/action_HomeFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
-    </fragment>
+    app:startDestination="@id/MeasureHRVHomeFragment">
 
     <fragment
         android:id="@+id/MeasureHRVHomeFragment"
@@ -25,9 +14,6 @@
         <action
             android:id="@+id/action_MeasureHRVHomeFragment_to_GreetingFragment"
             app:destination="@id/GreetingFragment" />
-        <action
-            android:id="@+id/action_MeasureHRVHomeFragment_to_HomeFragment"
-            app:destination="@id/HomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/GreetingFragment"
@@ -140,12 +126,52 @@
         <action
             android:id="@+id/action_ResultsFragment_to_MeasureHRVHomeFragment"
             app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_ResultsFragment_to_InformationFragment"
+            app:destination="@id/InformationFragment" />
 
         <argument
             android:name="hr"
             app:argType="float" />
         <argument
-            android:name="hrv"
+            android:name="hrv_score"
             app:argType="float" />
+        <argument
+            android:name="rmssd"
+            app:argType="float" />
+        <argument
+            android:name="breathing_rate"
+            app:argType="float" />
+        <argument
+            android:name="readiness"
+            app:argType="float" />
+        <argument
+            android:name="ans_balance"
+            app:argType="float" />
+        <argument
+            android:name="signal_quality"
+            app:argType="float" />
+    </fragment>
+    <fragment
+        android:id="@+id/InformationFragment"
+        android:name="com.spren.sprenui.ui.InformationFragment"
+        android:label="@string/greeting_fragment_label"
+        tools:layout="@layout/fragment_information">
+
+        <argument
+            android:name="bar_text"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="integer" />
+        <argument
+            android:name="first_text"
+            app:argType="integer" />
+        <argument
+            android:name="second_text"
+            app:argType="integer" />
+        <argument
+            android:name="image"
+            app:argType="integer" />
     </fragment>
 </navigation>

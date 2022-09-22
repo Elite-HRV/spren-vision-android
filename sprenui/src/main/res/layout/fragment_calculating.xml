@@ -67,12 +67,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="128dp"
                 android:indeterminate="true"
-                app:indicatorColor="@color/progress_red"
+                app:indicatorColor="@color/pink"
                 app:indicatorSize="144dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/calculating_title"
                 app:trackColor="@color/progress_background"
+                app:trackCornerRadius="10dp"
                 app:trackThickness="8dp" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -115,6 +116,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_powered_by_black" />
+        app:srcCompat="@drawable/ic_powered_by_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

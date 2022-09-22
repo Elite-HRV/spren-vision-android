@@ -19,24 +19,13 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/close_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:tint="@color/close_icon_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close" />
-
-            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/spren_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/close_image"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_spren_mini_logo" />
 
             <androidx.appcompat.widget.AppCompatImageView
