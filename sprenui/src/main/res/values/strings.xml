@@ -56,35 +56,35 @@
     <string name="hrv_score_title">What is HRV?</string>
     <string name="heart_rate_title">What is resting heart rate?</string>
     <string name="respiration_rate_title">What is resting respiratory rate?</string>
-    <string name="recovery_first_text">Your Recovery Score is a personalized daily score that quantifies how recovered you are and how ready you are to take on the day.\n\n
+    <string name="recovery_first_text">\tYour Recovery Score is a personalized daily score that quantifies how recovered you are and how ready you are to take on the day.\n\n
 
-This 1-10 score uses key heart rate and heart rate variability (HRV) metrics to learn your personal patterns and provide insight into how your body is adapting to things like exercise, stress, nutrition, work, and more. It helps you understand when your body is ready to perform and when you need to focus on rest and recovery.</string>
-    <string name="ans_balance_first_text">The autonomic nervous system (ANS) controls almost all of the body’s “automatic” processes. It regulates bodily functions such as heart rate, blood sugar, blood pressure, temperature, energy, digestion, sexual function, tissue repair, and more.
+\tThis 1-10 score uses key heart rate and heart rate variability (HRV) metrics to learn your personal patterns and provide insight into how your body is adapting to things like exercise, stress, nutrition, work, and more. It helps you understand when your body is ready to perform and when you need to focus on rest and recovery.</string>
+    <string name="ans_balance_first_text">\tThe autonomic nervous system (ANS) controls almost all of the body’s “automatic” processes. It regulates bodily functions such as heart rate, blood sugar, blood pressure, temperature, energy, digestion, sexual function, tissue repair, and more.
 </string>
-    <string name="hrv_score_first_text">Your HRV Score is a 1-100 score that indicates your stress levels, recovery status, and general well-being.\n\n
+    <string name="hrv_score_first_text">\tYour HRV Score is a 1-100 score that indicates your stress levels, recovery status, and general well-being.\n\n
 
-Unlike basic heart rate (HR) that counts the number of heartbeats per minute, heart rate variability (HRV) looks much closer at the subtle variations between heartbeats that originate from your nervous system.\n\n
+\tUnlike basic heart rate (HR) that counts the number of heartbeats per minute, heart rate variability (HRV) looks much closer at the subtle variations between heartbeats that originate from your nervous system.\n\n
 
-HRV is considered the best, non-invasive measure of your Autonomic Nervous System and reveals how your body responds to exercise, illness, treatment, recovery, inflammation, stress, mental health, and lifestyle choices you make.\n\n
+\tHRV is considered the best, non-invasive measure of your Autonomic Nervous System and reveals how your body responds to exercise, illness, treatment, recovery, inflammation, stress, mental health, and lifestyle choices you make.\n\n
 
-A higher HRV Score generally indicates better health and fitness and lower stress, as well as a younger biological age.
+\tA higher HRV Score generally indicates better health and fitness and lower stress, as well as a younger biological age.
 </string>
-    <string name="heart_rate_first_text">Resting heart rate (RHR) is a measure of your average number of heart beats per minute (bpm) while at rest. 60-100 bpm is considered normal for healthy adults. Highly trained athletes can have resting heart rates as low as 40 bpm.\n\n
+    <string name="heart_rate_first_text">\tResting heart rate (RHR) is a measure of your average number of heart beats per minute (bpm) while at rest. 60-100 bpm is considered normal for healthy adults. Highly trained athletes can have resting heart rates as low as 40 bpm.\n\n
 
-Resting heart rate is a useful metric for monitoring your fitness level and overall health. Generally speaking, a lower resting heart rate indicates a stronger and healthier heart muscle. People with lower resting heart rates typically have better cardiorespiratory fitness and tend to live longer.\n\n
+\tResting heart rate is a useful metric for monitoring your fitness level and overall health. Generally speaking, a lower resting heart rate indicates a stronger and healthier heart muscle. People with lower resting heart rates typically have better cardiorespiratory fitness and tend to live longer.\n\n
 
-A short-term increase in resting heart rate can indicate physiological stress from things like exercise, stress and anxiety, sleep deprivation, illness onset, etc.\n\n
+\tA short-term increase in resting heart rate can indicate physiological stress from things like exercise, stress and anxiety, sleep deprivation, illness onset, etc.\n\n
 
-To get an accurate resting heart rate measurement, ideally measure while in an inactive state such as seated, standing, or lying down without moving.</string>
-    <string name="respiration_rate_first_text">Respiratory rate, or breathing rate, is the number of respirations (i.e. breaths) you take per minute while at rest. The normal respiration rate for an adult at rest is 12 to 20  breaths per minute. A respiration rate under 12 or over 20 breaths per minute while resting is considered abnormal.\n\n
+\tTo get an accurate resting heart rate measurement, ideally measure while in an inactive state such as seated, standing, or lying down without moving.</string>
+    <string name="respiration_rate_first_text">\tRespiratory rate, or breathing rate, is the number of respirations (i.e. breaths) you take per minute while at rest. The normal respiration rate for an adult at rest is 12 to 20  breaths per minute. A respiration rate under 12 or over 20 breaths per minute while resting is considered abnormal.\n\n
 
-Resting respiration rate can indicate general cardiorespiratory fitness. Acute changes in resting respiratory rate can indicate poor rest and recovery or the onset of illness.\n\n
+\tResting respiration rate can indicate general cardiorespiratory fitness. Acute changes in resting respiratory rate can indicate poor rest and recovery or the onset of illness.\n\n
 
-Your respiratory rate is calculated via raw heart rate data by taking advantage of Respiratory Sinus Arrhythmia, a normal phenomenom where the heart rate varies with respiration.
+\tYour respiratory rate is calculated via raw heart rate data by taking advantage of Respiratory Sinus Arrhythmia, a normal phenomenom where the heart rate varies with respiration.
 </string>
     <string name="ans_balance_second_text">
-The ANS Balance indicates the relative balance between thethe SNS and PSNS, thus indicating the balance between recovery and physiological stress (both physical and mental).\n\n
+\tThe ANS Balance indicates the relative balance between thethe SNS and PSNS, thus indicating the balance between recovery and physiological stress (both physical and mental).\n\n
 
-Knowing the relative balance of the ANS helps you better understand the current state of your body and determine the best course of action towards reaching your goals without working against yourself.</string>
+\tKnowing the relative balance of the ANS helps you better understand the current state of your body and determine the best course of action towards reaching your goals without working against yourself.</string>
     <string name="results">Results</string>
 </resources>

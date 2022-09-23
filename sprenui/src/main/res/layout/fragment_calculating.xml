@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="128dp"
                 android:indeterminate="true"
-                app:indicatorColor="@color/pink"
+                app:indicatorColor="?colorSecondary"
                 app:indicatorSize="144dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

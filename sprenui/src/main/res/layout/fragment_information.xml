@@ -61,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:letterSpacing="0"
-                android:lineSpacingExtra="-10sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textAlignment="center"

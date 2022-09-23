@@ -102,7 +102,7 @@ class CalculatingFragment : Fragment() {
                                 val hr = it.biomarkers.hr.value!!.toFloat()
                                 val hrvScore = it.biomarkers.hrvScore.value!!.toFloat()
                                 val rmssd = it.biomarkers.rmssd.value?.toFloat()
-                                val breathingRate = it.insights.breathingRate.value?.toFloat()
+                                val breathingRate = it.biomarkers.breathingRate.value?.toFloat()
                                 val readiness = it.insights.readiness.value?.toFloat()
                                 val ansBalance = it.insights.ansBalance.value?.toFloat()
                                 val signalQuality = it.signalQuality.value?.toFloat()
