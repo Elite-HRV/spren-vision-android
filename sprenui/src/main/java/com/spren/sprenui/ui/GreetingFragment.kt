@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
-=import com.spren.sprenui.SprenUI
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentGreetingBinding
 
 class GreetingFragment : Fragment() {
