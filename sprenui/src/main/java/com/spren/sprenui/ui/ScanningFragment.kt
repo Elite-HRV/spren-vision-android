@@ -20,6 +20,7 @@ import com.spren.sprencore.event.SprenEvent
 import com.spren.sprencore.event.SprenEventManager
 import com.spren.sprencore.finger.compliance.ComplianceCheck
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentScanningBinding
 import com.spren.sprenui.util.Dialog
 import com.spren.sprenui.util.HardwareAlert
@@ -150,7 +151,7 @@ class ScanningFragment : Fragment() {
                     SprenState.STARTED -> startState()
                     SprenState.FINISHED -> finishState()
                     SprenState.CANCELLED -> cancelState()
-                    SprenState.ERROR ->  errorState()
+                    SprenState.ERROR -> errorState()
                     else -> return@async
                 }
             }
@@ -197,7 +198,11 @@ class ScanningFragment : Fragment() {
 
     private fun cancelState() {
         reset()
-        findNavController().navigate(R.id.action_ScanningFragment_to_PlaceFingerFragment)
+        SprenUI.Config.onCancel?.let {
+            it.invoke()
+            return
+        }
+        findNavController().navigate(R.id.action_ScanningFragment_to_MeasureHRVHomeFragment)
     }
 
     private fun errorState() = showErrorAlert()

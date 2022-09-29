@@ -81,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                android:tint="@color/bigger_check_icon_color"
                 app:layout_constraintBottom_toBottomOf="@id/progress_circular"
                 app:layout_constraintEnd_toEndOf="@id/progress_circular"
                 app:layout_constraintStart_toStartOf="@id/progress_circular"

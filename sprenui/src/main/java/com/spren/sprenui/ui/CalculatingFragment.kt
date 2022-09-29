@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.spren.sprencore.Spren
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentCalculatingBinding
 import com.spren.sprenui.network.RetrofitHelper
 import com.spren.sprenui.network.api.getResults
@@ -51,6 +52,10 @@ class CalculatingFragment : Fragment() {
         binding.calculatingText.typeface = font
         binding.forInvestigationalUseOnlyText.typeface = font
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_CalculatingFragment_to_MeasureHRVHomeFragment)
         }
         checkInternetConnection =

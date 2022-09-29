@@ -77,8 +77,8 @@
         tools:layout="@layout/fragment_scanning">
 
         <action
-            android:id="@+id/action_ScanningFragment_to_PlaceFingerFragment"
-            app:destination="@id/PlaceFingerFragment" />
+            android:id="@+id/action_ScanningFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
         <action
             android:id="@+id/action_ScanningFragment_to_CalculatingFragment"
             app:destination="@id/CalculatingFragment" />

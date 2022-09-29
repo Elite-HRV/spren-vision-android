@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentPlaceFingerBinding
 
 class PlaceFingerFragment : Fragment() {
@@ -35,6 +36,10 @@ class PlaceFingerFragment : Fragment() {
         binding.placeFingerText.typeface = font
         binding.startButton.typeface = font
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_PlaceFingerFragment_to_MeasureHRVHomeFragment)
         }
         binding.startButton.setOnClickListener{

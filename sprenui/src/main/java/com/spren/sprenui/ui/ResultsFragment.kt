@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
@@ -33,11 +32,6 @@ class ResultsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val window = requireActivity().window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.secondary_background)
 
         var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
         binding.doneText.typeface = font
@@ -212,7 +206,6 @@ class ResultsFragment : Fragment() {
                     }
                 }
             } else {
-                binding.resultsText.visibility = View.VISIBLE
                 binding.recoveryScoreTitle.text = "Readiness"
                 binding.recoveryValue.text = "N/A"
                 binding.recoveryValue.typeface = font

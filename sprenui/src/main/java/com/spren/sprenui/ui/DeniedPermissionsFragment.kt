@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.util.Permissions.allPermissionsGranted
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentDeniedPermissionsBinding
 
 class DeniedPermissionsFragment : Fragment() {
@@ -47,6 +48,10 @@ class DeniedPermissionsFragment : Fragment() {
         binding.deniedPermissionsText.typeface = font
         binding.enableButton.typeface = font
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_DeniedPermissionsFragment_to_MeasureHRVHomeFragment)
         }
         binding.enableButton.setOnClickListener {

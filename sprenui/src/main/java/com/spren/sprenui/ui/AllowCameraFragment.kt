@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.util.Permissions.REQUIRED_PERMISSIONS
 import com.spren.sprenui.util.Permissions.allPermissionsGranted
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentAllowCameraBinding
 
 class AllowCameraFragment : Fragment() {
@@ -48,6 +49,10 @@ class AllowCameraFragment : Fragment() {
         binding.placeYourFingertipText.typeface = font
         binding.nextButton.typeface = font
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_AllowCameraFragment_to_MeasureHRVHomeFragment)
         }
         binding.nextButton.setOnClickListener {

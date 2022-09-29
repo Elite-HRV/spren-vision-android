@@ -37,6 +37,7 @@ class SprenUI @JvmOverloads constructor(
         var baseURL: String = ""
         var apiKey: String = ""
         var userId: String = ""
+        var onCancel: (() -> Unit)? = null
         var onFinish: ((String, Float, Float, Float, Float, Float?, Float?, Float) -> Unit)? = null
     }
 }

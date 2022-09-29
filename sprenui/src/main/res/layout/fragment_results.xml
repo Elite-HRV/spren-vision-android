@@ -9,615 +9,634 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/done_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/done"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/results_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0"
-            android:text="@string/results"
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:textColor="@color/tertiary_text_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/recovery_score_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/done_text">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/recovery_score_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:text="@string/recovery"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@id/recovery_score_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/recovery_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/recovery_score_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_info" />
-
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/progress_circular_background"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:alpha="0.1"
-                    app:indicatorColor="@color/close_icon_color"
-                    app:indicatorDirectionCircular="counterclockwise"
-                    app:indicatorSize="139dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recovery_score_image"
-                    app:trackColor="@color/transparent"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="8dp" />
-
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/progress_circular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:indicatorDirectionCircular="clockwise"
-                    app:indicatorSize="139dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recovery_score_image"
-                    app:trackColor="@color/transparent"
-                    app:trackCornerRadius="10dp"
-                    app:trackThickness="8dp" />
-
-                <TextView
-                    android:id="@+id/recovery_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="64sp"
-                    app:layout_constraintEnd_toEndOf="@id/progress_circular_background"
-                    app:layout_constraintStart_toStartOf="@id/progress_circular_background"
-                    app:layout_constraintTop_toTopOf="@id/progress_circular_background" />
-
-                <TextView
-                    android:id="@+id/recovery_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-8dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@id/progress_circular_background"
-                    app:layout_constraintStart_toStartOf="@id/progress_circular_background"
-                    app:layout_constraintTop_toBottomOf="@id/recovery_value" />
-
-                <TextView
-                    android:id="@+id/recovery_left_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-20dp"
-                    android:letterSpacing="0"
-                    android:paddingEnd="32dp"
-                    android:text="@string/recover"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toStartOf="@id/recovery_right_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/progress_circular_background" />
-
-                <TextView
-                    android:id="@+id/recovery_right_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:paddingStart="32dp"
-                    android:text="@string/train_hard"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/recovery_left_text"
-                    app:layout_constraintTop_toTopOf="@id/recovery_left_text" />
-
-                <TextView
-                    android:id="@+id/recovery_score_second_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recovery_right_text" />
-
-                <TextView
-                    android:id="@+id/recovery_score_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:letterSpacing="0"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recovery_score_second_title" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/ans_score_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recovery_score_card">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/ans_score_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:text="@string/ans_balance"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@id/ans_score_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/ans_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ans_score_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_info" />
-
-                <TextView
-                    android:id="@+id/ans_score_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:letterSpacing="0"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ans_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ans_score_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ans_score_text"
-                    app:srcCompat="@drawable/ic_indicator" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ans_score_scale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ans_score_indicator"
-                    app:srcCompat="@drawable/ic_scale" />
-
-                <TextView
-                    android:id="@+id/ans_score_sympathetic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:letterSpacing="0"
-                    android:text="@string/sympathetic"
-                    android:textColor="@color/light_purple_color"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ans_score_scale" />
-
-                <TextView
-                    android:id="@+id/ans_score_parasympathetic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:letterSpacing="0"
-                    android:text="@string/parasympathetic"
-                    android:textColor="@color/light_purple_color"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ans_score_scale" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/hrv_score_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintEnd_toStartOf="@id/hr_score_card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ans_score_card">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/hrv_score_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/hrv_score"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/hrv_score_image"
-                    app:layout_constraintEnd_toStartOf="@id/hrv_score_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/hrv_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/hrv_score_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_arrow_right" />
-
-                <TextView
-                    android:id="@+id/hrv_score_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="40sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hrv_score_image"
-                    tools:text="58" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/hr_score_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/hrv_score_card"
-            app:layout_constraintTop_toTopOf="@id/hrv_score_card">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/hr_score_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/heart_rate"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/hr_score_image"
-                    app:layout_constraintEnd_toStartOf="@id/hr_score_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/hr_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/hr_score_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_arrow_right" />
-
-                <TextView
-                    android:id="@+id/hr_score_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="40sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hr_score_image"
-                    tools:text="66" />
-
-                <TextView
-                    android:id="@+id/hr_score_extra"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:text="@string/bpm"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@id/hr_score_value"
-                    app:layout_constraintStart_toEndOf="@id/hr_score_value"
-                    app:layout_constraintTop_toTopOf="@id/hr_score_value" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/respiration_score_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintEnd_toEndOf="@id/hrv_score_card"
-            app:layout_constraintStart_toStartOf="@id/hrv_score_card"
-            app:layout_constraintTop_toBottomOf="@id/hrv_score_card">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/respiration_score_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/respiration"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/respiration_score_image"
-                    app:layout_constraintEnd_toStartOf="@id/respiration_score_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/respiration_score_image" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/respiration_score_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_arrow_right" />
-
-                <TextView
-                    android:id="@+id/respiration_score_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="40sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/respiration_score_image"
-                    tools:text="17" />
-
-                <TextView
-                    android:id="@+id/raspiration_score_extra"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:text="@string/bpm"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@id/respiration_score_value"
-                    app:layout_constraintStart_toEndOf="@id/respiration_score_value"
-                    app:layout_constraintTop_toTopOf="@id/respiration_score_value" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/faq_card"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/background"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/respiration_score_card">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/done_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/done"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/results_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0"
+                android:text="@string/results"
+                android:textColor="@color/tertiary_text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/recovery_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/recovery_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:text="@string/recovery"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/recovery_score_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/recovery_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/recovery_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_info" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_circular_background"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:alpha="0.1"
+                        app:indicatorColor="@color/close_icon_color"
+                        app:indicatorDirectionCircular="counterclockwise"
+                        app:indicatorSize="139dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recovery_score_image"
+                        app:trackColor="@color/transparent"
+                        app:trackCornerRadius="10dp"
+                        app:trackThickness="8dp" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:indicatorDirectionCircular="clockwise"
+                        app:indicatorSize="139dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recovery_score_image"
+                        app:trackColor="@color/transparent"
+                        app:trackCornerRadius="10dp"
+                        app:trackThickness="8dp" />
+
+                    <TextView
+                        android:id="@+id/recovery_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="64sp"
+                        app:layout_constraintEnd_toEndOf="@id/progress_circular_background"
+                        app:layout_constraintStart_toStartOf="@id/progress_circular_background"
+                        app:layout_constraintTop_toTopOf="@id/progress_circular_background" />
+
+                    <TextView
+                        android:id="@+id/recovery_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@id/progress_circular_background"
+                        app:layout_constraintStart_toStartOf="@id/progress_circular_background"
+                        app:layout_constraintTop_toBottomOf="@id/recovery_value" />
+
+                    <TextView
+                        android:id="@+id/recovery_left_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-20dp"
+                        android:letterSpacing="0"
+                        android:paddingEnd="32dp"
+                        android:text="@string/recover"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@id/recovery_right_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/progress_circular_background" />
+
+                    <TextView
+                        android:id="@+id/recovery_right_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:paddingStart="32dp"
+                        android:text="@string/train_hard"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/recovery_left_text"
+                        app:layout_constraintTop_toTopOf="@id/recovery_left_text" />
+
+                    <TextView
+                        android:id="@+id/recovery_score_second_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recovery_right_text" />
+
+                    <TextView
+                        android:id="@+id/recovery_score_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recovery_score_second_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ans_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recovery_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/ans_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:text="@string/ans_balance"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/ans_score_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/ans_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ans_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_info" />
+
+                    <TextView
+                        android:id="@+id/ans_score_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ans_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ans_score_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ans_score_text"
+                        app:srcCompat="@drawable/ic_indicator" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ans_score_scale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:scaleType="fitXY"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ans_score_indicator"
+                        app:srcCompat="@drawable/ic_scale" />
+
+                    <TextView
+                        android:id="@+id/ans_score_sympathetic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:letterSpacing="0"
+                        android:text="@string/sympathetic"
+                        android:textColor="@color/light_purple_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ans_score_scale" />
+
+                    <TextView
+                        android:id="@+id/ans_score_parasympathetic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:letterSpacing="0"
+                        android:text="@string/parasympathetic"
+                        android:textColor="@color/light_purple_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ans_score_scale" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hrv_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toStartOf="@id/hr_score_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ans_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/hrv_score_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/hrv_score"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_score_image"
+                        app:layout_constraintEnd_toStartOf="@id/hrv_score_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_right" />
+
+                    <TextView
+                        android:id="@+id/hrv_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="40sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_score_image"
+                        tools:text="58" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hr_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/hrv_score_card"
+                app:layout_constraintTop_toTopOf="@id/hrv_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/hr_score_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/heart_rate"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_score_image"
+                        app:layout_constraintEnd_toStartOf="@id/hr_score_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_right" />
+
+                    <TextView
+                        android:id="@+id/hr_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="40sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_score_image"
+                        tools:text="66" />
+
+                    <TextView
+                        android:id="@+id/hr_score_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:text="@string/bpm"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_score_value"
+                        app:layout_constraintStart_toEndOf="@id/hr_score_value"
+                        app:layout_constraintTop_toTopOf="@id/hr_score_value" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/respiration_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="@id/hrv_score_card"
+                app:layout_constraintStart_toStartOf="@id/hrv_score_card"
+                app:layout_constraintTop_toBottomOf="@id/hrv_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/respiration_score_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/respiration"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_score_image"
+                        app:layout_constraintEnd_toStartOf="@id/respiration_score_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/respiration_score_image" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/respiration_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_right" />
+
+                    <TextView
+                        android:id="@+id/respiration_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="40sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_score_image"
+                        tools:text="17" />
+
+                    <TextView
+                        android:id="@+id/raspiration_score_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:text="@string/bpm"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_score_value"
+                        app:layout_constraintStart_toEndOf="@id/respiration_score_value"
+                        app:layout_constraintTop_toTopOf="@id/respiration_score_value" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/faq_card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/respiration_score_card">
 
-                <TextView
-                    android:id="@+id/faq_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:lineSpacingExtra="-10sp"
-                    android:text="@string/faq_title"
-                    android:textAlignment="center"
-                    android:textColor="@color/main_text_color"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/first_question_text"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/hrv_question"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/first_question_image"
-                    app:layout_constraintEnd_toStartOf="@id/first_question_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/first_question_image" />
+                    android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/first_question_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/faq_title_text"
-                    app:srcCompat="@drawable/ic_arrow_right" />
+                    <TextView
+                        android:id="@+id/faq_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:lineSpacingExtra="-10sp"
+                        android:text="@string/faq_title"
+                        android:textAlignment="center"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/first_question_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/line_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/first_question_image" />
+                    <TextView
+                        android:id="@+id/first_question_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/hrv_question"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/first_question_image"
+                        app:layout_constraintEnd_toStartOf="@id/first_question_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/first_question_image" />
 
-                <TextView
-                    android:id="@+id/second_question_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/score_question"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/second_question_image"
-                    app:layout_constraintEnd_toStartOf="@id/second_question_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/second_question_image" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/first_question_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/faq_title_text"
+                        app:srcCompat="@drawable/ic_arrow_right" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/second_question_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/first_question_line"
-                    app:srcCompat="@drawable/ic_arrow_right" />
+                    <View
+                        android:id="@+id/first_question_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/line_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/first_question_image" />
 
-                <View
-                    android:id="@+id/second_question_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/line_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/second_question_image" />
+                    <TextView
+                        android:id="@+id/second_question_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/score_question"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/second_question_image"
+                        app:layout_constraintEnd_toStartOf="@id/second_question_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/second_question_image" />
 
-                <TextView
-                    android:id="@+id/third_question_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:letterSpacing="0"
-                    android:text="@string/repeat_question"
-                    android:textColor="@color/tertiary_text_color"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/third_question_image"
-                    app:layout_constraintEnd_toStartOf="@id/third_question_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/third_question_image" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/second_question_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/first_question_line"
+                        app:srcCompat="@drawable/ic_arrow_right" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/third_question_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:tint="@color/tertiary_text_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/second_question_line"
-                    app:srcCompat="@drawable/ic_arrow_right" />
+                    <View
+                        android:id="@+id/second_question_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/line_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/second_question_image" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/third_question_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0"
+                        android:text="@string/repeat_question"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/third_question_image"
+                        app:layout_constraintEnd_toStartOf="@id/third_question_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/third_question_image" />
 
-        </com.google.android.material.card.MaterialCardView>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/third_question_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/second_question_line"
+                        app:srcCompat="@drawable/ic_arrow_right" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
