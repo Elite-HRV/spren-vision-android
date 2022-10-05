@@ -2,7 +2,6 @@
 
     <style name="Theme.SprenUI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:textColor">@color/dark_purple</item>
         <item name="colorPrimary">@color/dark_purple</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/pink</item>

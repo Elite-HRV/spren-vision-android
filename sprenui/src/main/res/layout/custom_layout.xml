@@ -61,6 +61,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:letterSpacing="0"
+        android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

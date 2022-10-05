@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.spren.sprenui.databinding.SprenUiViewBinding
 import com.spren.sprenui.util.UserId
+import java.util.Date
 
 class SprenUI @JvmOverloads constructor(
     context: Context,
@@ -33,10 +34,21 @@ class SprenUI @JvmOverloads constructor(
         var guid: String = ""
     }
 
+    enum class BiologicalSex {
+        MALE, FEMALE, OTHER
+    }
+
     object Config {
+        // API config
         var baseURL: String = ""
         var apiKey: String = ""
+
+        // user config
         var userId: String = ""
+        var userGender: BiologicalSex? = null
+        var userBirthdate: Date? = null
+
+        // UI config
         var onCancel: (() -> Unit)? = null
         var onFinish: ((String, Float, Float, Float, Float, Float?, Float?, Float) -> Unit)? = null
     }

@@ -135,11 +135,12 @@ class CalculatingFragment : Fragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private suspend fun checkInternetConnection() = coroutineScope {
         while (isActive) {
             if (!isInternetAvailable(requireContext())) {
                 AlertDialog.Builder(requireContext())
-                    .setTitle(resources.getString(R.string.network_error_title))
+                    .setCustomTitle(LayoutInflater.from(context).inflate(R.layout.custom_title, null))
                     .setMessage(resources.getString(R.string.network_error_text))
                     .setPositiveButton(
                         resources.getString(R.string.network_error_primary_button_text)
