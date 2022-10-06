@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="SprenUI">
+        <attr name="api_key" format="string"/>
+        <attr name="base_url" format="boolean"/>
+    </declare-styleable>
+</resources>

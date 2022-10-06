@@ -1,0 +1,141 @@
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2"
+    }
+}
+
+plugins {
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.android' version '1.7.10'
+    id 'signing'
+}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 28
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'com.google.android.material:material:1.6.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation("com.spren:sprencapture:2.0.4")
+    implementation("com.spren:sprencore:2.0.3")
+
+    // External libraries
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.camera:camera-view:1.1.0-rc02'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            SprenUI(MavenPublication) {
+
+                from components.release
+                groupId 'com.spren'
+                artifactId 'sprenui'
+//                version = "1.0.4-SNAPSHOT"
+                version = "1.0.0"
+
+                pom {
+                    name = 'Spren UI'
+                    description = 'An open source version of UX/UI components for Spren functionalities'
+                    url = 'https://github.com/Elite-HRV/spren-vision-android'
+                    licenses {
+                        license {
+                            name = 'Spren License'
+                            url = 'https://github.com/Elite-HRV/spren-vision-android/blob/main/LICENSE'
+                            comments = '(c) Copyright 2022 Spren and EliteHRV, all rights reserved.'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = 'Kevin Leon'
+                            email = 'kevin@spren.com'
+                        }
+                        developer {
+                            name = 'Fernando Eckert'
+                            email = 'fernando@spren.com'
+                        }
+                        developer {
+                            name = 'Keith Carolus'
+                            email = 'keith@spren.com'
+                        }
+                        developer {
+                            name = 'Nick Avasiloy'
+                            email = 'nick@spren.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/Elite-HRV/spren-vision-android.git'
+                        developerConnection = 'scm:git:ssh://github.com/Elite-HRV/spren-vision-android.git'
+                        url = 'https://github.com/Elite-HRV/spren-vision-android'
+                    }
+                }
+                repositories {
+                    maven {
+                        name = 'snapshots'
+                        url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+                        credentials {
+                            username = "$System.env.NEXUS_USERNAME"
+                            password = "$System.env.NEXUS_PASSWORD"
+                        }
+                    }
+                    maven {
+                        name = 'staging'
+                        url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2'
+                        credentials {
+                            username = "$System.env.NEXUS_USERNAME"
+                            password = "$System.env.NEXUS_PASSWORD"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        sign publishing.publications.SprenUI
+    }
+}

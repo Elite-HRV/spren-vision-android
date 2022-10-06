@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MeasureHRVHomeFragment">
+
+    <fragment
+        android:id="@+id/MeasureHRVHomeFragment"
+        android:name="com.spren.sprenui.ui.MeasureHRVHomeFragment"
+        android:label="@string/measure_hrv_home_fragment_label"
+        tools:layout="@layout/fragment_measure_hrv_home">
+
+        <action
+            android:id="@+id/action_MeasureHRVHomeFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GreetingFragment"
+        android:name="com.spren.sprenui.ui.GreetingFragment"
+        android:label="@string/greeting_fragment_label"
+        tools:layout="@layout/fragment_greeting">
+
+        <action
+            android:id="@+id/action_GreetingFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_GreetingFragment_to_AllowCameraFragment"
+            app:destination="@id/AllowCameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AllowCameraFragment"
+        android:name="com.spren.sprenui.ui.AllowCameraFragment"
+        android:label="@string/allow_camera_fragment_label"
+        tools:layout="@layout/fragment_allow_camera">
+
+        <action
+            android:id="@+id/action_AllowCameraFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_AllowCameraFragment_to_PlaceFingerFragment"
+            app:destination="@id/PlaceFingerFragment" />
+        <action
+            android:id="@+id/action_AllowCameraFragment_to_DeniedPermissionsFragment"
+            app:destination="@id/DeniedPermissionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PlaceFingerFragment"
+        android:name="com.spren.sprenui.ui.PlaceFingerFragment"
+        android:label="@string/place_finger_fragment_label"
+        tools:layout="@layout/fragment_place_finger">
+
+        <action
+            android:id="@+id/action_PlaceFingerFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_PlaceFingerFragment_to_ScanningFragment"
+            app:destination="@id/ScanningFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DeniedPermissionsFragment"
+        android:name="com.spren.sprenui.ui.DeniedPermissionsFragment"
+        android:label="@string/denied_permissions_fragment_label"
+        tools:layout="@layout/fragment_denied_permissions">
+
+        <action
+            android:id="@+id/action_DeniedPermissionsFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_DeniedPermissionsFragment_to_PlaceFingerFragment"
+            app:destination="@id/PlaceFingerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ScanningFragment"
+        android:name="com.spren.sprenui.ui.ScanningFragment"
+        android:label="@string/scanning_fragment_label"
+        tools:layout="@layout/fragment_scanning">
+
+        <action
+            android:id="@+id/action_ScanningFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_ScanningFragment_to_CalculatingFragment"
+            app:destination="@id/CalculatingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CalculatingFragment"
+        android:name="com.spren.sprenui.ui.CalculatingFragment"
+        android:label="@string/calculating_fragment_label"
+        tools:layout="@layout/fragment_calculating">
+
+        <action
+            android:id="@+id/action_CalculatingFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_CalculatingFragment_to_ScanningFragment"
+            app:destination="@id/ScanningFragment" />
+        <action
+            android:id="@+id/action_CalculatingFragment_to_ServerSideErrorFragment"
+            app:destination="@id/ServerSideErrorFragment" />
+        <action
+            android:id="@+id/action_CalculatingFragment_to_ResultsFragment"
+            app:destination="@id/ResultsFragment"
+            app:popUpTo="@+id/ScanningFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ServerSideErrorFragment"
+        android:name="com.spren.sprenui.ui.ServerSideErrorFragment"
+        android:label="@string/server_side_error_fragment_label"
+        tools:layout="@layout/fragment_server_side_error">
+
+        <action
+            android:id="@+id/action_ServerSideErrorFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_ServerSideErrorFragment_to_ScanningFragment"
+            app:destination="@id/ScanningFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ResultsFragment"
+        android:name="com.spren.sprenui.ui.ResultsFragment"
+        android:label="@string/results_fragment_label"
+        tools:layout="@layout/fragment_results">
+
+        <action
+            android:id="@+id/action_ResultsFragment_to_MeasureHRVHomeFragment"
+            app:destination="@id/MeasureHRVHomeFragment" />
+        <action
+            android:id="@+id/action_ResultsFragment_to_InformationFragment"
+            app:destination="@id/InformationFragment" />
+
+        <argument
+            android:name="hr"
+            app:argType="float" />
+        <argument
+            android:name="hrv_score"
+            app:argType="float" />
+        <argument
+            android:name="rmssd"
+            app:argType="float" />
+        <argument
+            android:name="breathing_rate"
+            app:argType="float" />
+        <argument
+            android:name="readiness"
+            app:argType="float" />
+        <argument
+            android:name="ans_balance"
+            app:argType="float" />
+        <argument
+            android:name="signal_quality"
+            app:argType="float" />
+    </fragment>
+    <fragment
+        android:id="@+id/InformationFragment"
+        android:name="com.spren.sprenui.ui.InformationFragment"
+        android:label="@string/greeting_fragment_label"
+        tools:layout="@layout/fragment_information">
+
+        <argument
+            android:name="bar_text"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="integer" />
+        <argument
+            android:name="first_text"
+            app:argType="integer" />
+        <argument
+            android:name="second_text"
+            app:argType="integer" />
+        <argument
+            android:name="image"
+            app:argType="integer" />
+    </fragment>
+</navigation>

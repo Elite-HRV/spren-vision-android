@@ -1,0 +1,90 @@
+<resources>
+    <string name="measure_hrv_home_fragment_label">Measure HRV Home Fragment</string>
+    <string name="greeting_fragment_label">Greeting Fragment</string>
+    <string name="allow_camera_fragment_label">Allow Camera Fragment</string>
+    <string name="place_finger_fragment_label">Place Finger Fragment</string>
+    <string name="denied_permissions_fragment_label">Denied Permissions Fragment</string>
+    <string name="scanning_fragment_label">Scanning Fragment</string>
+    <string name="calculating_fragment_label">Calculating Fragment</string>
+    <string name="server_side_error_fragment_label">Server Side Error Fragment</string>
+    <string name="results_fragment_label">Results Fragment</string>
+    <string name="information_fragment_label">Information Fragment</string>
+    <string name="home_title">Welcome to the Spren demo app</string>
+    <string name="try_it_now">Try it now</string>
+    <string name="next">Next</string>
+    <string name="start_measurement">Start measurement</string>
+    <string name="enable_camera">Enable camera</string>
+    <string name="try_again">Try again</string>
+    <string name="advance_hrv_title">Unlock advanced HRV insights with your smartphone camera</string>
+    <string name="advance_hrv_text">&#8226;  Integrate via SDK and API \n&#8226;  Customizable look and feel \n&#8226;  Validated algorithms</string>
+    <string name="measure_hrv_title">Measure your HRV with your phone camera</string>
+    <string name="measure_hrv_text">Simply do a quick resting scan when you wake up to receive personalized stress and recovery insights.</string>
+    <string name="place_your_fingertip_title">Place your fingertip over the rear-facing camera lens</string>
+    <string name="place_your_fingertip_text">For the most accurate reading, leave the flash on or make sure you’re in a well lit area and can hold your hand steady</string>
+    <string name="place_finger_title">Place your fingertip fully over the camera lens</string>
+    <string name="place_finger_text">Hold your hand steady and apply light pressure with your finger.</string>
+    <string name="denied_permissions_title">Camera access is needed to start an HRV measurement</string>
+    <string name="denied_permissions_text">Allow access to camera in your Android Settings in order to receive personalized insights and guidance.</string>
+    <string name="calculating_title">Calculating your results</string>
+    <string name="network_error_title">Network Connection Error</string>
+    <string name="network_error_text">Please check your internet connection and try again.</string>
+    <string name="network_error_primary_button_text">Try again</string>
+    <string name="network_error_secondary_button_text">Close</string>
+    <string name="for_investigational_use_only_text">* For investigational use only. These numbers are estimates and not a substitute for the judgment of a health care professional. They are intended to improve awareness of general fitness and wellness.</string>
+    <string name="server_side_error_title">Sorry! There was an error calculating your results</string>
+    <string name="server_side_error_text">Please take another measurement to view your HRV results.</string>
+    <string name="done">Done</string>
+    <string name="recovery">Recovery</string>
+    <string name="recover">Recover</string>
+    <string name="train_hard">Train hard</string>
+    <string name="ans_balance">ANS Balance</string>
+    <string name="sympathetic">Sympathetic</string>
+    <string name="parasympathetic">Parasympathetic</string>
+    <string name="hrv_score">HRV Score</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="bpm">bpm</string>
+    <string name="respiration">Respiration</string>
+    <string name="faq_title">FAQ</string>
+    <string name="hrv_question">What is HRV and why does it matter?</string>
+    <string name="score_question">What does my score mean?</string>
+    <string name="repeat_question">How often should I measure?</string>
+    <string name="recovery_bar_title">Recovery</string>
+    <string name="ans_balance_bar_title">ANS Balance</string>
+    <string name="hrv_score_bar_title">HRV Score</string>
+    <string name="heart_rate_bar_title">Heart Rate</string>
+    <string name="respiration_rate_bar_title">Respiration Rate</string>
+    <string name="hrv_score_title">What is HRV?</string>
+    <string name="heart_rate_title">What is resting heart rate?</string>
+    <string name="respiration_rate_title">What is resting respiratory rate?</string>
+    <string name="recovery_first_text">\tYour Recovery Score is a personalized daily score that quantifies how recovered you are and how ready you are to take on the day.\n\n
+
+\tThis 1-10 score uses key heart rate and heart rate variability (HRV) metrics to learn your personal patterns and provide insight into how your body is adapting to things like exercise, stress, nutrition, work, and more. It helps you understand when your body is ready to perform and when you need to focus on rest and recovery.</string>
+    <string name="ans_balance_first_text">\tThe autonomic nervous system (ANS) controls almost all of the body’s “automatic” processes. It regulates bodily functions such as heart rate, blood sugar, blood pressure, temperature, energy, digestion, sexual function, tissue repair, and more.
+</string>
+    <string name="hrv_score_first_text">\tYour HRV Score is a 1-100 score that indicates your stress levels, recovery status, and general well-being.\n\n
+
+\tUnlike basic heart rate (HR) that counts the number of heartbeats per minute, heart rate variability (HRV) looks much closer at the subtle variations between heartbeats that originate from your nervous system.\n\n
+
+\tHRV is considered the best, non-invasive measure of your Autonomic Nervous System and reveals how your body responds to exercise, illness, treatment, recovery, inflammation, stress, mental health, and lifestyle choices you make.\n\n
+
+\tA higher HRV Score generally indicates better health and fitness and lower stress, as well as a younger biological age.
+</string>
+    <string name="heart_rate_first_text">\tResting heart rate (RHR) is a measure of your average number of heart beats per minute (bpm) while at rest. 60-100 bpm is considered normal for healthy adults. Highly trained athletes can have resting heart rates as low as 40 bpm.\n\n
+
+\tResting heart rate is a useful metric for monitoring your fitness level and overall health. Generally speaking, a lower resting heart rate indicates a stronger and healthier heart muscle. People with lower resting heart rates typically have better cardiorespiratory fitness and tend to live longer.\n\n
+
+\tA short-term increase in resting heart rate can indicate physiological stress from things like exercise, stress and anxiety, sleep deprivation, illness onset, etc.\n\n
+
+\tTo get an accurate resting heart rate measurement, ideally measure while in an inactive state such as seated, standing, or lying down without moving.</string>
+    <string name="respiration_rate_first_text">\tRespiratory rate, or breathing rate, is the number of respirations (i.e. breaths) you take per minute while at rest. The normal respiration rate for an adult at rest is 12 to 20  breaths per minute. A respiration rate under 12 or over 20 breaths per minute while resting is considered abnormal.\n\n
+
+\tResting respiration rate can indicate general cardiorespiratory fitness. Acute changes in resting respiratory rate can indicate poor rest and recovery or the onset of illness.\n\n
+
+\tYour respiratory rate is calculated via raw heart rate data by taking advantage of Respiratory Sinus Arrhythmia, a normal phenomenom where the heart rate varies with respiration.
+</string>
+    <string name="ans_balance_second_text">
+\tThe ANS Balance indicates the relative balance between thethe SNS and PSNS, thus indicating the balance between recovery and physiological stress (both physical and mental).\n\n
+
+\tKnowing the relative balance of the ANS helps you better understand the current state of your body and determine the best course of action towards reaching your goals without working against yourself.</string>
+    <string name="results">Results</string>
+</resources>

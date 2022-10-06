@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_purple">#5246A8</color>
+    <color name="progress_green">#27CF71</color>
+    <color name="progress_amber">#FFCF40</color>
+    <color name="progress_red">#FF3D00</color>
+    <color name="yellow">#F7D860</color>
+    <color name="pink">#E55775</color>
+    <color name="transparent">#00000000</color>
+    <color name="light_gray">#B5B5B5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="line_background">#DFDFDF</color>
+    <color name="light_purple_color">#7C7D94</color>
+    <!-- Colors with night values -->
+    <color name="background">#FFFFFFFF</color>
+    <color name="secondary_background">#E5E5E5</color>
+    <color name="main_text_color">#1A233D</color>
+    <color name="secondary_text_color">#070815</color>
+    <color name="tertiary_text_color">#2A3249</color>
+    <color name="close_icon_color">#1A233D</color>
+    <color name="bigger_check_icon_color">#191A32</color>
+    <color name="icon_text_color">#7F8391</color>
+    <color name="progress_background">#EFF2F5</color>
+</resources>
