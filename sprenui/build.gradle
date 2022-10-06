@@ -76,8 +76,8 @@ afterEvaluate {
                 from components.release
                 groupId 'com.spren'
                 artifactId 'sprenui'
-                version = "1.0.4-SNAPSHOT"
-//                version = "1.0.0"
+//                version = "1.0.4-SNAPSHOT"
+                version = "1.0.0"
 
                 pom {
                     name = 'Spren UI'
