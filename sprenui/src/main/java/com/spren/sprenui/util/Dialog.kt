@@ -28,22 +28,16 @@ object Dialog {
     ) {
         val titleTextView = dialog.findViewById(R.id.title_text) as TextView
         titleTextView.text = title
-        var font = Typeface.createFromAsset(context.assets, "Roboto-Bold.ttf")
-        titleTextView.typeface = font
         val messageTextView = dialog.findViewById(R.id.message_text) as TextView
         messageTextView.text = message
-        font = Typeface.createFromAsset(context.assets, "Roboto-Regular.ttf")
-        messageTextView.typeface = font
         val primaryButton = dialog.findViewById(R.id.primary_button) as Button
         primaryButton.text = primaryButtonText
         primaryButton.setOnClickListener(primaryListener)
-        primaryButton.typeface = font
         val secondaryTextView = dialog.findViewById(R.id.secondary_text) as TextView
         if (secondaryButtonText != null) {
             secondaryTextView.visibility = View.VISIBLE
             secondaryTextView.text = secondaryButtonText
             secondaryTextView.setOnClickListener(secondaryListener)
-            secondaryTextView.typeface = font
         } else {
             secondaryTextView.visibility = View.GONE
         }

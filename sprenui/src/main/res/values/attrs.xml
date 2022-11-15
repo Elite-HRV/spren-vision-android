@@ -2,5 +2,9 @@
     <declare-styleable name="SprenUI">
         <attr name="api_key" format="string"/>
         <attr name="base_url" format="boolean"/>
+        <attr name="project" format="enum">
+            <enum name="FINGER_CAMERA" value="0"/>
+            <enum name="BODY_COMPOSITION" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

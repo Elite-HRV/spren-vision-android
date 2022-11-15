@@ -1,5 +1,4 @@
 <resources>
-    <string name="measure_hrv_home_fragment_label">Measure HRV Home Fragment</string>
     <string name="greeting_fragment_label">Greeting Fragment</string>
     <string name="allow_camera_fragment_label">Allow Camera Fragment</string>
     <string name="place_finger_fragment_label">Place Finger Fragment</string>
@@ -9,16 +8,38 @@
     <string name="server_side_error_fragment_label">Server Side Error Fragment</string>
     <string name="results_fragment_label">Results Fragment</string>
     <string name="information_fragment_label">Information Fragment</string>
-    <string name="home_title">Welcome to the Spren demo app</string>
-    <string name="try_it_now">Try it now</string>
+    <string name="scanning_body_comp_fragment_label">Scanning Body Composition Fragment</string>
+    <string name="greeting_body_comp_fragment_label">Greeting Body Composition Fragment</string>
+    <string name="privacy_body_comp_fragment_label">Privacy Body Composition Fragment</string>
+    <string name="accuracy_body_comp_fragment_label">Accuracy Body Composition Fragment</string>
+    <string name="weight_body_comp_fragment_label">Weight Body Composition Fragment</string>
+    <string name="age_body_comp_fragment_label">Age Body Composition Fragment</string>
+    <string name="gender_body_comp_fragment_label">Gender Body Composition Fragment</string>
+    <string name="activity_level_body_comp_fragment_label">Activity Level Body Composition Fragment</string>
+    <string name="result_body_comp_fragment_label">Result Body Composition Fragment</string>
+    <string name="result_info_body_comp_fragment_label">Result Info Body Composition Fragment</string>
+    <string name="server_side_error_body_comp_fragment_label">Server Side Error Body Composition Fragment</string>
+    <string name="body_position_error_body_comp_fragment_label">Body Position Error Body Composition Fragment</string>
+    <string name="height_body_comp_fragment_label">Height Body Composition Fragment</string>
+    <string name="setup_body_comp_fragment_label">Setup Body Composition Fragment</string>
+    <string name="analyzing_body_comp_fragment_label">Analyzing Body Composition Fragment</string>
+    <string name="confirmation_body_comp_fragment_label">Confirmation Body Composition Fragment</string>
+    <string name="denied_permissions_body_comp_fragment_label">Denied Permissions Fragment</string>
+    <!-- String for Finger Camera -->
+=======
+    <string name="faq_fragment_label">Faq Fragment</string>
+>>>>>>> bb33baf0b39b8ab4bdf81485e5fdb49743a5bd10
     <string name="next">Next</string>
     <string name="start_measurement">Start measurement</string>
     <string name="enable_camera">Enable camera</string>
     <string name="try_again">Try again</string>
-    <string name="advance_hrv_title">Unlock advanced HRV insights with your smartphone camera</string>
-    <string name="advance_hrv_text">&#8226;  Integrate via SDK and API \n&#8226;  Customizable look and feel \n&#8226;  Validated algorithms</string>
-    <string name="measure_hrv_title">Measure your HRV with your phone camera</string>
-    <string name="measure_hrv_text">Simply do a quick resting scan when you wake up to receive personalized stress and recovery insights.</string>
+    <string name="measure_hrv_title_1">Measure your HRV and recovery with your phone camera</string>
+    <string name="measure_hrv_title_2">Take a moment to measure your recovery</string>
+    <string name="measure_hrv_text">Simply do a quick resting scan to receive personalized stress and recovery insights.</string>
+    <string name="first_bullet_text">Refrain from strenuous activity for at least 15 minutes prior to reading</string>
+    <string name="second_bullet_text">Sit calmly for 1 minute before reading</string>
+    <string name="third_bullet_text">If needed, take 6 deep and slow breaths before starting reading then breathe naturally during the reading</string>
+    <string name="measure_hrv_text_2">For best HRV and recovery results:</string>
     <string name="place_your_fingertip_title">Place your fingertip over the rear-facing camera lens</string>
     <string name="place_your_fingertip_text">For the most accurate reading, leave the flash on or make sure you’re in a well lit area and can hold your hand steady</string>
     <string name="place_finger_title">Place your fingertip fully over the camera lens</string>
@@ -43,10 +64,11 @@
     <string name="hrv_score">HRV Score</string>
     <string name="heart_rate">Heart Rate</string>
     <string name="bpm">bpm</string>
+    <string name="rpm">rpm</string>
     <string name="respiration">Respiration</string>
     <string name="faq_title">FAQ</string>
     <string name="hrv_question">What is HRV and why does it matter?</string>
-    <string name="score_question">What does my score mean?</string>
+    <string name="score_question">How do I get the best results?</string>
     <string name="repeat_question">How often should I measure?</string>
     <string name="recovery_bar_title">Recovery</string>
     <string name="ans_balance_bar_title">ANS Balance</string>
@@ -56,35 +78,238 @@
     <string name="hrv_score_title">What is HRV?</string>
     <string name="heart_rate_title">What is resting heart rate?</string>
     <string name="respiration_rate_title">What is resting respiratory rate?</string>
-    <string name="recovery_first_text">\tYour Recovery Score is a personalized daily score that quantifies how recovered you are and how ready you are to take on the day.\n\n
+    <string name="recovery_first_text">Your Recovery Score is a personalized daily score that quantifies how recovered you are and how ready you are to take on the day.\n\n
 
-\tThis 1-10 score uses key heart rate and heart rate variability (HRV) metrics to learn your personal patterns and provide insight into how your body is adapting to things like exercise, stress, nutrition, work, and more. It helps you understand when your body is ready to perform and when you need to focus on rest and recovery.</string>
-    <string name="ans_balance_first_text">\tThe autonomic nervous system (ANS) controls almost all of the body’s “automatic” processes. It regulates bodily functions such as heart rate, blood sugar, blood pressure, temperature, energy, digestion, sexual function, tissue repair, and more.
+This 1-10 score uses key heart rate and heart rate variability (HRV) metrics to learn your personal patterns and provide insight into how your body is adapting to things like exercise, stress, nutrition, work, and more. It helps you understand when your body is ready to perform and when you need to focus on rest and recovery.</string>
+    <string name="ans_balance_first_text">The autonomic nervous system (ANS) controls almost all of the body’s “automatic” processes. It regulates bodily functions such as heart rate, blood sugar, blood pressure, temperature, energy, digestion, sexual function, tissue repair, and more.
 </string>
-    <string name="hrv_score_first_text">\tYour HRV Score is a 1-100 score that indicates your stress levels, recovery status, and general well-being.\n\n
+    <string name="hrv_score_first_text">Your HRV Score is a 1-100 score that indicates your stress levels, recovery status, and general well-being.\n\n
 
-\tUnlike basic heart rate (HR) that counts the number of heartbeats per minute, heart rate variability (HRV) looks much closer at the subtle variations between heartbeats that originate from your nervous system.\n\n
+Unlike basic heart rate (HR) that counts the number of heartbeats per minute, heart rate variability (HRV) looks much closer at the subtle variations between heartbeats that originate from your nervous system.\n\n
 
-\tHRV is considered the best, non-invasive measure of your Autonomic Nervous System and reveals how your body responds to exercise, illness, treatment, recovery, inflammation, stress, mental health, and lifestyle choices you make.\n\n
+HRV is considered the best, non-invasive measure of your Autonomic Nervous System and reveals how your body responds to exercise, illness, treatment, recovery, inflammation, stress, mental health, and lifestyle choices you make.\n\n
 
-\tA higher HRV Score generally indicates better health and fitness and lower stress, as well as a younger biological age.
+A higher HRV Score generally indicates better health and fitness and lower stress, as well as a younger biological age.
 </string>
-    <string name="heart_rate_first_text">\tResting heart rate (RHR) is a measure of your average number of heart beats per minute (bpm) while at rest. 60-100 bpm is considered normal for healthy adults. Highly trained athletes can have resting heart rates as low as 40 bpm.\n\n
+    <string name="heart_rate_first_text">Resting heart rate (RHR) is a measure of your average number of heart beats per minute (bpm) while at rest. 60-100 bpm is considered normal for healthy adults. Highly trained athletes can have resting heart rates as low as 40 bpm.\n\n
 
-\tResting heart rate is a useful metric for monitoring your fitness level and overall health. Generally speaking, a lower resting heart rate indicates a stronger and healthier heart muscle. People with lower resting heart rates typically have better cardiorespiratory fitness and tend to live longer.\n\n
+Resting heart rate is a useful metric for monitoring your fitness level and overall health. Generally speaking, a lower resting heart rate indicates a stronger and healthier heart muscle. People with lower resting heart rates typically have better cardiorespiratory fitness and tend to live longer.\n\n
 
-\tA short-term increase in resting heart rate can indicate physiological stress from things like exercise, stress and anxiety, sleep deprivation, illness onset, etc.\n\n
+A short-term increase in resting heart rate can indicate physiological stress from things like exercise, stress and anxiety, sleep deprivation, illness onset, etc.\n\n
 
-\tTo get an accurate resting heart rate measurement, ideally measure while in an inactive state such as seated, standing, or lying down without moving.</string>
-    <string name="respiration_rate_first_text">\tRespiratory rate, or breathing rate, is the number of respirations (i.e. breaths) you take per minute while at rest. The normal respiration rate for an adult at rest is 12 to 20  breaths per minute. A respiration rate under 12 or over 20 breaths per minute while resting is considered abnormal.\n\n
+To get an accurate resting heart rate measurement, ideally measure while in an inactive state such as seated, standing, or lying down without moving.</string>
+    <string name="respiration_rate_first_text">Respiratory rate, or breathing rate, is the number of respirations (i.e. breaths) you take per minute while at rest. The normal respiration rate for an adult at rest is 12 to 20  breaths per minute. A respiration rate under 12 or over 20 breaths per minute while resting is considered abnormal.\n\n
 
-\tResting respiration rate can indicate general cardiorespiratory fitness. Acute changes in resting respiratory rate can indicate poor rest and recovery or the onset of illness.\n\n
+Resting respiration rate can indicate general cardiorespiratory fitness. Acute changes in resting respiratory rate can indicate poor rest and recovery or the onset of illness.\n\n
 
-\tYour respiratory rate is calculated via raw heart rate data by taking advantage of Respiratory Sinus Arrhythmia, a normal phenomenom where the heart rate varies with respiration.
+Your respiratory rate is calculated via raw heart rate data by taking advantage of Respiratory Sinus Arrhythmia, a normal phenomenom where the heart rate varies with respiration.
 </string>
     <string name="ans_balance_second_text">
-\tThe ANS Balance indicates the relative balance between thethe SNS and PSNS, thus indicating the balance between recovery and physiological stress (both physical and mental).\n\n
+The ANS Balance indicates the relative balance between thethe SNS and PSNS, thus indicating the balance between recovery and physiological stress (both physical and mental).\n\n
 
-\tKnowing the relative balance of the ANS helps you better understand the current state of your body and determine the best course of action towards reaching your goals without working against yourself.</string>
+Knowing the relative balance of the ANS helps you better understand the current state of your body and determine the best course of action towards reaching your goals without working against yourself.</string>
     <string name="results">Results</string>
+    <!-- String for spren ui v2 -->
+    <string name="hrv_first_reading_score_text">HRV is an indicator of overall health and fitness. A higher HRV score means better health and fitness and lower stress.</string>
+    <string name="respiration_first_reading_score_text">Resting respiratory rate is a key indicator of health. Changes in daily resting respiration can indicate recovery issues or illness onset.</string>
+    <string name="hr_first_reading_score_text">Resting heart rate can reflect your current and future health. A lower heart rate indicates better cardiovascular fitness and increased longevity.</string>
+    <string name="improve_hrv_title">How do I improve my HRV?</string>
+    <string name="improve_hrv_text">Healthy behaviors can increase your HRV. Here are some proven ways to increase your HRV:</string>
+    <string name="improve_hrv_stay_active_title">Stay active</string>
+    <string name="improve_hrv_stay_active_text">Avoid being sedentary and exercise appropriately; athletes should avoid overtraining.</string>
+    <string name="improve_hrv_sleep_well_title">Sleep well and consistently</string>
+    <string name="improve_hrv_sleep_well_text">Consistent, quality sleep is key to recovering from daily stressors.</string>
+    <string name="improve_hrv_eat_well_title">Eat well</string>
+    <string name="improve_hrv_eat_well_text">Reduce inflammatory foods and alcohol and prioritize nutrient rich foods; avoid large meals close to bedtime.</string>
+    <string name="improve_hrv_hydrate_title">Hydrate</string>
+    <string name="improve_hrv_hydrate_text">Hydration is important for maintaining a healthy blood volume needed to deliver oxygen and nutrients to your body.</string>
+    <string name="improve_hrv_wellness_title">Better manage stress</string>
+    <string name="improve_hrv_wellness_text">Listen to your body and prioritize recovery activities when you have increased stress.</string>
+    <string name="improve_hrv_breathing_title">Intentional breathing</string>
+    <string name="improve_hrv_breathing_text">Doing regular intentional breathing practices with slow, controlled breathing techniques can reduce stress and improve HRV.</string>
+    <string name="improve_hrv_natural_light_title">Natural light exposure</string>
+    <string name="improve_hrv_natural_light_text">Early morning and evening sunlight can help regulate your circadium rhythm and improve vitamin D production.</string>
+    <string name="improve_hr_title">How to improve resting heart rate</string>
+    <string name="improve_hr_text">Healthy behaviors can lower your resting heart rate and improve your health and longevity. Here are some proven ways to lower your resting heart rate:</string>
+    <string name="improve_hr_stay_active_text">Avoid being sedentary and exercise appropriately to maintain a stronger heart muscle. The American Heart Association recommends at least 150 minutes per week of moderate-intensity aerobic activity or 75 minutes per week of vigorous activity.</string>
+    <string name="improve_hr_healthy_weight_title">Maintain a healthy weight</string>
+    <string name="improve_hr_healthy_weight_text">Excess fat and not enough muscle mass force your heart to work harder to deliver blood to your body. Maintaining a healthy weight with good nutrition and regular exercise gives your heart a break.</string>
+    <string name="improve_hr_hydrate_title">Stay hydrated</string>
+    <string name="improve_hr_hydrate_text">Hydration is important for maintaining a healthy blood volume needed to deliver oxygen and nutrients to your body. Dehydration can cause your blood to thicken, which makes your heart work harder.</string>
+    <string name="improve_hr_sleep_well_title">Sleep well and consistently</string>
+    <string name="improve_hr_sleep_well_text">Your heart rate lowers while you are sleeping. Consistent, quality sleep gives your heart a needed break to recover from the day’s stressors.</string>
+    <string name="improve_hr_wellness_title">Better manage stress</string>
+    <string name="improve_hr_wellness_text">Anxiety and stress can elevate your heart rate. Listen to your body and practice mindfulness and breathing exercises to combat stress.</string>
+    <string name="improve_hr_no_smoking_title">Avoid caffeine and nicotine</string>
+    <string name="improve_hr_no_smoking_text">Caffeine and cigarettes can increase your heart rate and cutting back can lower your resting heart rate.</string>
+    <string name="improve_respiration_card_title_1">Abnormally High</string>
+    <string name="improve_respiration_card_title_2">Abnormally Low</string>
+    <string name="improve_respiration_card_text_1">A resting respiratory rate above 20 breaths per minute in adults is called tachypnea. Tachypnea is rapid, shallow breathing that results from a lack of oxygen or too much carbon dioxide in the body. Tachypnea is normal during exercise or exertion but can be concerning when it occurs at rest. Tachypnea in a rested state can be caused by:\n
+\u2022 Anxiety or panic attack\n
+\u2022 Fever or virus\n
+\u2022 Lung-related conditions\n
+\u2022 Overheating from heatstroke\n
+\u2022 epsis\n
+\u2022 High acid levels in the blood related to health conditions such as diabetic ketoacidosis\n
+\u2022 Heart-related conditions such as heart failure and anemia\n
+\u2022 Certain drugs such as aspirin, stimulants, and marijuana\n
+If tachypnea occurs without any other obvious symptoms or conditions, then it could be related to metabolic imbalances or central nervous system conditions.\n\n If you have an abnormal respiratory rate, seek guidance from your doctor or other qualified health professional with questions or concerns regarding your health or a potential medical condition.</string>
+    <string name="improve_respiration_card_text_2">A resting respiratory rate below 12 breaths per minute in adults is called bradypnea. Bradypnea can occur when you do slow, deep, and controlled breathing for relaxation and breathing exercises and is not a concern then unless you feel lightheaded, dizzy, or shortness of breath.\nHowever, if you are at rest and breathing normally, bradypnea for too long can be concerning because it can lead to hypoxemia (i.e. low blood oxygen), respiratory acidosis, or complete respiratory failure. Some potential causes for bradypnea while in a rested state include:\n
+\u2022 Opioid drugs\n
+\u2022 Sedatives\n
+\u2022 Hormone imbalances (e.g. untreated hypothyroidism)\n
+\u2022 Toxins (e.g. carbon monoxide, chemicals that affect the central nervous system and cardiovascular system)\n
+\u2022 Head injury\n
+\u2022 Lung disorders\n
+\u2022 Electrolyte imbalance\n\n
+If you have an abnormal respiratory rate, seek guidance from your doctor or other qualified health professional with questions or concerns regarding your health or a potential medical condition.</string>
+    <string name="normal_12_20_rpm">Normal (12-20 rpm)</string>
+    <string name="hr_rate_score_title">Resting Heart Rate</string>
+    <string name="athlete">Athlete</string>
+    <string name="very_good">Very Good</string>
+    <string name="average">Average</string>
+    <string name="below_average">Below Average</string>
+    <string name="poor">Poor</string>
+    <string name="better_than_average">Better than Average</string>
+    <string name="excellent">Excellent</string>
+    <string name="above_average">Above Average</string>
+    <string name="what_is_hrv">What is HRV?</string>
+    <string name="what_is_hrv_answer">Heart rate variability (HRV) is the subtle variations between heartbeats that originate from your nervous system and indicates your stress levels, recovery status, and general well-being.\n\n
+
+HRV is considered the best, non-invasive measure of your Autonomic Nervous System (ANS), which controls almost all of the body’s “automatic” processes such as heart rate, blood pressure, temperature, digestion, sexual function, tissue repair, and more. The opposing branches of the ANS modulate your body’s “fight or flight” stress response and “rest and digest” recovery activities.</string>
+    <string name="what_does_it_matter">Why does it matter?</string>
+    <string name="what_does_it_matter_answer">A higher HRV Score generally indicates better health, a younger biological age, and better aerobic fitness. Tracking your HRV over time can show when you are improving or not.\n\n
+
+HRV is great at measuring baseline physiological stress. Regularly measuring HRV and related insights such as Recovery can reveal how your body responds to things like exercise, stress, nutrition, work, and more so you can start to learn what factors most affect you.\n\n
+
+Your Recovery score can help you understand when your body is ready to perform and when you need to focus on rest and recovery in order to prevent over-training or injury.</string>
+    <string name="best_results">How do I get the most accurate Recovery results?</string>
+    <string name="best_results_answer_1">Consistency is key!\n\n
+
+When measured consistently, the Recovery Score (based on HRV) can provide a gauge for how your body is responding to (or recovering from) things like exercise, stress, nutrition, work and more.  Because HRV can be influenced by the day’s stressors and normal hormonal and circadian rhythms, consistency in measurement practice can reduce the effects of these confounding factors to provide better results and guidance.</string>
+    <string name="best_results_subtitle">For the best results:</string>
+    <string name="best_results_answer_2">1. Do your measurements in the same position every time such as sitting or lying down\n
+2. Try to do your measurements around the same time of day, ideally within 30 minutes of waking in the morning prior to exercise or caffeine consumption.\n
+3. Try to do measurements at least 4 times per week so the algorithms can generate an accurate picture of your baseline.\n\n
+
+If you are not able to do your measurement in the morning right after waking up, then follow a few simple steps to help ensure more consistent measurements:\n\n
+
+\u2022 Refrain from strenuous activity for at least 15 minutes prior to your measurement\n
+\u2022 Sit calmly for at least one minute before your measurement\n
+\u2022 Take 6 deep and slow breaths before starting your reading to calm your nervous system and lower your heart rate to a rested state\n
+\u2022 Breath naturally during your measurement</string>
+    <string name="how_often">How often should I measure?</string>
+    <string name="how_often_answer">For the most accurate Recovery results and personalized guidance, we recommend doing a measurement at least four (4) days per week. This allows us to adequately establish what “normal” looks like for you and better alert you when your HRV patterns show your body is under-recovered.\n\n
+
+Our algorithms need at least 2 days to start establishing your baseline patterns and will continue to build your baseline over a 2-week period. Then your baseline will continually update over time as your HRV, health, and fitness levels change.\n\n
+
+Consistency in how you do you measurement is important. Because HRV can be influenced by the day’s stressors and normal hormonal and circadian rhythms, consistency in measurement practice can reduce the effects of these confounding factors. Try to do your measurement in the same position every day (i.e. sitting or lying down) and try to do it around the same time of day, ideally within 30 minutes of waking in the morning prior to exercise or caffeine consumption.</string>
+    <!-- Strings for body composition -->
+    <string name="try_it_now">Try it now</string>
+    <string name="see_my_results">See my results</string>
+    <string name="action_settings">Settings</string>
+    <string name="greeting_body_comp_title">Measure body fat composition with your phone camera</string>
+    <string name="greeting_body_comp_text">Body composition provides a better picture of your health than weight or BMI alone.  Our accuracy is comparable to an in-laboratory DEXA scan.</string>
+    <string name="weight_body_comp_title">Enter your weight</string>
+    <string name="age_body_comp_title">Enter your age</string>
+    <string name="weight_body_comp_text">We need your body weight to accurately track changes in fat-free mass and fat mass over time.</string>
+    <string name="height_body_comp_title">Enter your height</string>
+    <string name="height_body_comp_text">We need to know your height to provide you with accurate measurement results.</string>
+    <string name="pounds">lbs</string>
+    <string name="kilograms">kg</string>
+    <string name="feet">Feet</string>
+    <string name="inches">Inches</string>
+    <string name="ft_in">ft/in</string>
+    <string name="cm">cm</string>
+    <string name="denied_permissions_body_comp_camera_title">Camera access is needed to do a body composition measurement</string>
+    <string name="denied_permissions_body_comp_camera_text">Allow access to camera in your Android Settings in order to receive personalized insights and guidance.</string>
+    <string name="denied_permissions_body_comp_photos_title">Access to Photos is needed to upload a photo for body composition analysis</string>
+    <string name="denied_permissions_body_comp_photos_text">Allow access to Photos in your Android Settings in order to receive personalized insights and guidance.</string>
+    <string name="denied_permissions_body_comp_camera_button">Enable camera</string>
+    <string name="denied_permissions_body_comp_photos_button">Allow access</string>
+    <string name="greeting_body_comp_accuracy">How accurate is this?</string>
+    <string name="greeting_body_comp_security">Privacy and security</string>
+    <string name="privacy_body_comp_title">Privacy and Security</string>
+    <string name="privacy_body_comp_text">Your privacy and security are important! \n\nNo identifiable imagery leaves your phone. Your photo is de-identified prior to being transmitted to the cloud where our algorithms process and calculate your results. Once you receive your results, your unidentifiable photo is automatically deleted from the cloud. \n\nWe use world class encryption security and privacy measures when transmitting and storing any data that is used to provide you results and guidance.</string>
+    <string name="accuracy_body_comp_title">How accurate is this?</string>
+    <string name="accuracy_body_comp_text">Spren Body Composition is powered by a computer vision algorithm that delivers body composition results that are 96-99% comparable to gold-standard laboratory measurement methods such as DEXA and Underwater Weighing - but from the comfort of your own home. \n\nFour independent research groups published studies verifying the accuracy of our patented Body Composition imaging technology.</string>
+    <string name="accuracy_body_comp_text_2">Now you can get a comprehensive set of body composition insights including body fat percentage, lean mass, hip and waist fat, ratios, and a Body Health score all from a convenient selfie. \n\nOther common body composition methods such as DEXA, underwater weighing, and Bio-impedance 3D scans are expensive specialty screenings that require a trip to a facility with a trained professional and an invasive protocol. At-home bio-impedance scales have low accuracy and consistency and fail to provide important fat distribution information. \n\nSpren’s Body Composition technology allows you to better track your fitness and health progress accurately and conveniently.</string>
+    <string name="accuracy_body_comp_title_2">Why body composition instead of weight and BMI?</string>
+    <string name="accuracy_body_comp_text_3">Weight and BMI do not consider body type or distinguish fat from muscle and therefore can easily misclassify a person and their health risks. For example, an athlete can be overweight according to BMI but in reality they are not overfat and have higher muscle mass for their height and demographic. \n\nBody composition metrics such as body fat percentage, lean mass, and information about fat distribution can provide a more accurate picture of your health and fitness.</string>
+    <string name="accuracy_body_comp_text_4">This body composition scan is not intended for pregnant women or women up to 6 months post-partum. The results would not reflect accurate body composition for pregnant and post-partum women and following the body composition results and insights could be harmful to the fetus or mother.</string>
+    <string name="everything_look_good">Everything look good?</string>
+    <string name="feet_together">Feet together</string>
+    <string name="arms_out_30_45_degrees_from_body">Arms out 30-45 degrees from body</string>
+    <string name="whole_body_centered_in_photo">Whole body centered in photo</string>
+    <string name="picture">Picture</string>
+    <string name="retake">Retake</string>
+    <string name="parameters">Parameters</string>
+    <string name="edit">Edit</string>
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
+    <string name="age">Age:</string>
+    <string name="gender">Gender:</string>
+    <string name="recent_activity_level">Recent activity level:</string>
+    <string name="edit_parameters">Edit parameters</string>
+    <string name="close">Close</string>
+    <string name="weight2">Weight</string>
+    <string name="height2">Height</string>
+    <string name="feet_lowercase">feet</string>
+    <string name="inches_lowercase">inches</string>
+    <string name="cm_lowercase">cm</string>
+    <string name="age2">Age</string>
+    <string name="gender2">Gender</string>
+    <string name="recent_activity_level2">Recent Activity Level</string>
+    <string name="days_in_week">days in week</string>
+    <string name="age_body_comp_text">This data improve the accuracy of the results and used to provide appropriate reference ranges and guidance.</string>
+    <string name="select_your_gender">Select your gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="activity_level_text">During the last 7 days, on how many days did you do vigorous physical activities like heavy lifting or hard cardio exercise? This data improves the accuracy of the results.</string>
+    <string name="days">Days</string>
+    <string name="body_fat">Body Fat</string>
+    <string name="lean_mass">Lean Mass</string>
+    <string name="lean_mass_description">Fat Free Mass collectively refers to the combination of Lean Soft Tissue (muscle), water, and bone. Skeletal muscle is the largest body component in adults, and accounts for about 40% of your total body weight.</string>
+    <string name="fat_mass">Fat Mass</string>
+    <string name="fat_mass_description">Fat Mass describes how much adipose tissue is in your body, and is measured in pounds or kilograms.</string>
+    <string name="body_weight">Body Weight</string>
+    <string name="body_weight_description">Your weight is often used as a crude measure of health. This number is often used to calculate Body Mass Index, which expresses your weight in relation to your height. Adopting a “one-size-fits all” approach for determining a healthy weight or Body Mass Index is misleading, as body composition can vary by age, race, gender, and physical activity level across individuals with the same body weight.</string>
+    <string name="android_fat">Android Fat</string>
+    <string name="android_fat_description">Android fat (i.e. the “apple shape”) is more common among men. This fat is stored primarily around the abdomen and waist, and this distribution pattern is often related to higher risk for obesity-related health complications.</string>
+    <string name="gynoid_fat">Gynoid Fat</string>
+    <string name="gynoid_fat_description">Gynoid fat (i.e. the “pear shape”) is more common among women. This fat is stored primarily around the hips and thighs, and this distribution pattern is often considered healthier because it is related to lower risk of obesity-related health complications.</string>
+    <string name="android_gynoid">Android:Gynoid</string>
+    <string name="android_gynoid_ratio">Android:Gynoid Ratio</string>
+    <string name="android_gynoid_ratio_description">The ratio for android fat storage to gynoid fat storage is correlated with metabolic insulin resistance, matabolic disregulation, and risk of cardiovasular disease. A higher value of Android:Gynoid fat ratio indicates an increased risk for metabolic and cardiovascular diseases due to increased visceral fat storage. It is ideal to have a Android: Gynoid Fat ratio less than 1.0.</string>
+    <string name="metabolic_rate">Metabolic Rate</string>
+    <string name="resting_metabolic_rate">Resting Metabolic Rate</string>
+    <string name="resting_metabolic_rate_description">Resting metabolic rate is the total number of calories burned when your body is completely at rest. This information could be helpful for a person who is trying to manage their weight.</string>
+    <string name="percent">%</string>
+    <string name="kCal">kCal</string>
+    <string name="empty"></string>
+    <string name="your_body_composition_analysis">Your Body Composition Analysis</string>
+    <string name="additional_metrics_available_to_your_users_when_demographic_information_is_provided">Additional metrics available to your users when demographic information is provided</string>
+    <string name="go_deeper_with_resting_metabolic_rate_and_normative_indicators_as_well_as_showing_progress_over_time">Go deeper with resting metabolic rate and normative indicators as well as showing progress over time</string>
+    <string name="learn_more">Learn more</string>
+    <string name="body_fat_percentage">Body Fat Percentage</string>
+    <string name="this_is_the_percentage_of_your_total_body_weight_that_is_made_up_of_fat_mass">This is the percentage of your total body weight that is made up of fat mass.</string>
+    <string name="powered_by">Powered by</string>
+    <string name="timer_off">timer\n off</string>
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="guided_indicator_title">\u2022 Center your whole body in frame\n\n
+\u2022 Stand with your feet together\n\n
+\u2022 Put your arms out at 45 degrees</string>
+    <string name="sorry_there_was_an_error_calculating_your_results">Sorry! There was an error calculating your results</string>
+    <string name="please_take_another_photo_to_view_your_body_composition_results">Please take another photo to view your body composition results.</string>
+    <string name="sorry_we_couldn_t_calculate_your_results">Sorry, we couldn’t calculate your results</string>
+    <string name="unfortunately_we_couldn_t_accurately_calculate_your_results_due_to_incorrect_body_position_please_take_another_picture_to_view_your_body_composition_results">Unfortunately, we couldn’t accurately calculate your results due to incorrect body position. Please take another picture to view your body composition results.</string>
+    <string name="center_your_whole_body_in_the_photo">Center your whole body in the photo</string>
+    <string name="stand_with_your_feet_and_heels_together">Stand with your feet and heels together</string>
+    <string name="put_your_arms_out_around_30_45_degrees_from_your_body">Put your arms out around 30-45 degrees from your body</string>
+    <string name="tips">Tips</string>
+    <string name="analyzing_body_composition">Analyzing body composition...</string>
+    <string name="correlation_comparison">Correlation Comparison</string>
+    <string name="correlation_comparison_text">This chart shows a high degree of correlation between the body volume (BV) estimates of the Underwater weighing method (UWW) and our 2D image processing system (SPREN) for calculating body composition results.</string>
 </resources>

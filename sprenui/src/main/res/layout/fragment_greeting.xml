@@ -31,10 +31,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/measure_hrv_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:alpha="0.75"
+                android:layout_width="343dp"
+                android:layout_height="343dp"
+                android:layout_marginTop="-44dp"
                 android:tint="?colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,11 +44,11 @@
                 android:id="@+id/measure_hrv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
-                android:lineSpacingExtra="-10sp"
+                android:lineSpacingExtra="-5sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/measure_hrv_title"
                 android:textColor="@color/main_text_color"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -71,6 +71,90 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/measure_hrv_title" />
 
+            <TextView
+                android:id="@+id/measure_hrv_text_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:letterSpacing="0"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/measure_hrv_text_2"
+                android:textColor="@color/main_text_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/measure_hrv_text" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/first_bullet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:tint="?colorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/measure_hrv_text_2"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/first_bullet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingEnd="32dp"
+                android:text="@string/first_bullet_text"
+                android:textColor="@color/tertiary_text_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/first_bullet"
+                app:layout_constraintTop_toTopOf="@id/first_bullet" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/second_bullet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:tint="?colorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_bullet_text"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/second_bullet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingEnd="16dp"
+                android:text="@string/second_bullet_text"
+                android:textColor="@color/tertiary_text_color"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/second_bullet"
+                app:layout_constraintStart_toEndOf="@id/second_bullet"
+                app:layout_constraintTop_toTopOf="@id/second_bullet" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/third_bullet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="16dp"
+                android:tint="?colorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/second_bullet_text"
+                app:srcCompat="@drawable/ic_done" />
+
+            <TextView
+                android:id="@+id/third_bullet_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingEnd="16dp"
+                android:text="@string/third_bullet_text"
+                android:textColor="@color/tertiary_text_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/third_bullet"
+                app:layout_constraintTop_toTopOf="@id/third_bullet" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -80,6 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:fontFamily="@font/roboto_regular"
         android:letterSpacing="0"
         android:text="@string/next"
         android:textAllCaps="false"

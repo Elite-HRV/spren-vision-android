@@ -26,6 +26,7 @@
                 android:id="@+id/done_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -39,6 +40,7 @@
                 android:id="@+id/results_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
                 android:text="@string/results"
                 android:textColor="@color/tertiary_text_color"
@@ -77,6 +79,7 @@
                         android:id="@+id/recovery_score_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:text="@string/recovery"
@@ -132,6 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -146,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -160,6 +165,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="-20dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:paddingEnd="32dp"
                         android:text="@string/recover"
@@ -174,6 +180,7 @@
                         android:id="@+id/recovery_right_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:paddingStart="32dp"
                         android:text="@string/train_hard"
@@ -189,6 +196,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -202,6 +210,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:textColor="@color/tertiary_text_color"
                         android:textSize="14sp"
@@ -232,6 +241,7 @@
                         android:id="@+id/ans_score_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:text="@string/ans_balance"
@@ -257,6 +267,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:textColor="@color/tertiary_text_color"
                         android:textSize="14sp"
@@ -288,6 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/sympathetic"
                         android:textColor="@color/light_purple_color"
@@ -300,12 +312,317 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/parasympathetic"
                         android:textColor="@color/light_purple_color"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ans_score_scale" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hrv_first_reading_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ans_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/hrv_first_reading_score_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/hrv_first_reading_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_first_reading_score_progress_circular"
+                        app:layout_constraintEnd_toEndOf="@id/hrv_first_reading_score_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/hrv_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hrv_first_reading_score_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hrv_first_reading_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/hrv_score"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_first_reading_score_value"
+                        app:layout_constraintStart_toEndOf="@id/hrv_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hrv_first_reading_score_value" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_first_reading_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_first_reading_score_value"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_first_reading_score_value"
+                        app:srcCompat="@drawable/ic_arrow_right_bigger" />
+
+                    <TextView
+                        android:id="@+id/hrv_first_reading_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/hrv_first_reading_score_text"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_first_reading_score_progress_circular" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/hrv_first_reading_score_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_first_reading_score_text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hr_first_reading_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hrv_first_reading_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/hr_first_reading_score_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/hr_first_reading_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@id/hr_first_reading_score_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/hr_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hr_first_reading_score_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hr_first_reading_score_value_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/bpm"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/hr_first_reading_score_value"
+                        app:layout_constraintStart_toStartOf="@id/hr_first_reading_score_value"
+                        app:layout_constraintTop_toBottomOf="@id/hr_first_reading_score_value" />
+
+                    <TextView
+                        android:id="@+id/hr_first_reading_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/heart_rate"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_first_reading_score_value"
+                        app:layout_constraintStart_toEndOf="@id/hr_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hr_first_reading_score_value" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_first_reading_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_first_reading_score_value"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_first_reading_score_value"
+                        app:srcCompat="@drawable/ic_arrow_right_bigger" />
+
+                    <TextView
+                        android:id="@+id/hr_first_reading_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/hr_first_reading_score_text"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_first_reading_score_progress_circular" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/hr_first_reading_score_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_first_reading_score_text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/respiration_first_reading_score_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hr_first_reading_score_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/respiration_first_reading_score_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/respiration_first_reading_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@id/respiration_first_reading_score_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/respiration_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/respiration_first_reading_score_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/respiration_first_reading_score_value_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/rpm"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/respiration_first_reading_score_value"
+                        app:layout_constraintStart_toStartOf="@id/respiration_first_reading_score_value"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_first_reading_score_value" />
+
+                    <TextView
+                        android:id="@+id/respiration_first_reading_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/respiration"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_first_reading_score_value"
+                        app:layout_constraintStart_toEndOf="@id/respiration_first_reading_score_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/respiration_first_reading_score_value" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/respiration_first_reading_score_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_first_reading_score_value"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/respiration_first_reading_score_value"
+                        app:srcCompat="@drawable/ic_arrow_right_bigger" />
+
+                    <TextView
+                        android:id="@+id/respiration_first_reading_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/respiration_first_reading_score_text"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_first_reading_score_progress_circular" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/respiration_first_reading_score_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_first_reading_score_text" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -321,7 +638,7 @@
                 app:contentPadding="16dp"
                 app:layout_constraintEnd_toStartOf="@id/hr_score_card"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ans_score_card">
+                app:layout_constraintTop_toBottomOf="@id/respiration_first_reading_score_card">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -331,6 +648,7 @@
                         android:id="@+id/hrv_score_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/hrv_score"
                         android:textColor="@color/tertiary_text_color"
@@ -355,6 +673,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -388,6 +707,7 @@
                         android:id="@+id/hr_score_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/heart_rate"
                         android:textColor="@color/tertiary_text_color"
@@ -412,6 +732,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -427,6 +748,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:text="@string/bpm"
@@ -461,6 +783,7 @@
                         android:id="@+id/respiration_score_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/respiration"
                         android:textColor="@color/tertiary_text_color"
@@ -485,6 +808,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:textAlignment="center"
@@ -500,9 +824,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
-                        android:text="@string/bpm"
+                        android:text="@string/rpm"
                         android:textAlignment="center"
                         android:textColor="@color/main_text_color"
                         android:textSize="16sp"
@@ -535,6 +860,7 @@
                         android:id="@+id/faq_title_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:letterSpacing="0"
                         android:lineSpacingExtra="-10sp"
                         android:text="@string/faq_title"
@@ -548,6 +874,7 @@
                         android:id="@+id/first_question_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/hrv_question"
                         android:textColor="@color/tertiary_text_color"
@@ -581,6 +908,7 @@
                         android:id="@+id/second_question_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
                         android:letterSpacing="0"
                         android:text="@string/score_question"
                         android:textColor="@color/tertiary_text_color"

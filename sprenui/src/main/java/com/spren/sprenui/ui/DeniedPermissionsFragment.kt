@@ -1,7 +1,6 @@
 package com.spren.sprenui.ui
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -41,24 +40,23 @@ class DeniedPermissionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.deniedPermissionsTitle.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.deniedPermissionsText.typeface = font
-        binding.enableButton.typeface = font
         binding.closeImage.setOnClickListener {
             SprenUI.Config.onCancel?.let {
                 it.invoke()
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.action_DeniedPermissionsFragment_to_MeasureHRVHomeFragment)
+            findNavController().navigate(R.id.action_DeniedPermissionsFragment_to_GreetingFragment)
         }
         binding.enableButton.setOnClickListener {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             val uri = Uri.fromParts("package", activity?.packageName, null)
             intent.data = uri
             resultLauncher.launch(intent)
+        }
+
+        if (SprenUI.Config.graphics != null && SprenUI.Config.graphics!![SprenUI.Graphic.NO_CAMERA] != null) {
+            binding.deniedPermissionsImage.setColorFilter(requireContext().getColor(R.color.transparent))
+            binding.deniedPermissionsImage.setImageResource(SprenUI.Config.graphics!![SprenUI.Graphic.NO_CAMERA]!!)
         }
     }
 

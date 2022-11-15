@@ -6,8 +6,12 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 
 object Permissions {
-    val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-    fun allPermissionsGranted(baseContext: Context) = REQUIRED_PERMISSIONS.all {
+    val CAMERA_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    val EXTERNAL_STORAGE_PERMISSIONS = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun allPermissionsGranted(
+        baseContext: Context,
+        permissions: Array<String> = CAMERA_PERMISSIONS
+    ) = permissions.all {
         ContextCompat.checkSelfPermission(
             baseContext, it
         ) == PackageManager.PERMISSION_GRANTED

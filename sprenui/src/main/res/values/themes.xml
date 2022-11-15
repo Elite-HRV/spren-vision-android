@@ -12,4 +12,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <style name="Widget.MaterialComponents.TextInputLayout.FilledBox.MyStyle">
+        <item name="colorControlActivated">@color/progress_red</item>
+    </style>
 </resources>

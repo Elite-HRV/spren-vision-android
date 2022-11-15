@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/GreetingBodyCompFragment">
+    <fragment
+        android:id="@+id/ScanningBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ScanningBodyCompFragment"
+        android:label="@string/scanning_body_comp_fragment_label"
+        tools:layout="@layout/fragment_scanning_body_comp">
+        <action
+            android:id="@+id/action_ScanningBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_ScanningBodyCompFragment_to_ConfirmBodyCompFragment"
+            app:destination="@id/ConfirmBodyCompFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GreetingBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.GreetingBodyCompFragment"
+        android:label="@string/greeting_body_comp_fragment_label"
+        tools:layout="@layout/fragment_greeting_body_comp">
+
+        <action
+            android:id="@+id/action_GreetingBodyCompFragment_to_WeightBodyCompFragment"
+            app:destination="@id/WeightBodyCompFragment" />
+        <action
+            android:id="@+id/action_GreetingBodyCompFragment_to_PrivacyBodyCompFragment"
+            app:destination="@id/PrivacyBodyCompFragment" />
+        <action
+            android:id="@+id/action_GreetingBodyCompFragment_to_AccuracyBodyCompFragment"
+            app:destination="@id/AccuracyBodyCompFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PrivacyBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.PrivacyBodyCompFragment"
+        android:label="@string/privacy_body_comp_fragment_label"
+        tools:layout="@layout/fragment_privacy_body_comp">
+
+        <action
+            android:id="@+id/action_PrivacyBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/AccuracyBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.AccuracyBodyCompFragment"
+        android:label="@string/accuracy_body_comp_fragment_label"
+        tools:layout="@layout/fragment_accuracy_body_comp">
+
+        <action
+            android:id="@+id/action_AccuracyBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/WeightBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.WeightBodyCompFragment"
+        android:label="@string/weight_body_comp_fragment_label"
+        tools:layout="@layout/fragment_weight_body_comp">
+
+        <action
+            android:id="@+id/action_WeightBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_WeightBodyCompFragment_to_HeightBodyCompFragment"
+            app:destination="@id/HeightBodyCompFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HeightBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.HeightBodyCompFragment"
+        android:label="@string/height_body_comp_fragment_label"
+        tools:layout="@layout/fragment_height_body_comp">
+
+        <action
+            android:id="@+id/action_HeightBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_HeightBodyCompFragment_to_AgeBodyCompFragment"
+            app:destination="@id/AgeBodyCompFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SetupBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.SetupBodyCompFragment"
+        android:label="@string/setup_body_comp_fragment_label"
+        tools:layout="@layout/fragment_setup_body_comp">
+
+        <action
+            android:id="@+id/action_SetupBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_SetupBodyCompFragment_to_DeniedPermissionsBodyCompFragment"
+            app:destination="@id/DeniedPermissionsBodyCompFragment" />
+        <action
+            android:id="@+id/action_SetupBodyCompFragment_to_ScanningBodyCompFragment"
+            app:destination="@id/ScanningBodyCompFragment" />
+        <action
+            android:id="@+id/action_SetupBodyCompFragment_to_ConfirmBodyCompFragment"
+            app:destination="@id/ConfirmBodyCompFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/DeniedPermissionsBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.DeniedPermissionsBodyCompFragment"
+        android:label="@string/denied_permissions_body_comp_fragment_label"
+        tools:layout="@layout/fragment_denied_permissions_body_comp">
+
+        <action
+            android:id="@+id/action_DeniedPermissionsBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_DeniedPermissionsBodyCompFragment_to_SetupBodyCompFragment"
+            app:destination="@id/SetupBodyCompFragment" />
+
+        <argument
+            android:name="camera"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ConfirmBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ConfirmBodyCompFragment"
+        android:label="@string/confirmation_body_comp_fragment_label"
+        tools:layout="@layout/fragment_confirmation_body_comp">
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_ConfirmBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_ConfirmBodyCompFragment_to_AnalyzingBodyCompFragment"
+            app:destination="@id/AnalyzingBodyCompFragment" />
+        <action
+            android:id="@+id/action_ConfirmBodyCompFragment_to_ScanningBodyCompFragment"
+            app:destination="@id/ScanningBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AnalyzingBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.AnalyzingBodyCompFragment"
+        android:label="@string/analyzing_body_comp_fragment_label"
+        tools:layout="@layout/fragment_analyzing_body_comp">
+        <action
+            android:id="@+id/action_AnalyzingBodyCompFragment_to_ServerSideErrorBodyCompFragment"
+            app:destination="@id/ServerSideErrorBodyCompFragment" />
+        <action
+            android:id="@+id/action_AnalyzingBodyCompFragment_to_BodyPositionErrorBodyCompFragment"
+            app:destination="@id/BodyPositionErrorBodyCompFragment" />
+        <action
+            android:id="@+id/action_AnalyzingBodyCompFragment_to_ResultBodyCompFragment"
+            app:destination="@id/ResultBodyCompFragment"
+            app:popUpTo="@id/GreetingBodyCompFragment" />
+        <action
+            android:id="@+id/action_AnalyzingBodyCompFragment_to_ScanningBodyCompFragment"
+            app:destination="@id/ScanningBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AgeBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.AgeBodyCompFragment"
+        android:label="@string/age_body_comp_fragment_label"
+        tools:layout="@layout/fragment_age_body_comp">
+        <action
+            android:id="@+id/action_AgeBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_AgeBodyCompFragment_to_GenderBodyCompFragment"
+            app:destination="@id/GenderBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/GenderBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.GenderBodyCompFragment"
+        android:label="@string/gender_body_comp_fragment_label"
+        tools:layout="@layout/fragment_gender_body_comp">
+        <action
+            android:id="@+id/action_GenderBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_GenderBodyCompFragment_to_ActivityLevelBodyCompFragment"
+            app:destination="@id/ActivityLevelBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ActivityLevelBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ActivityLevelBodyCompFragment"
+        android:label="@string/activity_level_body_comp_fragment_label"
+        tools:layout="@layout/fragment_activity_level_body_comp">
+        <action
+            android:id="@+id/action_ActivityLevelBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_ActivityLevelBodyCompFragment_to_SetupBodyCompFragment"
+            app:destination="@id/SetupBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ResultBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ResultBodyCompFragment"
+        android:label="@string/result_body_comp_fragment_label"
+        tools:layout="@layout/fragment_result_body_comp">
+        <action
+            android:id="@+id/action_ResultBodyCompFragment_to_ResultInfoBodyCompFragment"
+            app:destination="@id/ResultInfoBodyCompFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ResultInfoBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ResultInfoBodyCompFragment"
+        android:label="@string/result_info_body_comp_fragment_label"
+        tools:layout="@layout/fragment_result_info_body_comp"/>
+
+    <fragment
+        android:id="@+id/ServerSideErrorBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.ServerSideErrorBodyCompFragment"
+        android:label="@string/server_side_error_fragment_label"
+        tools:layout="@layout/fragment_server_side_error_body_comp">
+    </fragment>
+
+    <fragment
+        android:id="@+id/BodyPositionErrorBodyCompFragment"
+        android:name="com.spren.sprenui.ui.bodycomp.BodyPositionErrorBodyCompFragment"
+        android:label="@string/body_position_error_body_comp_fragment_label"
+        tools:layout="@layout/fragment_body_position_error">
+    </fragment>
+</navigation>

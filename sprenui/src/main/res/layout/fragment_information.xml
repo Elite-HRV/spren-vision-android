@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bar"
@@ -36,6 +37,7 @@
                 android:id="@+id/bar_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
                 android:textColor="@color/tertiary_text_color"
                 android:textSize="16sp"
@@ -46,8 +48,8 @@
                 tools:text="@string/recovery_bar_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -55,11 +57,755 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bar">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/respiration_rate_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/respiration_rate_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/respiration_rate_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@id/respiration_rate_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/respiration_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/respiration_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/respiration_rate_score_value_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/rpm"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/respiration_rate_score_value"
+                        app:layout_constraintStart_toStartOf="@id/respiration_rate_score_value"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_rate_score_value" />
+
+                    <TextView
+                        android:id="@+id/respiration_rate_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/respiration_rate_bar_title"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_rate_progress_circular"
+                        app:layout_constraintStart_toEndOf="@id/respiration_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/respiration_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/respiration_rate_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_rate_progress_circular" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/respiration_rate_score_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_rate_score_text"
+                        app:srcCompat="@drawable/ic_indicator" />
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/respiration_rate_progress_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_rate_score_indicator"
+                        app:trackColor="@color/grey_lighter"
+                        app:trackCornerRadius="99dp"
+                        app:trackThickness="6dp" />
+
+                    <View
+                        android:id="@+id/respiration_rate_divider_1"
+                        android:layout_width="1dp"
+                        android:layout_height="6dp"
+                        android:background="@color/light_purple"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_rate_progress_linear"
+                        app:layout_constraintEnd_toStartOf="@id/respiration_rate_divider_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/respiration_rate_progress_linear" />
+
+                    <View
+                        android:id="@+id/respiration_rate_divider_2"
+                        android:layout_width="1dp"
+                        android:layout_height="6dp"
+                        android:background="@color/light_purple"
+                        app:layout_constraintBottom_toBottomOf="@id/respiration_rate_progress_linear"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/respiration_rate_divider_1"
+                        app:layout_constraintTop_toTopOf="@id/respiration_rate_progress_linear" />
+
+                    <TextView
+                        android:id="@+id/respiration_rate_score_normal_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/normal_12_20_rpm"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/respiration_rate_progress_linear" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hr_rate_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/hr_rate_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="@id/hr_rate_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/hr_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_value_extra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-4dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/bpm"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/hr_rate_score_value"
+                        app:layout_constraintStart_toStartOf="@id/hr_rate_score_value"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_value" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/hr_rate_score_title"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_progress_circular"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_ranges"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_text" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_athlete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_ranges"
+                        app:srcCompat="@drawable/ic_athlete" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_athlete_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/athlete"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_athlete"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_athlete"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_athlete" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_athlete_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_athlete"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_athlete" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_very_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_athlete"
+                        app:srcCompat="@drawable/ic_very_good" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_very_good_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/very_good"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_very_good"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_very_good"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_very_good" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_very_good_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_very_good"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_very_good" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_better_than_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_very_good"
+                        app:srcCompat="@drawable/ic_better_than_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_better_than_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/better_than_average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_better_than_average"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_better_than_average"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_better_than_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_better_than_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_better_than_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_better_than_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_better_than_average"
+                        app:srcCompat="@drawable/ic_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_average"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_average"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_below_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_average"
+                        app:srcCompat="@drawable/ic_below_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_below_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/below_average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_below_average"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_below_average"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_below_average" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_below_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_below_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_below_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hr_rate_score_poor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hr_rate_score_below_average"
+                        app:srcCompat="@drawable/ic_poor" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_poor_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/poor"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_poor"
+                        app:layout_constraintStart_toEndOf="@id/hr_rate_score_poor"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_poor" />
+
+                    <TextView
+                        android:id="@+id/hr_rate_score_poor_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hr_rate_score_poor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hr_rate_score_poor" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/hrv_rate_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/hrv_rate_progress_circular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorSize="72dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/transparent"
+                        app:trackThickness="3dp" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_progress_circular"
+                        app:layout_constraintEnd_toEndOf="@id/hrv_rate_progress_circular"
+                        app:layout_constraintStart_toStartOf="@id/hrv_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/hrv_score"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_progress_circular"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_progress_circular"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/icon_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_progress_circular" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_ranges"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_text" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_athlete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_ranges"
+                        app:srcCompat="@drawable/ic_athlete" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_athlete_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/excellent"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_athlete"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_athlete"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_athlete" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_athlete_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_athlete"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_athlete" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_very_good"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_athlete"
+                        app:srcCompat="@drawable/ic_very_good" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_very_good_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/very_good"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_very_good"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_very_good"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_very_good" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_very_good_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_very_good"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_very_good" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_better_than_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_very_good"
+                        app:srcCompat="@drawable/ic_better_than_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_better_than_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/above_average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_better_than_average"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_better_than_average"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_better_than_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_better_than_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_better_than_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_better_than_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_better_than_average"
+                        app:srcCompat="@drawable/ic_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_average"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_average"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_below_average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_average"
+                        app:srcCompat="@drawable/ic_below_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_below_average_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/below_average"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_below_average"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_below_average"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_below_average" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_below_average_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_below_average"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_below_average" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/hrv_rate_score_poor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hrv_rate_score_below_average"
+                        app:srcCompat="@drawable/ic_poor" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_poor_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/poor"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_poor"
+                        app:layout_constraintStart_toEndOf="@id/hrv_rate_score_poor"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_poor" />
+
+                    <TextView
+                        android:id="@+id/hrv_rate_score_poor_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hrv_rate_score_poor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hrv_rate_score_poor" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -75,6 +821,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -99,6 +846,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -107,6 +855,689 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/improve_hrv_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_text">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/improve_hrv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hrv_title"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/improve_hrv_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hrv_text"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hrv_title" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/improve_hrv_stay_active_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hrv_text"
+                        app:srcCompat="@drawable/ic_cardio" />
+
+                    <TextView
+                        android:id="@+id/improve_hrv_stay_active_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hrv_stay_active_title"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/improve_hrv_stay_active_image"
+                        app:layout_constraintTop_toTopOf="@id/improve_hrv_stay_active_image" />
+
+                    <TextView
+                        android:id="@+id/improve_hrv_stay_active_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:paddingEnd="32dp"
+                        android:text="@string/improve_hrv_stay_active_text"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@id/improve_hrv_stay_active_title"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hrv_stay_active_title" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/collapsing_improve_hrv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hrv_stay_active_text">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_sleep_well_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_sleep" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_sleep_well_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_sleep_well_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_sleep_well_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_sleep_well_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_sleep_well_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_sleep_well_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_sleep_well_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_sleep_well_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_eat_well_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_sleep_well_text"
+                            app:srcCompat="@drawable/ic_food" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_eat_well_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_eat_well_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_eat_well_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_eat_well_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_eat_well_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_eat_well_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_eat_well_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_eat_well_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_hydrate_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_eat_well_text"
+                            app:srcCompat="@drawable/ic_bottle" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_hydrate_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_hydrate_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_hydrate_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_hydrate_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_hydrate_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_hydrate_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_hydrate_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_hydrate_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_wellness_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_hydrate_text"
+                            app:srcCompat="@drawable/ic_wellness" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_wellness_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_wellness_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_wellness_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_wellness_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_wellness_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_wellness_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_wellness_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_wellness_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_breathing_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_wellness_text"
+                            app:srcCompat="@drawable/ic_lungs" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_breathing_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_breathing_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_breathing_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_breathing_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_breathing_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_breathing_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_breathing_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_breathing_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hrv_natural_light_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_breathing_text"
+                            app:srcCompat="@drawable/ic_sun" />
+
+                        <TextView
+                            android:id="@+id/improve_hrv_natural_light_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hrv_natural_light_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hrv_natural_light_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hrv_natural_light_image" />
+
+                        <TextView
+                            android:id="@+id/natural_light_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hrv_natural_light_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hrv_natural_light_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hrv_natural_light_title" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/improve_hrv_show_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="?colorSecondary"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/collapsing_improve_hrv" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/improve_hrv_show_text_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:tint="?colorSecondary"
+                        app:layout_constraintStart_toEndOf="@id/improve_hrv_show_text"
+                        app:layout_constraintTop_toTopOf="@id/improve_hrv_show_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/improve_hr_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_text">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/improve_hr_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hr_title"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/improve_hr_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hr_text"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hr_title" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/improve_hr_stay_active_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:tint="@color/tertiary_text_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hr_text"
+                        app:srcCompat="@drawable/ic_cardio" />
+
+                    <TextView
+                        android:id="@+id/improve_hr_stay_active_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:text="@string/improve_hrv_stay_active_title"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/improve_hr_stay_active_image"
+                        app:layout_constraintTop_toTopOf="@id/improve_hr_stay_active_image" />
+
+                    <TextView
+                        android:id="@+id/improve_hr_stay_active_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:paddingEnd="32dp"
+                        android:text="@string/improve_hr_stay_active_text"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@id/improve_hr_stay_active_title"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hr_stay_active_title" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/collapsing_improve_hr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_hr_stay_active_text">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hr_healthy_weight_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_weight" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_healthy_weight_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hr_healthy_weight_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hr_healthy_weight_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hr_healthy_weight_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_healthy_weight_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hr_healthy_weight_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hr_healthy_weight_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_healthy_weight_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hr_hydrate_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_healthy_weight_text"
+                            app:srcCompat="@drawable/ic_bottle" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_hydrate_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hr_hydrate_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hr_hydrate_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hr_hydrate_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_hydrate_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hr_hydrate_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hr_hydrate_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_hydrate_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hr_sleep_well_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_hydrate_text"
+                            app:srcCompat="@drawable/ic_sleep" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_sleep_well_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hr_sleep_well_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hr_sleep_well_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hr_sleep_well_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_sleep_well_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hr_sleep_well_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hr_sleep_well_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_sleep_well_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hr_wellness_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_sleep_well_text"
+                            app:srcCompat="@drawable/ic_wellness" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_wellness_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hr_wellness_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hr_wellness_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hr_wellness_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_wellness_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hr_wellness_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hr_wellness_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_wellness_title" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/improve_hr_no_smoking_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:tint="@color/tertiary_text_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_wellness_text"
+                            app:srcCompat="@drawable/ic_no_smoking" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_no_smoking_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:letterSpacing="0"
+                            android:text="@string/improve_hr_no_smoking_title"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/improve_hr_no_smoking_image"
+                            app:layout_constraintTop_toTopOf="@id/improve_hr_no_smoking_image" />
+
+                        <TextView
+                            android:id="@+id/improve_hr_no_smoking_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:letterSpacing="0"
+                            android:paddingEnd="32dp"
+                            android:text="@string/improve_hr_no_smoking_text"
+                            android:textColor="@color/tertiary_text_color"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/improve_hr_no_smoking_title"
+                            app:layout_constraintTop_toBottomOf="@id/improve_hr_no_smoking_title" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/improve_hr_show_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="?colorSecondary"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/collapsing_improve_hr" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/improve_hr_show_text_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:tint="?colorSecondary"
+                        app:layout_constraintStart_toEndOf="@id/improve_hr_show_text"
+                        app:layout_constraintTop_toTopOf="@id/improve_hr_show_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/improve_respiration_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_text">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/improve_respiration_card_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:letterSpacing="0"
+                        android:textColor="@color/main_text_color"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/improve_respiration_card_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:letterSpacing="0"
+                        android:textColor="@color/tertiary_text_color"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/improve_respiration_card_title" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
