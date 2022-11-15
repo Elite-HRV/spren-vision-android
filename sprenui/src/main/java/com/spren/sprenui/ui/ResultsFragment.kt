@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
 import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentResultsBinding
+import com.spren.sprenui.network.model.ResultsFingerCamera
 import com.spren.sprenui.util.Age
 import com.spren.sprenui.util.InformationScreenType
 import java.time.ZoneId
@@ -2355,14 +2356,16 @@ class ResultsFragment : Fragment() {
         binding.doneText.setOnClickListener {
             SprenUI.Config.onFinish?.let {
                 it.invoke(
-                    SprenUI.LatestRequest.guid,
-                    hr,
-                    hrvScore,
-                    rmssd,
-                    breathingRate,
-                    if (readiness != 0f) readiness else null,
-                    if (ansBalance != 0f) ansBalance else null,
-                    signalQuality
+                    ResultsFingerCamera(
+                        SprenUI.LatestRequest.guid,
+                        hr,
+                        hrvScore,
+                        rmssd,
+                        breathingRate,
+                        if (readiness != 0f) readiness else null,
+                        if (ansBalance != 0f) ansBalance else null,
+                        signalQuality
+                    ), null
                 )
                 return@setOnClickListener
             }

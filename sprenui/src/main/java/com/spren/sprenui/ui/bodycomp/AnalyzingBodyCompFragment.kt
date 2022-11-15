@@ -143,7 +143,7 @@ class AnalyzingBodyCompFragment : Fragment() {
         }
         builder.setNegativeButton("Cancel") { dialog, _ ->
             dialog.dismiss()
-            findNavController().popBackStack(R.id.GreetingBodyCompFragment, false)
+            findNavController().navigate(R.id.action_AnalyzingBodyCompFragment_to_GreetingBodyCompFragment)
         }
 
         val dialog: AlertDialog = builder.create()

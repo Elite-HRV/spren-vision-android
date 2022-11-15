@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
@@ -32,19 +31,15 @@ class ServerSideErrorBodyCompFragment : Fragment() {
 
     private fun setActionListeners() {
         binding.closeImage.setOnClickListener {
-            findNavController().popBackStack(R.id.GreetingBodyCompFragment, false)
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
+            findNavController().navigate(R.id.action_ServerSideErrorBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.tryNowButton.setOnClickListener {
-            findNavController().popBackStack(R.id.ScanningBodyCompFragment, false)
+            findNavController().navigate(R.id.action_ServerSideErrorBodyCompFragment_to_ScanningBodyCompFragment)
         }
-        // We need to handle back press in order to be able to handle
-        // two different popBackStack on (closeImage and tryNowButton) buttons
-        // otherwise back button will navigate one time back only to the previous fragment
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().popBackStack(R.id.GreetingBodyCompFragment, false)
-            }
-        })
 
         if (SprenUI.Config.graphics != null && SprenUI.Config.graphics!![SprenUI.Graphic.SERVER_ERROR] != null) {
             binding.greetingBodyCompImage.setColorFilter(requireContext().getColor(R.color.transparent))

@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
 import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentInformationBinding
@@ -2004,7 +2005,7 @@ class InformationFragment : Fragment() {
             }
         }
         binding.backImage.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

@@ -24,6 +24,7 @@ import com.google.mlkit.vision.pose.PoseDetector
 import com.google.mlkit.vision.pose.PoseLandmark
 import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentScanningBodyCompBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -239,6 +240,10 @@ class ScanningBodyCompFragment : Fragment() {
         }
 
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_ScanningBodyCompFragment_to_GreetingBodyCompFragment)
         }
 

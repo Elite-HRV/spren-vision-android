@@ -48,6 +48,10 @@ class DeniedPermissionsBodyCompFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_DeniedPermissionsBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.enableButton.setOnClickListener {

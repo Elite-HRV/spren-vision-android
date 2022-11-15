@@ -3,9 +3,9 @@ package com.spren.sprenui.ui.bodycomp.analyze
 import android.content.ContentResolver
 import android.content.SharedPreferences
 import android.net.Uri
-import android.view.View
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.network.model.bodycomp.BodyCompBody
 import com.spren.sprenui.network.model.bodycomp.BodyCompData
 import com.spren.sprenui.network.model.bodycomp.Result
@@ -50,6 +50,7 @@ object BodyCompApiClient {
 
         guid?.let {
             var result: Result?
+            SprenUI.LatestRequest.guid = guid
             do {
                 val response = insightsApi.getBodyCompResults(guid)
                 if (!response.isSuccessful) {

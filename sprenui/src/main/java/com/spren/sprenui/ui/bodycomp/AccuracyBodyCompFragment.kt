@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentAccuracyBodyCompBinding
 
 
@@ -34,6 +35,10 @@ class AccuracyBodyCompFragment : Fragment() {
             "<b>Disclaimer:</b> ${context?.getString(R.string.accuracy_body_comp_text_4)}"
         binding.accuracyBodyCompText4.text = Html.fromHtml(sourceString)
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_AccuracyBodyCompFragment_to_GreetingBodyCompFragment)
         }
     }

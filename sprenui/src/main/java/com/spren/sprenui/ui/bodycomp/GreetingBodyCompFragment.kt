@@ -30,6 +30,10 @@ class GreetingBodyCompFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             requireActivity().onBackPressed()
         }
         binding.tryNowButton.setOnClickListener {
