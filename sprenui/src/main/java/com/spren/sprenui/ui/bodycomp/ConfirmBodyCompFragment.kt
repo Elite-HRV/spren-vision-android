@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentConfirmationBodyCompBinding
 import com.spren.sprenui.util.Image
 import com.spren.sprenui.util.SharedPreferences
@@ -95,6 +96,10 @@ class ConfirmBodyCompFragment : Fragment(), ConfirmBodyCompDialogCallbackListene
 
     private fun setActionListeners(view: View) {
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_ConfirmBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.retakeButton.setOnClickListener {

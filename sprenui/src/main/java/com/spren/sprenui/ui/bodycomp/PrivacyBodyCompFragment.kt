@@ -30,6 +30,10 @@ class PrivacyBodyCompFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_PrivacyBodyCompFragment_to_GreetingBodyCompFragment)
         }
 

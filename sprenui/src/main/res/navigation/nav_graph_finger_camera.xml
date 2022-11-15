@@ -63,7 +63,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_DeniedPermissionsFragment_to_PlaceFingerFragment"
-            app:destination="@id/PlaceFingerFragment" />
+            app:destination="@id/PlaceFingerFragment"
+            app:popUpTo="@+id/AllowCameraFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/ScanningFragment"
@@ -93,10 +95,14 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_CalculatingFragment_to_ScanningFragment"
-            app:destination="@id/ScanningFragment" />
+            app:destination="@id/ScanningFragment"
+            app:popUpTo="@+id/ScanningFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_CalculatingFragment_to_ServerSideErrorFragment"
-            app:destination="@id/ServerSideErrorFragment" />
+            app:destination="@id/ServerSideErrorFragment"
+            app:popUpTo="@+id/ScanningFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_CalculatingFragment_to_ResultsFragment"
             app:destination="@id/ResultsFragment"
@@ -116,7 +122,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ServerSideErrorFragment_to_ScanningFragment"
-            app:destination="@id/ScanningFragment" />
+            app:destination="@id/ScanningFragment"
+            app:popUpTo="@+id/ScanningFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/ResultsFragment"

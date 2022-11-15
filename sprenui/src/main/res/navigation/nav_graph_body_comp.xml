@@ -122,7 +122,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_DeniedPermissionsBodyCompFragment_to_SetupBodyCompFragment"
-            app:destination="@id/SetupBodyCompFragment" />
+            app:destination="@id/SetupBodyCompFragment"
+            app:popUpTo="@+id/ActivityLevelBodyCompFragment"
+            app:popUpToInclusive="false" />
 
         <argument
             android:name="camera"
@@ -147,7 +149,9 @@
             app:destination="@id/AnalyzingBodyCompFragment" />
         <action
             android:id="@+id/action_ConfirmBodyCompFragment_to_ScanningBodyCompFragment"
-            app:destination="@id/ScanningBodyCompFragment" />
+            app:destination="@id/ScanningBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -156,18 +160,30 @@
         android:label="@string/analyzing_body_comp_fragment_label"
         tools:layout="@layout/fragment_analyzing_body_comp">
         <action
+            android:id="@+id/action_AnalyzingBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_AnalyzingBodyCompFragment_to_ServerSideErrorBodyCompFragment"
-            app:destination="@id/ServerSideErrorBodyCompFragment" />
+            app:destination="@id/ServerSideErrorBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_AnalyzingBodyCompFragment_to_BodyPositionErrorBodyCompFragment"
-            app:destination="@id/BodyPositionErrorBodyCompFragment" />
+            app:destination="@id/BodyPositionErrorBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_AnalyzingBodyCompFragment_to_ResultBodyCompFragment"
             app:destination="@id/ResultBodyCompFragment"
-            app:popUpTo="@id/GreetingBodyCompFragment" />
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_AnalyzingBodyCompFragment_to_ScanningBodyCompFragment"
-            app:destination="@id/ScanningBodyCompFragment" />
+            app:destination="@id/ScanningBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -221,6 +237,11 @@
         android:label="@string/result_body_comp_fragment_label"
         tools:layout="@layout/fragment_result_body_comp">
         <action
+            android:id="@+id/action_ResultBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_ResultBodyCompFragment_to_ResultInfoBodyCompFragment"
             app:destination="@id/ResultInfoBodyCompFragment" />
     </fragment>
@@ -229,13 +250,23 @@
         android:id="@+id/ResultInfoBodyCompFragment"
         android:name="com.spren.sprenui.ui.bodycomp.ResultInfoBodyCompFragment"
         android:label="@string/result_info_body_comp_fragment_label"
-        tools:layout="@layout/fragment_result_info_body_comp"/>
+        tools:layout="@layout/fragment_result_info_body_comp" />
 
     <fragment
         android:id="@+id/ServerSideErrorBodyCompFragment"
         android:name="com.spren.sprenui.ui.bodycomp.ServerSideErrorBodyCompFragment"
         android:label="@string/server_side_error_fragment_label"
         tools:layout="@layout/fragment_server_side_error_body_comp">
+        <action
+            android:id="@+id/action_ServerSideErrorBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_ServerSideErrorBodyCompFragment_to_ScanningBodyCompFragment"
+            app:destination="@id/ScanningBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -243,5 +274,15 @@
         android:name="com.spren.sprenui.ui.bodycomp.BodyPositionErrorBodyCompFragment"
         android:label="@string/body_position_error_body_comp_fragment_label"
         tools:layout="@layout/fragment_body_position_error">
+        <action
+            android:id="@+id/action_BodyPositionErrorBodyCompFragment_to_GreetingBodyCompFragment"
+            app:destination="@id/GreetingBodyCompFragment"
+            app:popUpTo="@+id/GreetingBodyCompFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_BodyPositionErrorBodyCompFragment_to_ScanningBodyCompFragment"
+            app:destination="@id/ScanningBodyCompFragment"
+            app:popUpTo="@+id/ScanningBodyCompFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

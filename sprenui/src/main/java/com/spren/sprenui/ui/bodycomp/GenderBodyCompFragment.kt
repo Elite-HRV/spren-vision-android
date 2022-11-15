@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentGenderBodyCompBinding
 import com.spren.sprenui.util.SharedPreferences
 
@@ -50,6 +51,10 @@ class GenderBodyCompFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_GenderBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.genderBodyCompChips.setOnCheckedChangeListener { _, _ ->

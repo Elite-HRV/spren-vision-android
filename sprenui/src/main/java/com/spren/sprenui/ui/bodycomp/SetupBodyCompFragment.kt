@@ -78,6 +78,10 @@ class SetupBodyCompFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_SetupBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.startButton.setOnClickListener {

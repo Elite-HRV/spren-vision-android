@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.spren.sprenui.R
+import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentHeightBodyCompBinding
 import com.spren.sprenui.util.SharedPreferences
 
@@ -62,6 +63,10 @@ class HeightBodyCompFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.closeImage.setOnClickListener {
+            SprenUI.Config.onCancel?.let {
+                it.invoke()
+                return@setOnClickListener
+            }
             findNavController().navigate(R.id.action_HeightBodyCompFragment_to_GreetingBodyCompFragment)
         }
         binding.nextButton.setOnClickListener {
