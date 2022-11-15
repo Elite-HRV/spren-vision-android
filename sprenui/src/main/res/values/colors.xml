@@ -11,9 +11,16 @@
     <color name="white">#FFFFFF</color>
     <color name="line_background">#DFDFDF</color>
     <color name="light_purple_color">#7C7D94</color>
+    <color name="grey">#9599A4</color>
+    <color name="grey_lighter">#E9E9EC</color>
+    <color name="light_purple">#C3C0CF</color>
     <!-- Colors with night values -->
     <color name="background">#FFFFFFFF</color>
     <color name="secondary_background">#E5E5E5</color>
+    <color name="tertiary_background">#000000</color>
+    <color name="confirmation_dialog_background_one">#aaaaaa</color>
+    <color name="confirmation_dialog_background_two">#fafafa</color>
+    <color name="analysing_background">#e8e8e8</color>
     <color name="main_text_color">#1A233D</color>
     <color name="secondary_text_color">#070815</color>
     <color name="tertiary_text_color">#2A3249</color>
@@ -21,4 +28,10 @@
     <color name="bigger_check_icon_color">#191A32</color>
     <color name="icon_text_color">#7F8391</color>
     <color name="progress_background">#EFF2F5</color>
+    <color name="athlete">#0DC18B</color>
+    <color name="very_good">#4DD56B</color>
+    <color name="above_average">#98EB44</color>
+    <color name="average">#FFDF36</color>
+    <color name="below_average">#FF9C13</color>
+    <color name="poor">#FF6767</color>
 </resources>

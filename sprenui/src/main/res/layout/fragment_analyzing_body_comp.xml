@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/analysing_background"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="0.05"
+        />
+    <RelativeLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.73">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <RelativeLayout
+            android:id="@+id/bg"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/ic_analyzing_corners">
+            <ImageView
+                android:layout_width="22pt"
+                android:layout_height="22pt"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_analyzing_top_left"
+                />
+            <ImageView
+                android:layout_width="22pt"
+                android:layout_height="22pt"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_analyzing_top_right"
+                />
+            <ImageView
+                android:layout_width="22pt"
+                android:layout_height="22pt"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_analyzing_bottom_left"
+                />
+            <ImageView
+                android:layout_width="22pt"
+                android:layout_height="22pt"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_analyzing_bottom_right"
+                />
+
+            <RelativeLayout
+                android:id="@+id/animation_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/ic_analyzing_background"
+                android:visibility="invisible">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@drawable/ic_analyzing_background_line" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/circular_progress_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="0.22"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:minWidth="300dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp"
+            android:gravity="center"
+            android:background="@drawable/ic_analyzing_tip_border">
+
+            <ImageView
+                android:id="@+id/upload_done_icon"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_done"
+                android:visibility="gone" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/upload_progress_circular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicatorSize="20dp"
+                app:indicatorColor="#ffffff"
+                android:layout_gravity="center"
+                android:indeterminate="true" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/textView"
+                android:textColor="#ffffff"
+                android:layout_marginStart="12dp"
+                android:text="@string/analyzing_body_composition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

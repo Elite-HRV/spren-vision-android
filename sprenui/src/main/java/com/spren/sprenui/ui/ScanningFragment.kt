@@ -1,7 +1,6 @@
 package com.spren.sprenui.ui
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -80,10 +79,6 @@ class ScanningFragment : Fragment() {
 
         hardwareAlert = HardwareAlert(requireActivity())
         init()
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.progressText.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.percentageText.typeface = font
         binding.progressCircular.setProgressCompat(progress, true)
         binding.closeImage.setOnClickListener {
             showCancelAlert()
@@ -202,7 +197,7 @@ class ScanningFragment : Fragment() {
             it.invoke()
             return
         }
-        findNavController().navigate(R.id.action_ScanningFragment_to_MeasureHRVHomeFragment)
+        findNavController().navigate(R.id.action_ScanningFragment_to_GreetingFragment)
     }
 
     private fun errorState() = showErrorAlert()

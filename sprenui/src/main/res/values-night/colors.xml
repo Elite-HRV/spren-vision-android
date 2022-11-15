@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="secondary_background">#FF000000</color>
     <color name="background">#FF000000</color>
+    <color name="secondary_background">#FF000000</color>
+    <color name="tertiary_background">#FFFFFF</color>
+    <color name="confirmation_dialog_background_one">#FF000000</color>
+    <color name="confirmation_dialog_background_two">#FF000000</color>
+    <color name="analysing_background">#FF000000</color>
     <color name="main_text_color">#FFFFFF</color>
     <color name="secondary_text_color">#FFFFFF</color>
     <color name="tertiary_text_color">#FFFFFF</color>
@@ -9,4 +13,10 @@
     <color name="bigger_check_icon_color">#33EFF2F5</color>
     <color name="icon_text_color">#B2FFFFFF</color>
     <color name="progress_background">#33EFF2F5</color>
+    <color name="athlete">#1EB18E</color>
+    <color name="very_good">#57B583</color>
+    <color name="above_average">#84B77A</color>
+    <color name="average">#E8BC66</color>
+    <color name="below_average">#DD8A4B</color>
+    <color name="poor">#DB4848</color>
 </resources>

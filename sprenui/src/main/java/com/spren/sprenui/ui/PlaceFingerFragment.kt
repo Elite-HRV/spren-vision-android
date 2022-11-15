@@ -1,6 +1,5 @@
 package com.spren.sprenui.ui
 
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,21 +28,20 @@ class PlaceFingerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.placeFingerTitle.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.placeFingerText.typeface = font
-        binding.startButton.typeface = font
         binding.closeImage.setOnClickListener {
             SprenUI.Config.onCancel?.let {
                 it.invoke()
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.action_PlaceFingerFragment_to_MeasureHRVHomeFragment)
+            findNavController().navigate(R.id.action_PlaceFingerFragment_to_GreetingFragment)
         }
-        binding.startButton.setOnClickListener{
+        binding.startButton.setOnClickListener {
             findNavController().navigate(R.id.action_PlaceFingerFragment_to_ScanningFragment)
+        }
+
+        if (SprenUI.Config.graphics != null && SprenUI.Config.graphics!![SprenUI.Graphic.FINGER_ON_CAMERA] != null) {
+            binding.placeFingerImage.setColorFilter(requireContext().getColor(R.color.transparent))
+            binding.placeFingerImage.setImageResource(SprenUI.Config.graphics!![SprenUI.Graphic.FINGER_ON_CAMERA]!!)
         }
     }
 

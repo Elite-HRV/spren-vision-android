@@ -2,7 +2,6 @@ package com.spren.sprenui.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -45,18 +44,12 @@ class CalculatingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.calculatingTitle.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.calculatingText.typeface = font
-        binding.forInvestigationalUseOnlyText.typeface = font
         binding.closeImage.setOnClickListener {
             SprenUI.Config.onCancel?.let {
                 it.invoke()
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.action_CalculatingFragment_to_MeasureHRVHomeFragment)
+            findNavController().navigate(R.id.action_CalculatingFragment_to_GreetingFragment)
         }
         checkInternetConnection =
             viewLifecycleOwner.lifecycleScope.launch(context = Dispatchers.Main) { checkInternetConnection() }
@@ -140,14 +133,16 @@ class CalculatingFragment : Fragment() {
         while (isActive) {
             if (!isInternetAvailable(requireContext())) {
                 AlertDialog.Builder(requireContext())
-                    .setCustomTitle(LayoutInflater.from(context).inflate(R.layout.custom_title, null))
+                    .setCustomTitle(
+                        LayoutInflater.from(context).inflate(R.layout.custom_title, null)
+                    )
                     .setMessage(resources.getString(R.string.network_error_text))
                     .setPositiveButton(
                         resources.getString(R.string.network_error_primary_button_text)
                     ) { _, _ -> findNavController().navigate(R.id.action_CalculatingFragment_to_ScanningFragment) }
                     .setNegativeButton(
                         resources.getString(R.string.network_error_secondary_button_text)
-                    ) { _, _ -> findNavController().navigate(R.id.action_CalculatingFragment_to_MeasureHRVHomeFragment) }
+                    ) { _, _ -> findNavController().navigate(R.id.action_CalculatingFragment_to_GreetingFragment) }
                     .setCancelable(false)
                     .show()
                 updateProgress?.cancel()

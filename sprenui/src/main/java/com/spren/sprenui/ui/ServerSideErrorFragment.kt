@@ -1,6 +1,5 @@
 package com.spren.sprenui.ui
 
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,21 +28,20 @@ class ServerSideErrorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.serverSideErrorTitle.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.serverSideErrorText.typeface = font
-        binding.tryAgainButton.typeface = font
         binding.closeImage.setOnClickListener {
             SprenUI.Config.onCancel?.let {
                 it.invoke()
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.action_ServerSideErrorFragment_to_MeasureHRVHomeFragment)
+            findNavController().navigate(R.id.action_ServerSideErrorFragment_to_GreetingFragment)
         }
         binding.tryAgainButton.setOnClickListener {
             findNavController().navigate(R.id.action_ServerSideErrorFragment_to_ScanningFragment)
+        }
+
+        if (SprenUI.Config.graphics != null && SprenUI.Config.graphics!![SprenUI.Graphic.SERVER_ERROR] != null) {
+            binding.serverSideErrorImage.setColorFilter(requireContext().getColor(R.color.transparent))
+            binding.serverSideErrorImage.setImageResource(SprenUI.Config.graphics!![SprenUI.Graphic.SERVER_ERROR]!!)
         }
     }
 

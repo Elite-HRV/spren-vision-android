@@ -3,18 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MeasureHRVHomeFragment">
-
-    <fragment
-        android:id="@+id/MeasureHRVHomeFragment"
-        android:name="com.spren.sprenui.ui.MeasureHRVHomeFragment"
-        android:label="@string/measure_hrv_home_fragment_label"
-        tools:layout="@layout/fragment_measure_hrv_home">
-
-        <action
-            android:id="@+id/action_MeasureHRVHomeFragment_to_GreetingFragment"
-            app:destination="@id/GreetingFragment" />
-    </fragment>
+    app:startDestination="@id/GreetingFragment">
     <fragment
         android:id="@+id/GreetingFragment"
         android:name="com.spren.sprenui.ui.GreetingFragment"
@@ -22,11 +11,11 @@
         tools:layout="@layout/fragment_greeting">
 
         <action
-            android:id="@+id/action_GreetingFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
-        <action
             android:id="@+id/action_GreetingFragment_to_AllowCameraFragment"
             app:destination="@id/AllowCameraFragment" />
+        <action
+            android:id="@+id/action_GreetingFragment_to_PlaceFingerFragment"
+            app:destination="@id/PlaceFingerFragment" />
     </fragment>
     <fragment
         android:id="@+id/AllowCameraFragment"
@@ -35,8 +24,10 @@
         tools:layout="@layout/fragment_allow_camera">
 
         <action
-            android:id="@+id/action_AllowCameraFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_AllowCameraFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_AllowCameraFragment_to_PlaceFingerFragment"
             app:destination="@id/PlaceFingerFragment" />
@@ -51,8 +42,10 @@
         tools:layout="@layout/fragment_place_finger">
 
         <action
-            android:id="@+id/action_PlaceFingerFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_PlaceFingerFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_PlaceFingerFragment_to_ScanningFragment"
             app:destination="@id/ScanningFragment" />
@@ -64,8 +57,10 @@
         tools:layout="@layout/fragment_denied_permissions">
 
         <action
-            android:id="@+id/action_DeniedPermissionsFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_DeniedPermissionsFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_DeniedPermissionsFragment_to_PlaceFingerFragment"
             app:destination="@id/PlaceFingerFragment" />
@@ -77,8 +72,10 @@
         tools:layout="@layout/fragment_scanning">
 
         <action
-            android:id="@+id/action_ScanningFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_ScanningFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ScanningFragment_to_CalculatingFragment"
             app:destination="@id/CalculatingFragment" />
@@ -90,8 +87,10 @@
         tools:layout="@layout/fragment_calculating">
 
         <action
-            android:id="@+id/action_CalculatingFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_CalculatingFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_CalculatingFragment_to_ScanningFragment"
             app:destination="@id/ScanningFragment" />
@@ -111,8 +110,10 @@
         tools:layout="@layout/fragment_server_side_error">
 
         <action
-            android:id="@+id/action_ServerSideErrorFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_ServerSideErrorFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ServerSideErrorFragment_to_ScanningFragment"
             app:destination="@id/ScanningFragment" />
@@ -124,11 +125,16 @@
         tools:layout="@layout/fragment_results">
 
         <action
-            android:id="@+id/action_ResultsFragment_to_MeasureHRVHomeFragment"
-            app:destination="@id/MeasureHRVHomeFragment" />
+            android:id="@+id/action_ResultsFragment_to_GreetingFragment"
+            app:destination="@id/GreetingFragment"
+            app:popUpTo="@+id/GreetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ResultsFragment_to_InformationFragment"
             app:destination="@id/InformationFragment" />
+        <action
+            android:id="@+id/action_ResultsFragment_to_FaqFragment"
+            app:destination="@id/FaqFragment" />
 
         <argument
             android:name="hr"
@@ -159,19 +165,32 @@
         tools:layout="@layout/fragment_information">
 
         <argument
-            android:name="bar_text"
-            app:argType="integer" />
+            android:name="type"
+            app:argType="com.spren.sprenui.util.InformationScreenType" />
         <argument
-            android:name="title"
+            android:name="value"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/FaqFragment"
+        android:name="com.spren.sprenui.ui.FaqFragment"
+        android:label="@string/faq_fragment_label"
+        tools:layout="@layout/fragment_faq">
+
+        <argument
+            android:name="title_1_text"
             app:argType="integer" />
         <argument
             android:name="first_text"
             app:argType="integer" />
         <argument
-            android:name="second_text"
+            android:name="title_2_text"
             app:argType="integer" />
         <argument
-            android:name="image"
+            android:name="subtitle_text"
+            app:argType="integer" />
+        <argument
+            android:name="second_text"
             app:argType="integer" />
     </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.spren.sprenui.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
@@ -11,6 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
 import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentResultsBinding
+import com.spren.sprenui.util.Age
+import com.spren.sprenui.util.InformationScreenType
+import java.time.ZoneId
+import java.util.*
 import kotlin.math.roundToInt
 
 class ResultsFragment : Fragment() {
@@ -32,59 +37,14 @@ class ResultsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var font = Typeface.createFromAsset(activity?.assets, "Roboto-Bold.ttf")
-        binding.doneText.typeface = font
-        binding.resultsText.typeface = font
-        binding.recoveryScoreTitle.typeface = font
-        binding.recoveryScoreSecondTitle.typeface = font
-        binding.recoveryValue.typeface = font
-        binding.recoveryText.typeface = font
-        binding.ansScoreTitle.typeface = font
-        binding.hrvScoreValue.typeface = font
-        binding.hrScoreValue.typeface = font
-        binding.respirationScoreValue.typeface = font
-        binding.faqTitleText.typeface = font
-        font = Typeface.createFromAsset(activity?.assets, "Roboto-Regular.ttf")
-        binding.recoveryScoreText.typeface = font
-        binding.recoveryLeftText.typeface = font
-        binding.recoveryRightText.typeface = font
-        binding.ansScoreText.typeface = font
-        binding.ansScoreSympathetic.typeface = font
-        binding.ansScoreParasympathetic.typeface = font
-        binding.hrvScoreTitle.typeface = font
-        binding.hrScoreTitle.typeface = font
-        binding.respirationScoreTitle.typeface = font
-        binding.firstQuestionText.typeface = font
-        binding.secondQuestionText.typeface = font
-        binding.thirdQuestionText.typeface = font
-        val openHRVInformation = {
+        val openRecoveryInformation = {
             val direction =
                 ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
-                    R.string.hrv_score_bar_title,
-                    R.string.hrv_score_title,
-                    R.string.hrv_score_first_text,
-                    0,
+                    InformationScreenType.RECOVERY,
                     0
                 )
             findNavController().navigate(direction)
         }
-        /*binding.firstQuestionText.setOnClickListener { openHRVInformation.invoke() }
-        binding.firstQuestionImage.setOnClickListener { openHRVInformation.invoke() }*/
-        binding.hrvScoreCard.setOnClickListener { openHRVInformation.invoke() }
-        val openRecoveryInformation = {
-            val direction =
-                ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
-                    R.string.recovery_bar_title,
-                    0,
-                    R.string.recovery_first_text,
-                    0,
-                    R.drawable.ic_metric
-                )
-            findNavController().navigate(direction)
-        }
-        /*binding.secondQuestionText.setOnClickListener { openRecoveryInformation.invoke() }
-        binding.secondQuestionImage.setOnClickListener { openRecoveryInformation.invoke() }*/
         binding.recoveryScoreImage.setOnClickListener { openRecoveryInformation.invoke() }
         binding.progressCircularBackground.progress = 70
         binding.progressCircularBackground.rotation = 126f
@@ -92,41 +52,12 @@ class ResultsFragment : Fragment() {
         val openANSInformation = {
             val direction =
                 ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
-                    R.string.ans_balance_bar_title,
-                    0,
-                    R.string.ans_balance_first_text,
-                    R.string.ans_balance_second_text,
-                    R.drawable.ic_ans_balance
+                    InformationScreenType.ANS,
+                    0
                 )
             findNavController().navigate(direction)
         }
-        /*binding.thirdQuestionText.setOnClickListener { openANSInformation.invoke() }
-        binding.thirdQuestionImage.setOnClickListener { openANSInformation.invoke() }*/
         binding.ansScoreImage.setOnClickListener { openANSInformation.invoke() }
-        val openHRInformation = {
-            val direction =
-                ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
-                    R.string.heart_rate_bar_title,
-                    R.string.heart_rate_title,
-                    R.string.heart_rate_first_text,
-                    0,
-                    0
-                )
-            findNavController().navigate(direction)
-        }
-        binding.hrScoreCard.setOnClickListener { openHRInformation.invoke() }
-        val openRespirationInformation = {
-            val direction =
-                ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
-                    R.string.respiration_rate_bar_title,
-                    R.string.respiration_rate_title,
-                    R.string.respiration_rate_first_text,
-                    0,
-                    0
-                )
-            findNavController().navigate(direction)
-        }
-        binding.respirationScoreCard.setOnClickListener { openRespirationInformation.invoke() }
         var hr = 0f
         var hrvScore = 0f
         val rmssd = 0f
@@ -134,15 +65,93 @@ class ResultsFragment : Fragment() {
         var readiness = 0f
         var ansBalance = 0f
         var signalQuality = 0f
+
+        val openFirstQuestion = {
+            val direction =
+                ResultsFragmentDirections.actionResultsFragmentToFaqFragment(
+                    R.string.what_is_hrv,
+                    R.string.what_is_hrv_answer,
+                    R.string.what_does_it_matter,
+                    0,
+                    R.string.what_does_it_matter_answer
+                )
+            findNavController().navigate(direction)
+        }
+        binding.firstQuestionText.setOnClickListener { openFirstQuestion.invoke() }
+        binding.firstQuestionImage.setOnClickListener { openFirstQuestion.invoke() }
+
+        val openSecondQuestion = {
+            val direction =
+                ResultsFragmentDirections.actionResultsFragmentToFaqFragment(
+                    R.string.best_results,
+                    R.string.best_results_answer_1,
+                    0,
+                    R.string.best_results_subtitle,
+                    R.string.best_results_answer_2
+                )
+            findNavController().navigate(direction)
+        }
+        binding.secondQuestionText.setOnClickListener { openSecondQuestion.invoke() }
+        binding.secondQuestionImage.setOnClickListener { openSecondQuestion.invoke() }
+
+        val openThirdQuestion = {
+            val direction =
+                ResultsFragmentDirections.actionResultsFragmentToFaqFragment(
+                    R.string.how_often,
+                    R.string.how_often_answer,
+                    0,
+                    0,
+                    0
+                )
+            findNavController().navigate(direction)
+        }
+        binding.thirdQuestionText.setOnClickListener { openThirdQuestion.invoke() }
+        binding.thirdQuestionImage.setOnClickListener { openThirdQuestion.invoke() }
+
         arguments?.let {
             hr = ResultsFragmentArgs.fromBundle(it).hr
             hrvScore = ResultsFragmentArgs.fromBundle(it).hrvScore
             breathingRate = ResultsFragmentArgs.fromBundle(it).breathingRate
-            binding.hrScoreValue.text = hr.roundToInt().toString()
-            binding.hrvScoreValue.text = hrvScore.roundToInt().toString()
-            binding.respirationScoreValue.text = breathingRate.roundToInt().toString()
+            val hrRounded = hr.roundToInt()
+            val hrvScoreRounded = hrvScore.roundToInt()
+            val breathingRateRounded = breathingRate.roundToInt()
+            val openHRVInformation = {
+                val direction =
+                    ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
+                        InformationScreenType.HRV,
+                        hrvScoreRounded
+                    )
+                findNavController().navigate(direction)
+            }
+            binding.hrvScoreCard.setOnClickListener { openHRVInformation.invoke() }
+            binding.hrvFirstReadingScoreCard.setOnClickListener { openHRVInformation.invoke() }
+            val openHRInformation = {
+                val direction =
+                    ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
+                        InformationScreenType.HR,
+                        hrRounded
+                    )
+                findNavController().navigate(direction)
+            }
+            binding.hrScoreCard.setOnClickListener { openHRInformation.invoke() }
+            binding.hrFirstReadingScoreCard.setOnClickListener { openHRInformation.invoke() }
+            val openRespirationInformation = {
+                val direction =
+                    ResultsFragmentDirections.actionResultsFragmentToInformationFragment(
+                        InformationScreenType.RESPIRATION_RATE,
+                        breathingRateRounded
+                    )
+                findNavController().navigate(direction)
+            }
+            binding.respirationScoreCard.setOnClickListener { openRespirationInformation.invoke() }
+            binding.respirationFirstReadingScoreCard.setOnClickListener { openRespirationInformation.invoke() }
             readiness = ResultsFragmentArgs.fromBundle(it).readiness
             if (readiness != 0f) {
+                val sharedPreference =
+                    requireActivity().getSharedPreferences("READING", Context.MODE_PRIVATE)
+                val editor = sharedPreference.edit()
+                editor.putBoolean("subsequentReadingFlow", true)
+                editor.apply()
                 val readinessRounded = readiness.roundToInt()
                 binding.recoveryValue.text = readinessRounded.toString()
                 binding.progressCircular.progress = (readiness / 10 * 70).toInt()
@@ -205,9 +214,17 @@ class ResultsFragment : Fragment() {
                         binding.recoveryScoreText.text = scoreText[random - 1]
                     }
                 }
+                binding.hrScoreValue.text = hrRounded.toString()
+                binding.hrvScoreValue.text = hrvScoreRounded.toString()
+                binding.respirationScoreValue.text = breathingRateRounded.toString()
+                binding.hrvFirstReadingScoreCard.visibility = View.GONE
+                binding.hrFirstReadingScoreCard.visibility = View.GONE
+                binding.respirationFirstReadingScoreCard.visibility = View.GONE
             } else {
                 binding.recoveryScoreTitle.text = "Readiness"
                 binding.recoveryValue.text = "N/A"
+                val font =
+                    Typeface.createFromAsset(activity?.assets, "roboto_regular.ttf")
                 binding.recoveryValue.typeface = font
                 binding.recoveryValue.textSize = 50f
                 val params =
@@ -223,6 +240,2058 @@ class ResultsFragment : Fragment() {
                 binding.recoveryScoreSecondTitle.text = "Build your baseline"
                 binding.recoveryScoreText.text =
                     "You haven’t taken enough readings recently to generate your personal baseline. Take one more HRV Readiness reading tomorrow to receive a Readiness score and guidance."
+                binding.hrvScoreCard.visibility = View.GONE
+                binding.hrScoreCard.visibility = View.GONE
+                binding.respirationScoreCard.visibility = View.GONE
+                binding.hrFirstReadingScoreValue.text = hrRounded.toString()
+                binding.hrvFirstReadingScoreValue.text = hrvScoreRounded.toString()
+                binding.respirationFirstReadingScoreValue.text =
+                    breathingRateRounded.toString()
+
+                binding.hrvFirstReadingScoreProgressCircular.progress = 100
+                binding.hrFirstReadingScoreProgressCircular.progress = 100
+                binding.respirationFirstReadingScoreProgressCircular.progress = 100
+
+                // hrv setup
+                if (SprenUI.Config.userGender != null && SprenUI.Config.userGender != SprenUI.BiologicalSex.OTHER && SprenUI.Config.userBirthdate != null) {
+                    val age = Age.calculate(
+                        SprenUI.Config.userBirthdate!!.toInstant().atZone(ZoneId.systemDefault())
+                            .toLocalDate(),
+                        Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                    )
+                    if (SprenUI.Config.userGender == SprenUI.BiologicalSex.FEMALE) {
+                        when (age) {
+                            in 18..29 -> {
+                                when (hrvScoreRounded) {
+                                    in 74..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 71..73 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 65..70 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 59..64 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 51..58 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 30..39 -> {
+                                when (hrvScoreRounded) {
+                                    in 73..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 68..72 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 62..67 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 55..61 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 49..54 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 40..49 -> {
+                                when (hrvScoreRounded) {
+                                    in 69..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 64..68 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 58..63 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 51..57 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 44..50 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 50..59 -> {
+                                when (hrvScoreRounded) {
+                                    in 68..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 62..67 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 56..61 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 51..55 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 46..50 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 60..69 -> {
+                                when (hrvScoreRounded) {
+                                    in 65..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 60..64 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 54..59 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 48..53 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 41..47 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            else -> {
+                                when (hrvScoreRounded) {
+                                    in 65..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 60..64 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 52..59 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 43..51 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 38..42 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        when (age) {
+                            in 18..29 -> {
+                                when (hrvScoreRounded) {
+                                    in 76..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 72..75 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 67..71 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 61..66 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 54..60 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 30..39 -> {
+                                when (hrvScoreRounded) {
+                                    in 73..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 69..72 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 64..68 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 58..63 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 51..57 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 40..49 -> {
+                                when (hrvScoreRounded) {
+                                    in 71..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 66..70 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 60..65 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 54..59 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 48..53 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 50..59 -> {
+                                when (hrvScoreRounded) {
+                                    in 68..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 63..67 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 57..62 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 51..56 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 45..50 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            in 60..69 -> {
+                                when (hrvScoreRounded) {
+                                    in 67..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 61..66 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 55..60 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 48..54 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 42..47 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                            else -> {
+                                when (hrvScoreRounded) {
+                                    in 69..100 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.athlete
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 63..68 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.very_good
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 55..62 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.above_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Better than average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 47..54 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.athlete
+                                        )
+                                    }
+                                    in 40..46 -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.below_average
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                    else -> {
+                                        binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                            requireContext().getColor(
+                                                R.color.poor
+                                            )
+                                        )
+                                        binding.hrvFirstReadingScoreChip.text =
+                                            "Below average for your age and gender"
+                                        binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(
+                                            R.color.below_average
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    when (hrvScoreRounded) {
+                        in 72..100 -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.athlete
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.athlete)
+                        }
+                        in 66..71 -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.very_good
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.athlete)
+                        }
+                        in 60..65 -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.above_average
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.athlete)
+                        }
+                        in 53..59 -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.average
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Average compared to population"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.athlete)
+                        }
+                        in 46..52 -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.below_average
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Below the population average"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.below_average)
+                        }
+                        else -> {
+                            binding.hrvFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.poor
+                                )
+                            )
+                            binding.hrvFirstReadingScoreChip.text =
+                                "Below the population average"
+                            binding.hrvFirstReadingScoreChip.setChipBackgroundColorResource(R.color.below_average)
+                        }
+                    }
+                }
+
+                // HR Configuration
+                if (SprenUI.Config.userGender != null && SprenUI.Config.userBirthdate != null) {
+                    val age = Age.calculate(
+                        SprenUI.Config.userBirthdate!!.toInstant().atZone(ZoneId.systemDefault())
+                            .toLocalDate(),
+                        Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                    )
+                    when (SprenUI.Config.userGender) {
+                        SprenUI.BiologicalSex.FEMALE -> {
+                            when (age) {
+                                in 16..19 -> {
+                                    when (hrRounded) {
+                                        in 50..61 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 62..68 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 69..76 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 77..84 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 85..93 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 20..39 -> {
+                                    when (hrRounded) {
+                                        in 52..59 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 60..65 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 66..73 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 74..81 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 82..88 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 40..59 -> {
+                                    when (hrRounded) {
+                                        in 51..58 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 59..63 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 64..70 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 71..78 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 79..85 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                else -> {
+                                    when (hrRounded) {
+                                        in 52..58 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 59..63 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 64..69 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 70..77 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 78..85 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        SprenUI.BiologicalSex.MALE -> {
+                            when (age) {
+                                in 16..19 -> {
+                                    when (hrRounded) {
+                                        in 46..55 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 56..60 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 61..68 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 69..77 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 78..86 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 20..39 -> {
+                                    when (hrRounded) {
+                                        in 47..54 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 55..60 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 61..68 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 69..75 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 76..83 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 40..59 -> {
+                                    when (hrRounded) {
+                                        in 46..54 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 55..60 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 61..67 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 68..76 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 77..84 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                else -> {
+                                    when (hrRounded) {
+                                        in 45..53 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 54..59 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 60..66 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 67..74 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 75..83 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else -> {
+                            when (age) {
+                                in 16..19 -> {
+                                    when (hrRounded) {
+                                        in 47..57 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 58..63 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 64..72 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 73..81 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 82..89 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 20..39 -> {
+                                    when (hrRounded) {
+                                        in 47..56 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 57..63 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 64..70 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 71..78 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 79..86 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                in 40..59 -> {
+                                    when (hrRounded) {
+                                        in 46..56 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 57..61 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 62..69 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 70..77 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 78..85 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                                else -> {
+                                    when (hrRounded) {
+                                        in 46..56 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.athlete
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 57..61 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.very_good
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 62..69 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.above_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Better than average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 70..76 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.athlete
+                                            )
+                                        }
+                                        in 77..85 -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.below_average
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                        else -> {
+                                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                                requireContext().getColor(
+                                                    R.color.poor
+                                                )
+                                            )
+                                            binding.hrFirstReadingScoreChip.text =
+                                                "Below average for your age and gender"
+                                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                                R.color.below_average
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    when (hrRounded) {
+                        in 47..56 -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.athlete
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.athlete
+                            )
+                        }
+                        in 57..63 -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.very_good
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.athlete
+                            )
+                        }
+                        in 64..70 -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.above_average
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Better than the population average"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.athlete
+                            )
+                        }
+                        in 71..78 -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.average
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Average compared to population"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.athlete
+                            )
+                        }
+                        in 79..86 -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.below_average
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Below the population average"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.below_average
+                            )
+                        }
+                        else -> {
+                            binding.hrFirstReadingScoreProgressCircular.setIndicatorColor(
+                                requireContext().getColor(
+                                    R.color.poor
+                                )
+                            )
+                            binding.hrFirstReadingScoreChip.text =
+                                "Below the population average"
+                            binding.hrFirstReadingScoreChip.setChipBackgroundColorResource(
+                                R.color.below_average
+                            )
+                        }
+                    }
+                }
+
+                // respiration setup
+                when (breathingRateRounded) {
+                    in 0..11 -> {
+                        binding.respirationFirstReadingScoreProgressCircular.setIndicatorColor(
+                            requireContext().getColor(
+                                R.color.below_average
+                            )
+                        )
+                        binding.respirationFirstReadingScoreChip.text =
+                            "Abnormally low for healthy adults"
+                        binding.respirationFirstReadingScoreChip.setChipBackgroundColorResource(
+                            R.color.below_average
+                        )
+                    }
+                    in 12..20 -> {
+                        binding.respirationFirstReadingScoreProgressCircular.setIndicatorColor(
+                            requireContext().getColor(
+                                R.color.athlete
+                            )
+                        )
+                        binding.respirationFirstReadingScoreChip.text =
+                            "Normal for healthy adults"
+                        binding.respirationFirstReadingScoreChip.setChipBackgroundColorResource(
+                            R.color.athlete
+                        )
+                    }
+                    else -> {
+                        binding.respirationFirstReadingScoreProgressCircular.setIndicatorColor(
+                            requireContext().getColor(
+                                R.color.below_average
+                            )
+                        )
+                        binding.respirationFirstReadingScoreChip.text =
+                            "Abnormally high for healthy adults"
+                        binding.respirationFirstReadingScoreChip.setChipBackgroundColorResource(
+                            R.color.below_average
+                        )
+                    }
+                }
             }
             ansBalance = ResultsFragmentArgs.fromBundle(it).ansBalance
             if (ansBalance != 0f) {
@@ -297,7 +2366,7 @@ class ResultsFragment : Fragment() {
                 )
                 return@setOnClickListener
             }
-            findNavController().navigate(R.id.action_ResultsFragment_to_MeasureHRVHomeFragment)
+            findNavController().navigate(R.id.action_ResultsFragment_to_GreetingFragment)
         }
     }
 

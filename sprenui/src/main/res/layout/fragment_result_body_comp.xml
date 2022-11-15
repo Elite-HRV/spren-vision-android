@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="metric" type="java.lang.String"/>
+        <variable name="bodyFatValue" type="java.lang.String"/>
+        <variable name="leanMassValue" type="java.lang.String"/>
+        <variable name="fatMassValue" type="java.lang.String"/>
+        <variable name="weightValue" type="java.lang.String"/>
+        <variable name="androidFatValue" type="java.lang.String"/>
+        <variable name="gynoidFatValue" type="java.lang.String"/>
+        <variable name="androidGynoidValue" type="java.lang.String"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/resultBodyComp"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.bodycomp.ResultBodyCompFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@id/header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/doneButton"
+                android:paddingStart="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/done"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="18sp"
+                android:letterSpacing="0"
+                android:textAllCaps="false"
+                android:textColor="?colorSecondary"
+
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/info_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:iconGravity="end"
+                app:iconTint="@color/tertiary_background"
+                android:backgroundTint="@color/transparent"
+                style="?android:attr/borderlessButtonStyle"
+                app:icon="@drawable/ic_info_2"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/main_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginHorizontal="16dp"
+            android:paddingBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_marginTop="40dp"
+                android:paddingBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/your_body_composition_analysis"
+                android:textAlignment="center"
+                android:textColor="@color/main_text_color"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/bodyFat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/body_fat}"
+                app:value="@{bodyFatValue}"
+                app:metric="@{@string/percent}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/leanMass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/lean_mass}"
+                app:value="@{leanMassValue}"
+                app:metric="@{metric}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/fatMass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/bodyFat"
+                app:layout_constraintTop_toBottomOf="@id/bodyFat"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/fat_mass}"
+                app:value="@{fatMassValue}"
+                app:metric="@{metric}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/bodyFat"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/weight2}"
+                app:value="@{weightValue}"
+                app:metric="@{metric}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/androidFat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/fatMass"
+                app:layout_constraintTop_toBottomOf="@id/fatMass"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/android_fat}"
+                app:value="@{androidFatValue}"
+                app:metric="@{metric}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/gynoidFat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/fatMass"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/gynoid_fat}"
+                app:value="@{gynoidFatValue}"
+                app:metric="@{metric}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:id="@+id/androidGynoid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/androidFat"
+                app:layout_constraintTop_toBottomOf="@id/androidFat"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent=".49"
+                app:label="@{@string/android_gynoid}"
+                app:value="@{androidGynoidValue}"
+                app:metric="@{@string/empty}"
+                layout="@layout/fragment_result_card_body_comp" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/androidGynoid"
+                android:layout_marginTop="60dp"
+                layout="@layout/fragment_bottom_logo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

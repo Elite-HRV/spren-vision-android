@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MeasureHRVHomeFragment">
+    tools:context=".ui.bodycomp.GreetingBodyCompFragment">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/tryButton"
+        app:layout_constraintBottom_toTopOf="@id/tryNowButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,67 +19,99 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/spren_image"
+                android:id="@+id/close_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:tint="@color/close_icon_color"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_spren_mini_logo" />
+                app:srcCompat="@drawable/ic_close" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/advance_hrv_image"
+                android:id="@+id/greeting_body_comp_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:alpha="0.75"
                 android:tint="?colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spren_image"
-                app:srcCompat="@drawable/ic_advance_hrv" />
+                app:layout_constraintTop_toBottomOf="@id/close_image"
+                app:srcCompat="@drawable/ic_greeting_body_comp" />
 
             <TextView
-                android:id="@+id/advance_hrv_title"
+                android:id="@+id/greeting_body_comp_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
                 android:letterSpacing="0"
                 android:lineSpacingExtra="-10sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/advance_hrv_title"
-                android:textAlignment="center"
+                android:text="@string/greeting_body_comp_title"
                 android:textColor="@color/main_text_color"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advance_hrv_image" />
+                app:layout_constraintTop_toBottomOf="@id/greeting_body_comp_image" />
 
             <TextView
-                android:id="@+id/advance_hrv_text"
+                android:id="@+id/greeting_body_comp_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/advance_hrv_text"
+                android:text="@string/greeting_body_comp_text"
                 android:textColor="@color/main_text_color"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advance_hrv_title" />
+                app:layout_constraintTop_toBottomOf="@id/greeting_body_comp_title" />
+
+            <TextView
+                android:id="@+id/greeting_body_comp_accuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="0"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/greeting_body_comp_accuracy"
+                android:textColor="?colorSecondary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/greeting_body_comp_text" />
+
+            <TextView
+                android:id="@+id/greeting_body_comp_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:letterSpacing="0"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/greeting_body_comp_security"
+                android:textColor="?colorSecondary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/greeting_body_comp_accuracy" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
     <Button
-        android:id="@+id/tryButton"
+        android:id="@+id/tryNowButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:fontFamily="@font/roboto_bold"
         android:letterSpacing="0"
         android:text="@string/try_it_now"
         android:textAllCaps="false"

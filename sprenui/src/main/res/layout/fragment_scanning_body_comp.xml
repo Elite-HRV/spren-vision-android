@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.bodycomp.ScanningBodyCompFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/flash_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_flash_off" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/close_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_white" />
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0"
+        android:textColor="@color/white"
+        android:textSize="100sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/feet_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_feet_frame" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/left_foot_position_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/feet_frame"
+        app:layout_constraintEnd_toStartOf="@id/right_foot_position_mark"
+        app:layout_constraintStart_toStartOf="@id/feet_frame"
+        app:layout_constraintTop_toTopOf="@id/feet_frame"
+        app:srcCompat="@drawable/ic_foot_position_mark" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/right_foot_position_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/feet_frame"
+        app:layout_constraintEnd_toEndOf="@id/feet_frame"
+        app:layout_constraintStart_toEndOf="@id/left_foot_position_mark"
+        app:layout_constraintTop_toTopOf="@id/feet_frame"
+        app:srcCompat="@drawable/ic_foot_position_mark" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timer_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_timer_background"
+        android:visibility="gone"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/controls_background"
+        app:layout_constraintTop_toTopOf="@id/controls_background"
+        app:layout_constraintEnd_toStartOf="@id/controls_background">
+
+        <TextView
+            android:id="@+id/timer_off_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:layout_marginBottom="31dp"
+            android:letterSpacing="0"
+            android:text="@string/timer_off"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/timer_5s_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/timer_5s_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="31dp"
+            android:letterSpacing="0"
+            android:text="@string/_5s"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/timer_off_text"
+            app:layout_constraintBottom_toTopOf="@id/timer_10s_text"
+            app:layout_constraintTop_toBottomOf="@id/timer_off_text"
+            app:layout_constraintEnd_toEndOf="@id/timer_off_text" />
+
+        <TextView
+            android:id="@+id/timer_10s_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="31dp"
+            android:letterSpacing="0"
+            android:text="@string/_10s"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/timer_off_text"
+            app:layout_constraintEnd_toEndOf="@id/timer_off_text"
+            app:layout_constraintTop_toBottomOf="@id/timer_5s_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/camera_image"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/controls_background"
+        app:layout_constraintEnd_toEndOf="@id/controls_background"
+        app:layout_constraintStart_toStartOf="@id/controls_background"
+        app:layout_constraintTop_toTopOf="@id/controls_background"
+        app:srcCompat="@drawable/ic_camera_body_comp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/timer_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/controls_background"
+        app:layout_constraintEnd_toEndOf="@id/controls_background"
+        app:layout_constraintStart_toStartOf="@id/controls_background"
+        app:layout_constraintTop_toTopOf="@id/controls_background"
+        app:srcCompat="@drawable/ic_timer_body_comp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/switch_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/controls_background"
+        app:layout_constraintEnd_toEndOf="@id/controls_background"
+        app:layout_constraintStart_toStartOf="@id/controls_background"
+        app:layout_constraintTop_toTopOf="@id/controls_background"
+        app:srcCompat="@drawable/ic_switch_body_comp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/controls_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_controls_background" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
