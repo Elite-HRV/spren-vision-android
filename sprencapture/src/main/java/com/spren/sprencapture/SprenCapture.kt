@@ -51,6 +51,7 @@ open class SprenCapture(
     private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
     private val phoneModelWithDifferentDefaultExposure = arrayOf("SM-G950", "SM-G955")
+    private val phoneModelWithDifferentDefaultLens = arrayOf("Pixel 6", "Pixel 7")
 
     companion object {
         private const val TAG = "SprenCapture"
@@ -276,6 +277,27 @@ open class SprenCapture(
                 CaptureRequest.CONTROL_SCENE_MODE,
                 CameraCharacteristics.CONTROL_SCENE_MODE_DISABLED
             )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && phoneModelWithDifferentDefaultLens.any { phoneModel ->
+                    Build.MODEL.startsWith(
+                        phoneModel,
+                        true
+                    )
+                }) {
+                try {
+                    // Zoom API 30+
+                    val zoomRanges =
+                        characteristics.get(CameraCharacteristics.CONTROL_ZOOM_RATIO_RANGE)
+                    if (zoomRanges != null) {
+                        cameraRequestBuilder.setCaptureRequestOption(
+                            CaptureRequest.CONTROL_ZOOM_RATIO,
+                            zoomRanges.lower
+                        )
+                    }
+                } catch (e: Throwable) {
+                    Log.d("Zoom", "Exception")
+                }
+            }
 
             try {
                 // Zoom API 21+
