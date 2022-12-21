@@ -51,7 +51,18 @@ open class SprenCapture(
     private var defaultExposure: Double = 0.0
     private var currentExposure: Double = 0.0
     private val phoneModelWithDifferentDefaultExposure = arrayOf("SM-G950", "SM-G955")
-    private val phoneModelWithDifferentDefaultLens = arrayOf("Pixel 6", "Pixel 7")
+    private val phoneModelWithDifferentDefaultLens = arrayOf(
+        "Pixel 6",
+        "Pixel 7",
+        "LM-G900",
+        "DN2103",
+        "moto g(8) power",
+        "SM-N950U",
+        "SM-G998B",
+        "SM-G991B",
+        "SM-S901B",
+        "M2003J15SC"
+    )
 
     companion object {
         private const val TAG = "SprenCapture"
@@ -300,7 +311,7 @@ open class SprenCapture(
             }
 
             try {
-                // Zoom API 21+
+                // Focal Length API 21+
                 val focalLength =
                     characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS)
                 if (focalLength != null && focalLength.isNotEmpty()) {
@@ -353,7 +364,7 @@ open class SprenCapture(
             activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         var highestAvailableFps = Range(0, 0)
         var bestCameraId = "0"
-        val sortedHwLevels = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val sortedHwLevels =
             arrayOf(
                 CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY,
                 CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_EXTERNAL,
@@ -361,13 +372,6 @@ open class SprenCapture(
                 CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_FULL,
                 CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_3
             )
-        } else {
-            arrayOf(
-                CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY,
-                CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED,
-                CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_FULL,
-            )
-        }
         var bestHardwareLevelIndex = 0
         if (frameRate > 0) {
             highestAvailableFps = Range(frameRate, frameRate)

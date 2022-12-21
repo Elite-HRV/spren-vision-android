@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Internal libraries
-    implementation("com.spren:sprencore:2.1.4-SNAPSHOT")
+    implementation("com.spren:sprencore:2.1.5-SNAPSHOT")
 //    implementation("com.spren:sprencore:2.0.3")
 
     // External libraries
@@ -69,7 +69,7 @@ afterEvaluate {
                 from components.release
                 groupId 'com.spren'
                 artifactId 'sprencapture'
-                version = "2.1.5-SNAPSHOT"
+                version = "2.1.6-SNAPSHOT"
 //                version = "2.0.4"
 
                 pom {
