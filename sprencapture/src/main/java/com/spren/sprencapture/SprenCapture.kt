@@ -54,14 +54,8 @@ open class SprenCapture(
     private val phoneModelWithDifferentDefaultLens = arrayOf(
         "Pixel 6",
         "Pixel 7",
-        "LM-G900",
-        "DN2103",
         "moto g(8) power",
-        "SM-N950U",
-        "SM-G998B",
-        "SM-G991B",
-        "SM-S901B",
-        "M2003J15SC"
+        "SM-N950U"
     )
 
     companion object {
