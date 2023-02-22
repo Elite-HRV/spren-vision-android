@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.camera:camera-core:${camerax_version}")
     implementation("androidx.camera:camera-camera2:${camerax_version}")
     implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("io.sentry:sentry-android:6.12.1")
 }
 
 afterEvaluate {
@@ -69,7 +70,7 @@ afterEvaluate {
                 from components.release
                 groupId 'com.spren'
                 artifactId 'sprencapture'
-                version = "2.1.8-SNAPSHOT"
+                version = "2.1.9-SNAPSHOT"
 //                version = "2.0.6"
 
                 pom {
