@@ -78,6 +78,8 @@ open class SprenCapture(
             .sortedByDescending { it.width }
         width = checkSizesAvailableOrdered.last().width
         height = checkSizesAvailableOrdered.last().height
+
+        Spren.init(activity)
     }
 
     private inner class ImageAnalyzer :
