@@ -3,14 +3,14 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2"
     }
 }
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.android' version '1.7.10'
+    id 'org.jetbrains.kotlin.android' version '1.8.22'
     id 'signing'
 }
 apply plugin: 'com.android.library'
@@ -18,11 +18,11 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         minSdk 28
-        targetSdk 32
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

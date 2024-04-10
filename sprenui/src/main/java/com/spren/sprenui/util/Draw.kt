@@ -36,22 +36,18 @@ class Draw(context: Context?, var pose: Pose) : View(context) {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
 
         val landmarks = pose.allPoseLandmarks
 
         for (landmark in landmarks) {
-
-
-            canvas?.drawCircle(
+            canvas.drawCircle(
                 translateX(landmark.position.x),
                 landmark.position.y,
                 8.0f,
                 boundaryPaint
             )
-
         }
 
         val leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)

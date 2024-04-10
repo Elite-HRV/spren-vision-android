@@ -145,7 +145,7 @@ class ScanningBodyCompFragment : Fragment() {
                 return false
             }
         }
-        val scaleGestureDetector = ScaleGestureDetector(context, listener)
+        val scaleGestureDetector = ScaleGestureDetector(requireContext(), listener)
         binding.viewFinder.setOnTouchListener { _, event ->
             scaleGestureDetector.onTouchEvent(event)
             return@setOnTouchListener true

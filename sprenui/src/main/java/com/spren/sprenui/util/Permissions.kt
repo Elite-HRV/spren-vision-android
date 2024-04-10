@@ -7,7 +7,18 @@ import androidx.core.content.ContextCompat
 
 object Permissions {
     val CAMERA_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-    val EXTERNAL_STORAGE_PERMISSIONS = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+    val EXTERNAL_STORAGE_PERMISSIONS: Array<String>
+        get() {
+            if (android.os.Build.VERSION.SDK_INT >= 33) {
+                return arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_AUDIO,
+                    Manifest.permission.READ_MEDIA_VIDEO
+                )
+            }
+
+            return arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
     fun allPermissionsGranted(
         baseContext: Context,
         permissions: Array<String> = CAMERA_PERMISSIONS
