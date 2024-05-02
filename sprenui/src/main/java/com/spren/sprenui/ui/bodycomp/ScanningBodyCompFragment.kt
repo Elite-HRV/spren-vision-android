@@ -26,6 +26,7 @@ import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions
 import com.spren.sprenui.R
 import com.spren.sprenui.SprenUI
 import com.spren.sprenui.databinding.FragmentScanningBodyCompBinding
+import com.spren.sprenui.ui.bodycomp.ScanningBodyCompFragmentDirections
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService

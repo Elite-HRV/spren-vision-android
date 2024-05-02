@@ -3,8 +3,7 @@ publishing {
         SprenCore(MavenPublication) {
             groupId = 'com.spren'
             artifactId = 'sprencore'
-//            version = '2.2.7-SNAPSHOT'
-            version = '2.0.5'
+            version = '2.0.6-SNAPSHOT'
             artifact("sprencore-release.aar")
 
             pom {

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Spren</string>
+    <string name="api_key">82c3faf1-4e14-445b-9571-526054b6622c</string>
+    <string name="base_url">https://qa.api.spren.com</string>
 </resources>
