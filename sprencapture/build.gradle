@@ -1,18 +1,9 @@
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-    }
-}
-
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.android'// version '1.8.22'
     id 'signing'
+    id 'com.android.library'
+    id 'kotlin-android'
 }
-apply plugin: 'com.android.library'
 
 android {
     compileSdk 34
@@ -50,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Internal libraries
-    implementation("com.spren:sprencore:2.0.6-SNAPSHOT")
+    implementation("com.spren:sprencore:2.0.7")
 //    implementation project(':sprencore')
 
     // External libraries
@@ -68,7 +59,7 @@ afterEvaluate {
                 from components.release
                 groupId 'com.spren'
                 artifactId 'sprencapture'
-                version = "2.0.8-SNAPSHOT"
+                version = "2.0.8"
 
                 pom {
                     name = 'Spren Capture'
