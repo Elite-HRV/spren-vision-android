@@ -16,6 +16,7 @@ import android.widget.RelativeLayout
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
@@ -29,7 +30,6 @@ import com.spren.sprenui.ui.bodycomp.analyze.BodyCompApiClient
 import com.spren.sprenui.ui.bodycomp.analyze.SegmenterProcessor
 import com.spren.sprenui.util.SharedPreferences
 import com.spren.sprenui.util.Units
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ class AnalyzingBodyCompFragment : Fragment() {
             val lineHeight = Units.pxFromDp(context, 4)
             processInputImage(imageThumbnail)
                 .addOnSuccessListener { segmentationMask ->
-                    CoroutineScope(Dispatchers.IO).launch {
+                    viewLifecycleOwner.lifecycleScope.launch(context = Dispatchers.IO) {
 
                         val bitmap = segmenterProcessor.removeBackgroundImage(
                             imageThumbnail,
@@ -84,7 +84,7 @@ class AnalyzingBodyCompFragment : Fragment() {
                 }
 
             // Upload image
-            CoroutineScope(Dispatchers.IO).launch {
+            viewLifecycleOwner.lifecycleScope.launch(context = Dispatchers.IO) {
                 BodyCompApiClient.upload(
                     RetrofitHelper.getInstance().create(InsightsApi::class.java),
                     imageUri,
@@ -93,7 +93,7 @@ class AnalyzingBodyCompFragment : Fragment() {
                 ).addOnSuccessListener {
                     binding.uploadDoneIcon.visibility = View.VISIBLE
                     binding.uploadProgressCircular.visibility = View.GONE
-                    CoroutineScope(Dispatchers.IO).launch(context = Dispatchers.Main) {
+                    viewLifecycleOwner.lifecycleScope.launch(context = Dispatchers.Main) {
                         delay(1000)
                         // Save Result
                         val sharedPref = SharedPreferences.getSharedPreferences(activity)
@@ -106,10 +106,14 @@ class AnalyzingBodyCompFragment : Fragment() {
                     }
                 }
                     .addOnFailureListener {
-                        when (it.message) {
-                            BodyCompApiClient.ERROR_SERVER_ERROR -> findNavController().navigate(R.id.action_AnalyzingBodyCompFragment_to_ServerSideErrorBodyCompFragment)
-                            BodyCompApiClient.ERROR_INTERNET_CONNECTION_ERROR -> showNetworkConnectionErrorDialog()
-                            else -> findNavController().navigate(R.id.action_AnalyzingBodyCompFragment_to_BodyPositionErrorBodyCompFragment)
+                        try {
+                            when (it.message) {
+                                BodyCompApiClient.ERROR_SERVER_ERROR -> findNavController().navigate(R.id.action_AnalyzingBodyCompFragment_to_ServerSideErrorBodyCompFragment)
+                                BodyCompApiClient.ERROR_INTERNET_CONNECTION_ERROR -> showNetworkConnectionErrorDialog()
+                                else -> findNavController().navigate(R.id.action_AnalyzingBodyCompFragment_to_BodyPositionErrorBodyCompFragment)
+                            }
+                        } catch (e: Exception) {
+                            println("Handle $e in try/catch")
                         }
                     }
             }

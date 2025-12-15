@@ -3,26 +3,29 @@ buildscript {
         google()
     }
     dependencies {
+        classpath 'com.android.tools.build:gradle:8.6.1'
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2"
     }
 }
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.android' version '2.1.21'
     id 'signing'
-    id 'com.android.library'
-    id 'kotlin-parcelize'
 }
 
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdk 34
+    namespace "com.spren.sprenui"
+
+    compileSdk 35
 
     defaultConfig {
         minSdk 28
-        targetSdk 34
+        targetSdk 35
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,11 +38,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         viewBinding true
@@ -58,16 +61,16 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation("com.spren:sprencore:2.0.7")
-    implementation("com.spren:sprencapture:2.0.8")
-//    implementation project(':sprencore')
-//    implementation project(':sprencapture')
+//    implementation("com.spren:sprencore:2.3.0-SNAPSHOT")
+    implementation("com.spren:sprencore:2.0.8")
+//    implementation("com.spren:sprencapture:2.3.0-SNAPSHOT")
+    implementation("com.spren:sprencapture:2.0.9")
 
     // External libraries
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
-    implementation 'androidx.camera:camera-view:1.1.0-rc02'
-    implementation 'androidx.camera:camera-lifecycle:1.1.0-rc02'
+    implementation 'androidx.camera:camera-view:1.5.1'
+    implementation 'androidx.camera:camera-lifecycle:1.5.1'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
@@ -76,8 +79,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.1'
 
     // ML Kit
-    implementation 'com.google.mlkit:pose-detection:18.0.0-beta2'
-    implementation 'com.google.mlkit:segmentation-selfie:16.0.0-beta4'
+    implementation 'com.google.mlkit:pose-detection:18.0.0-beta5'
+    implementation 'com.google.mlkit:segmentation-selfie:16.0.0-beta6'
 }
 
 afterEvaluate {
@@ -88,7 +91,8 @@ afterEvaluate {
                 from components.release
                 groupId 'com.spren'
                 artifactId 'sprenui'
-                version = "2.0.2"
+//                version = "2.3.1-SNAPSHOT"
+                version = "2.0.3"
 
                 pom {
                     name = 'Spren UI'
@@ -118,6 +122,10 @@ afterEvaluate {
                             name = 'Nick Avasiloy'
                             email = 'nick@spren.com'
                         }
+                        developer {
+                            name = 'Luiz Baglie'
+                            email = 'luiz@spren.com'
+                        }
                     }
                     scm {
                         connection = 'scm:git:git://github.com/Elite-HRV/spren-vision-android.git'
@@ -128,7 +136,7 @@ afterEvaluate {
                 repositories {
                     maven {
                         name = 'snapshots'
-                        url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+                        url = 'https://central.sonatype.com/repository/maven-snapshots/'
                         credentials {
                             username = "$System.env.NEXUS_USERNAME"
                             password = "$System.env.NEXUS_PASSWORD"
@@ -136,7 +144,7 @@ afterEvaluate {
                     }
                     maven {
                         name = 'staging'
-                        url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2'
+                        url = 'https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/'
                         credentials {
                             username = "$System.env.NEXUS_USERNAME"
                             password = "$System.env.NEXUS_PASSWORD"

@@ -2,6 +2,8 @@ package com.spren.spren
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.spren.sprencapture.SprenCapture
+import com.spren.sprencore.Spren
 import com.spren.sprenui.*
 import com.spren.sprenui.SprenUI
 import com.spren.sprenui.util.HardwareAlert
@@ -17,7 +19,10 @@ class MainActivity : AppCompatActivity() {
         // optionally set custom theme
         // theme inherits from "Theme.MaterialComponents.DayNight.NoActionBar"
         // see themes.xml example below
-        setTheme(R.style.Theme_SprenUI)
+        setTheme(R.style.Theme_Spren)
+        println(SprenCapture)
+        println(Spren)
+        println(com.spren.sprenui.ui.bodycomp.analyze.SegmenterProcessor)
 
         setContentView(R.layout.activity_main)
 

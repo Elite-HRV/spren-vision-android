@@ -9,12 +9,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.spren.sprenui.R
 import com.spren.sprenui.databinding.FragmentConfirmationBodyCompDialogBinding
 import com.spren.sprenui.util.SharedPreferences
-import com.spren.sprenui.util.debounce
 
 class ConfirmBodyCompDialogFragment(private val callbackListener: ConfirmBodyCompDialogCallbackListener) : DialogFragment() {
     private var _binding: FragmentConfirmationBodyCompDialogBinding? = null

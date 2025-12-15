@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.spren.sprenui.R
@@ -116,7 +116,7 @@ class ConfirmBodyCompFragment : Fragment(), ConfirmBodyCompDialogCallbackListene
                 ConfirmBodyCompFragmentDirections.actionConfirmBodyCompFragmentToAnalyzingBodyCompFragment()
             )
         }
-        val scope = ViewTreeLifecycleOwner.get(view)!!.lifecycleScope
+        val scope = view.findViewTreeLifecycleOwner()!!.lifecycleScope
         val clickWithDebounce: (view: View) -> Unit =
             debounce(scope = scope) {
                 showDialog()

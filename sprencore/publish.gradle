@@ -3,12 +3,13 @@ publishing {
         SprenCore(MavenPublication) {
             groupId = 'com.spren'
             artifactId = 'sprencore'
-            version = '2.0.7'
+//            version = '2.3.0-SNAPSHOT'
+            version = '2.0.8'
             artifact("sprencore-release.aar")
 
             pom {
-                name = 'Spren Capture'
-                description = 'An open source version of camera capture functionality'
+                name = 'Spren Core'
+                description = 'Core resources for working with Spren Vision SDK'
                 url = 'https://github.com/Elite-HRV/spren-vision-android'
 
                 licenses {
@@ -23,18 +24,6 @@ publishing {
                         name = 'Kevin Leon'
                         email = 'kevin@spren.com'
                     }
-                    developer {
-                        name = 'Fernando Eckert'
-                        email = 'fernando@spren.com'
-                    }
-                    developer {
-                        name = 'Keith Carolus'
-                        email = 'keith@spren.com'
-                    }
-                    developer {
-                        name = 'Nick Avasiloy'
-                        email = 'nick@spren.com'
-                    }
                 }
                 scm {
                     connection = 'scm:git:git://github.com/Elite-HRV/spren-vision-android.git'
@@ -45,7 +34,7 @@ publishing {
             repositories {
                 maven {
                     name = 'snapshots'
-                    url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+                    url = 'https://central.sonatype.com/repository/maven-snapshots/'
                     credentials {
                         username = "$System.env.NEXUS_USERNAME"
                         password = "$System.env.NEXUS_PASSWORD"
@@ -53,7 +42,7 @@ publishing {
                 }
                 maven {
                     name = 'staging'
-                    url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2'
+                    url = 'https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/'
                     credentials {
                         username = "$System.env.NEXUS_USERNAME"
                         password = "$System.env.NEXUS_PASSWORD"

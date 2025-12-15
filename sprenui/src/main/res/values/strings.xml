@@ -26,9 +26,7 @@
     <string name="confirmation_body_comp_fragment_label">Confirmation Body Composition Fragment</string>
     <string name="denied_permissions_body_comp_fragment_label">Denied Permissions Fragment</string>
     <!-- String for Finger Camera -->
-=======
     <string name="faq_fragment_label">Faq Fragment</string>
->>>>>>> bb33baf0b39b8ab4bdf81485e5fdb49743a5bd10
     <string name="next">Next</string>
     <string name="start_measurement">Start measurement</string>
     <string name="enable_camera">Enable camera</string>
